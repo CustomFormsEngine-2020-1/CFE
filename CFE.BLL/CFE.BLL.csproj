@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CFE.Infrastructure\CFE.Infrastructure.csproj" />
+    <ProjectReference Include="..\CFE.ViewModels\CFE.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>
