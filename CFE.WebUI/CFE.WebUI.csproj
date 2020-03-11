@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CFE.BLL\CFE.BLL.csproj" />
+    <ProjectReference Include="..\CFE.Bootstrap\CFE.Bootstrap.csproj" />
+    <ProjectReference Include="..\CFE.Infrastructure\CFE.Infrastructure.csproj" />
+    <ProjectReference Include="..\CFE.ViewModels\CFE.ViewModels.csproj" />
+  </ItemGroup>
+
+
+
+</Project>
