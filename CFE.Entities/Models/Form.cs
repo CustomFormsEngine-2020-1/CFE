@@ -17,8 +17,8 @@ namespace CFE.Entities.Models
         public bool IsEditingAfterSaving { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
-        public ICollection<FormResult> FormResults { get; set; }
-        public ICollection<Question> Questions { get; set; }
+        public List<FormResult> FormResults { get; set; }
+        public List<Question> Questions { get; set; }
         public Form()
         {
             FormResults = new List<FormResult>();
