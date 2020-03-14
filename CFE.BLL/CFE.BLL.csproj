@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CFE.DAL\CFE.DAL.csproj" />
     <ProjectReference Include="..\CFE.Infrastructure\CFE.Infrastructure.csproj" />
     <ProjectReference Include="..\CFE.ViewModels\CFE.ViewModels.csproj" />
   </ItemGroup>
