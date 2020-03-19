@@ -21,6 +21,7 @@ namespace CFE.DAL
         private QuestionResultRepository questionResultRepository;
         private AnswerResultRepository answerResultRepository;
         private AttributeResultRepository attributeResultRepository;
+
         public UnitOfWork()
         {
             applicationContext = new ApplicationContext();

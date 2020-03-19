@@ -19,7 +19,7 @@ namespace CFE.DAL.Configurations
             builder.Property(p => p.IsEditingAfterSaving).IsRequired();
             builder.Property(p => p.UserId).IsRequired();
 
-            builder.HasOne(x => x.User).WithMany(y => y.Forms).HasForeignKey(z => z.UserId);
+            builder.HasOne(x => x.User).WithMany(y => y.Forms).HasForeignKey(z => z.UserId).OnDelete(DeleteBehavior.Cascade); ;
         }
     }
 }

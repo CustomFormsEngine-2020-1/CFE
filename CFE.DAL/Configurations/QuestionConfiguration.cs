@@ -16,7 +16,7 @@ namespace CFE.DAL.Configurations
             builder.Property(p => p.FormId).IsRequired();
             builder.Property(p => p.ElementId).IsRequired();
 
-            builder.HasOne(x => x.Form).WithMany(y => y.Questions).HasForeignKey(z => z.FormId);
+            builder.HasOne(x => x.Form).WithMany(y => y.Questions).HasForeignKey(z => z.FormId).OnDelete(DeleteBehavior.Cascade); ;
         }
     }
 }
