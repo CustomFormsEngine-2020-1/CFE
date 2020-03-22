@@ -12,8 +12,8 @@ namespace CFE.Entities.Models
         public Form Form { get; set; }
         public int ElementId { get; set; }
         public Element Element { get; set; }
-        public ICollection<QuestionResult> QuestionResults { get; set; }
-        public ICollection<Answer> Answers { get; set; }
+        public List<QuestionResult> QuestionResults { get; set; }
+        public List<Answer> Answers { get; set; }
         public Question()
         {
             QuestionResults = new List<QuestionResult>();

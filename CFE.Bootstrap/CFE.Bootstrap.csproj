@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CFE.DAL\CFE.DAL.csproj" />
+    <ProjectReference Include="..\CFE.BLL\CFE.BLL.csproj" />
   </ItemGroup>
 
 </Project>

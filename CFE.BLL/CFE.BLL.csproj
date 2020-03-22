@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CFE.DAL\CFE.DAL.csproj" />
     <ProjectReference Include="..\CFE.Infrastructure\CFE.Infrastructure.csproj" />
     <ProjectReference Include="..\CFE.ViewModels\CFE.ViewModels.csproj" />
   </ItemGroup>
