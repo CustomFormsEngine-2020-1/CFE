@@ -67,6 +67,9 @@
     <Build Include="FormResult.sql" />
     <Build Include="Question.sql" />
     <Build Include="QuestionResult.sql" />
-    <Build Include="User.sql" />
+    <Build Include="CustomUser.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="CFE.DAL.Database.refactorlog" />
   </ItemGroup>
 </Project>

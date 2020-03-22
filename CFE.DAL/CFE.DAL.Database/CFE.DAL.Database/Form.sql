@@ -9,5 +9,5 @@
     [IsPrivate] BIT NULL, 
     [IsAnonymity] BIT NULL, 
     [IsEditingAfterSaving] BIT NULL, 
-    [UserId] INT NULL
+    [CustomUserId] INT NULL FOREIGN KEY REFERENCES CustomUser(Id)
 )
