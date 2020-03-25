@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CFE.BLL.DTO;
+using CFE.DAL;
 using CFE.Entities.Models;
 using CFE.Infrastructure.Interfaces;
 using System;
@@ -8,14 +9,15 @@ using System.Text;
 
 namespace CFE.BLL.BL
 {
-    public class AnswerBL : IRepository<AnswerDTO>
+    public class AnswerBL : IRepository<AnswerDTO>, IDisposable
     {
         private IUnitOfWork unitOfWork;
         private IMapper mapper;
-        public AnswerBL(IUnitOfWork unitOfWork)
+        public AnswerBL(IMapper _mapper, IUnitOfWork _unitOfWork)
         {
-            this.unitOfWork = unitOfWork;
-            mapper = new MapperConfiguration(config => config.CreateMap<Answer, AnswerDTO>()).CreateMapper();
+            unitOfWork = _unitOfWork;
+            mapper = _mapper;
+            // mapper = new MapperConfiguration(config => config.CreateMap<Answer, AnswerDTO>()).CreateMapper();
         }
         public void Create(AnswerDTO answerDTO)
         {
@@ -33,6 +35,10 @@ namespace CFE.BLL.BL
         {
             unitOfWork.Answers.Update(mapper.Map<Answer>(answerDTO));
             unitOfWork.Save();
+        }
+        public void Dispose()
+        {
+            unitOfWork.Dispose();
         }
     }
 }
