@@ -13,14 +13,22 @@ namespace CFE.WebUI.Controllers
 {
     public class FormController : Controller
     {
-        private readonly IMapper mapper;
+        private IMapper mapper;
         private IUnitOfWork unitOfWork;
         private FormBL formBL;
+        private QuestionBL questionBL;
+        private AnswerBL answerBL;
+        private ElementBL elementBL;
+        private AttributeBL attributeBL;
         public FormController(IMapper _mapper, IUnitOfWork _unitOfWork)
         {
             mapper = _mapper;
             unitOfWork = _unitOfWork;
             formBL = new FormBL(mapper, unitOfWork);
+            questionBL = new QuestionBL (mapper, unitOfWork);
+            answerBL = new AnswerBL (mapper, unitOfWork);
+            elementBL = new ElementBL (mapper, unitOfWork);
+            attributeBL = new AttributeBL(mapper, unitOfWork);
         }
         // GET: Form
         public ActionResult Index()

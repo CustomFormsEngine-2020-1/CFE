@@ -51,6 +51,34 @@ namespace CFE.Bootstrap.Mapping
             CreateMap<AttributeResult, AttributeResultDTO>();
             CreateMap<AttributeResultDTO, AttributeResultViewModel>();
             // CreateMap<AttributeResultViewModel, AttributeResultDTO>();
+
+            CreateMap<List<Question>, List<QuestionDTO>>();
+            CreateMap<List<QuestionDTO>, List<QuestionViewModel>> ();
+            // CreateMap<List<QuestionViewModel>, List<QuestionDTO>>();
+
+            CreateMap<List<Answer>, List<AnswerDTO>>();
+            CreateMap<List<AnswerDTO>, List<AnswerViewModel>>();
+            // CreateMap<List<AnswerViewModel>, List<AnswerDTO>>();
+
+            CreateMap<List<Element>, List<ElementDTO>>();
+            CreateMap<List<ElementDTO>, List<ElementViewModel>>();
+            // CreateMap<List<ElementViewModel>, List<ElementDTO>>();
+
+            CreateMap<List<CFE.Entities.Models.Attribute>, List<AttributeDTO>>();
+            CreateMap<List<AttributeDTO>, List<AttributeViewModel>>();
+            // CreateMap<List<AttributeViewModel>, List<AttributeDTO>>();
+
+            CreateMap<List<QuestionResult>, List<QuestionResultDTO>>();
+            CreateMap<List<QuestionResultDTO>, List<QuestionResultViewModel>>();
+            // CreateMap<List<QuestionResultViewModel>, List<QuestionResultDTO>>();
+
+            CreateMap<List<AnswerResult>, List<AnswerResultDTO>>();
+            CreateMap<List<AnswerResultDTO>, List<AnswerResultViewModel>>();
+            // CreateMap<List<AnswerResultViewModel>, List<AnswerResultDTO>>();
+
+            CreateMap<List<AttributeResult>, List<AttributeResultDTO>>();
+            CreateMap<List<AttributeResultDTO>, List<AttributeResultViewModel>>();
+            // CreateMap<List<AttributeResultViewModel>, List<AttributeResultDTO>>();
         }
 
     }
