@@ -1,6 +1,9 @@
 ﻿using CFE.BLL.BL;
 using CFE.BLL.DTO;
 using CFE.DAL;
+using CFE.DAL.Context;
+using CFE.DAL.Repositories;
+using CFE.Entities.Models;
 using CFE.Infrastructure.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -13,6 +16,16 @@ namespace CFE.Bootstrap.DI
     {
         public static IServiceCollection AddDIServices(this IServiceCollection services)
         {
+            services.AddScoped<IRepository<User>, UserRepository>();
+            services.AddScoped<IRepository<Form>, FormRepository>();
+            services.AddScoped<IRepository<Question>, QuestionRepository>();
+            services.AddScoped<IRepository<Answer>, AnswerRepository>();
+            services.AddScoped<IRepository<Element>, ElementRepository>();
+            services.AddScoped<IRepository<Entities.Models.Attribute>, AttributeRepository>();
+            services.AddScoped<IRepository<FormResult>, FormResultRepository>();
+            services.AddScoped<IRepository<QuestionResult>, QuestionResultRepository>();
+            services.AddScoped<IRepository<AnswerResult>, AnswerResultRepository>();
+            services.AddScoped<IRepository<AttributeResult>, AttributeResultRepository>();
             services.AddScoped<IRepository<UserDTO>, UserBL>();
             services.AddScoped<IRepository<FormDTO>, FormBL>();
             services.AddScoped<IRepository<QuestionDTO>, QuestionBL>();
@@ -24,6 +37,7 @@ namespace CFE.Bootstrap.DI
             services.AddScoped<IRepository<AnswerResultDTO>, AnswerResultBL>();
             services.AddScoped<IRepository<AttributeResultDTO>, AttributeResultBL>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddDbContext<ApplicationContext>();
             return services;
         }
     }

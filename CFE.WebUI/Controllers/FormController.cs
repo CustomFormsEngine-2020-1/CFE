@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
 using CFE.BLL.BL;
@@ -51,12 +52,13 @@ namespace CFE.WebUI.Controllers
         // POST: Form/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create([FromBody] JsonElement value)
         {
             try
             {
                 // TODO: Add insert logic here
-
+                var json = value.GetRawText();
+                var formCreateViewModel = JsonSerializer.Deserialize<FormCreateViewModel>(json);
                 return RedirectToAction(nameof(Index));
             }
             catch

@@ -15,6 +15,7 @@ namespace CFE.BLL.BL
         private IMapper mapper;
         public FormBL(IMapper _mapper, IUnitOfWork _unitOfWork)
         {
+            // unitOfWork = new UnitOfWork();
             unitOfWork = _unitOfWork;
             mapper = _mapper;
             // mapper = new MapperConfiguration(config => config.CreateMap<Form, FormDTO>()).CreateMapper();

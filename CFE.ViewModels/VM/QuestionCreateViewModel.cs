@@ -6,10 +6,10 @@ namespace CFE.ViewModels.VM
 {
     public class QuestionCreateViewModel
     {
-        private QuestionViewModel _QuestionViewModel;
-        private ElementViewModel _ElementViewModel;
-        private List<AnswerViewModel> _ListAnswerViewModel;
-        private List<AttributeViewModel> _ListAttributeViewModel;
-        private List<AttributeResultViewModel> _ListAttributeResultViewModel;
+        public QuestionViewModel QuestionViewModel { get; set; }
+        public ElementViewModel ElementViewModel { get; set; }
+        public List<AnswerViewModel> AnswerViewModel { get; set; }
+        public List<AttributeViewModel> AttributeViewModel { get; set; }
+        public List<AttributeResultViewModel> AttributeResultViewModel { get; set; }
     }
 }

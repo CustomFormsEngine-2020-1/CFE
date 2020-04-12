@@ -12,6 +12,8 @@ namespace CFE.DAL.Configurations
         public void Configure(EntityTypeBuilder<QuestionResult> builder)
         {
             builder.ToTable("QuestionResult");
+            builder.HasKey(k => k.Id);
+            builder.Property(p => p.Id).ValueGeneratedOnAdd().UseIdentityColumn(1, 1);
             builder.Property(p => p.QuestionId).IsRequired();
             builder.Property(p => p.FormResultId).IsRequired();
 

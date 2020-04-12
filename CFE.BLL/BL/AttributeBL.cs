@@ -15,6 +15,7 @@ namespace CFE.BLL.BL
         private IMapper mapper;
         public AttributeBL(IMapper _mapper, IUnitOfWork _unitOfWork)
         {
+            // unitOfWork = new UnitOfWork();
             unitOfWork = _unitOfWork;
             mapper = _mapper;
             // mapper = new MapperConfiguration(config => config.CreateMap<CFE.Entities.Models.Attribute, AttributeDTO>()).CreateMapper();

@@ -6,8 +6,8 @@ namespace CFE.ViewModels.VM
 {
     public class FormCreateViewModel
     {
-        private FormViewModel _FormViewModel;
-        private List<QuestionCreateViewModel> _ListQuestionCreateViewModel;
+        public FormViewModel FormViewModel { get; set; }
+        public List<QuestionCreateViewModel> QuestionCreateViewModel { get; set; }
 
     }
 }
