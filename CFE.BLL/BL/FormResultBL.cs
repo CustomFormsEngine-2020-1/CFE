@@ -3,13 +3,14 @@ using CFE.BLL.DTO;
 using CFE.DAL;
 using CFE.Entities.Models;
 using CFE.Infrastructure.Interfaces;
+using CFE.ViewModels.VM;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace CFE.BLL.BL
 {
-    public class FormResultBL : IRepository<FormResultDTO>, IDisposable
+    public class FormResultBL : IRepository<FormResultViewModel>, IDisposable
     {
         private IUnitOfWork unitOfWork;
         private IMapper mapper;
@@ -18,11 +19,11 @@ namespace CFE.BLL.BL
             // unitOfWork = new UnitOfWork();
             unitOfWork = _unitOfWork;
             mapper = _mapper;
-            // mapper = new MapperConfiguration(config => config.CreateMap<FormResult, FormResultDTO>()).CreateMapper();
+            // mapper = new MapperConfiguration(config => config.CreateMap<FormResult, FormResultViewModel>()).CreateMapper();
         }
-        public void Create(FormResultDTO formResultDTO)
+        public void Create(FormResultViewModel formResultViewModel)
         {
-            unitOfWork.FormResults.Create(mapper.Map<FormResult>(formResultDTO));
+            unitOfWork.FormResults.Create(mapper.Map<FormResult>(formResultViewModel));
             unitOfWork.Save();
         }
         public void Delete(int id)
@@ -30,11 +31,11 @@ namespace CFE.BLL.BL
             unitOfWork.FormResults.Delete(id);
             unitOfWork.Save();
         }
-        public FormResultDTO Read(int id) => mapper.Map<FormResultDTO>(unitOfWork.FormResults.Read(id));
-        public IEnumerable<FormResultDTO> ReadAll() => mapper.Map<IEnumerable<FormResult>, List<FormResultDTO>>(unitOfWork.FormResults.ReadAll());
-        public void Update(FormResultDTO formResultDTO)
+        public FormResultViewModel Read(int id) => mapper.Map<FormResultViewModel>(unitOfWork.FormResults.Read(id));
+        public IEnumerable<FormResultViewModel> ReadAll() => mapper.Map<IEnumerable<FormResult>, List<FormResultViewModel>>(unitOfWork.FormResults.ReadAll());
+        public void Update(FormResultViewModel formResultViewModel)
         {
-            unitOfWork.FormResults.Update(mapper.Map<FormResult>(formResultDTO));
+            unitOfWork.FormResults.Update(mapper.Map<FormResult>(formResultViewModel));
             unitOfWork.Save();
         }
         public void Dispose()

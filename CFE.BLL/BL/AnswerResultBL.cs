@@ -3,13 +3,14 @@ using CFE.BLL.DTO;
 using CFE.DAL;
 using CFE.Entities.Models;
 using CFE.Infrastructure.Interfaces;
+using CFE.ViewModels.VM;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace CFE.BLL.BL
 {
-    public class AnswerResultBL : IRepository<AnswerResultDTO>, IDisposable
+    public class AnswerResultBL : IRepository<AnswerResultViewModel>, IDisposable
     {
         private IUnitOfWork unitOfWork;
         private IMapper mapper;
@@ -18,11 +19,11 @@ namespace CFE.BLL.BL
             // unitOfWork = new UnitOfWork();
             unitOfWork = _unitOfWork;
             mapper = _mapper;
-            // mapper = new MapperConfiguration(config => config.CreateMap<AnswerResult, AnswerResultDTO>()).CreateMapper();
+            // mapper = new MapperConfiguration(config => config.CreateMap<AnswerResult, AnswerResultViewModel>()).CreateMapper();
         }
-        public void Create(AnswerResultDTO answerResultDTO)
+        public void Create(AnswerResultViewModel answerResultViewModel)
         {
-            unitOfWork.AnswerResults.Create(mapper.Map<AnswerResult>(answerResultDTO));
+            unitOfWork.AnswerResults.Create(mapper.Map<AnswerResult>(answerResultViewModel));
             unitOfWork.Save();
         }
         public void Delete(int id)
@@ -30,11 +31,11 @@ namespace CFE.BLL.BL
             unitOfWork.AnswerResults.Delete(id);
             unitOfWork.Save();
         }
-        public AnswerResultDTO Read(int id) => mapper.Map<AnswerResultDTO>(unitOfWork.AnswerResults.Read(id));
-        public IEnumerable<AnswerResultDTO> ReadAll() => mapper.Map<IEnumerable<AnswerResult>, List<AnswerResultDTO>>(unitOfWork.AnswerResults.ReadAll());
-        public void Update(AnswerResultDTO answerResultDTO)
+        public AnswerResultViewModel Read(int id) => mapper.Map<AnswerResultViewModel>(unitOfWork.AnswerResults.Read(id));
+        public IEnumerable<AnswerResultViewModel> ReadAll() => mapper.Map<IEnumerable<AnswerResult>, List<AnswerResultViewModel>>(unitOfWork.AnswerResults.ReadAll());
+        public void Update(AnswerResultViewModel answerResultViewModel)
         {
-            unitOfWork.AnswerResults.Update(mapper.Map<AnswerResult>(answerResultDTO));
+            unitOfWork.AnswerResults.Update(mapper.Map<AnswerResult>(answerResultViewModel));
             unitOfWork.Save();
         }
         public void Dispose()

@@ -3,13 +3,14 @@ using CFE.BLL.DTO;
 using CFE.DAL;
 using CFE.Entities.Models;
 using CFE.Infrastructure.Interfaces;
+using CFE.ViewModels.VM;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace CFE.BLL.BL
 {
-    public class AttributeBL : IRepository<AttributeDTO>, IDisposable
+    public class AttributeBL : IRepository<AttributeViewModel>, IDisposable
     {
         private IUnitOfWork unitOfWork;
         private IMapper mapper;
@@ -18,11 +19,11 @@ namespace CFE.BLL.BL
             // unitOfWork = new UnitOfWork();
             unitOfWork = _unitOfWork;
             mapper = _mapper;
-            // mapper = new MapperConfiguration(config => config.CreateMap<CFE.Entities.Models.Attribute, AttributeDTO>()).CreateMapper();
+            // mapper = new MapperConfiguration(config => config.CreateMap<CFE.Entities.Models.Attribute, AttributeViewModel>()).CreateMapper();
         }
-        public void Create(AttributeDTO attributeDTO)
+        public void Create(AttributeViewModel attributeViewModel)
         {
-            unitOfWork.Attributes.Create(mapper.Map<CFE.Entities.Models.Attribute>(attributeDTO));
+            unitOfWork.Attributes.Create(mapper.Map<CFE.Entities.Models.Attribute>(attributeViewModel));
             unitOfWork.Save();
         }
         public void Delete(int id)
@@ -30,11 +31,11 @@ namespace CFE.BLL.BL
             unitOfWork.Attributes.Delete(id);
             unitOfWork.Save();
         }
-        public AttributeDTO Read(int id) => mapper.Map<AttributeDTO>(unitOfWork.Attributes.Read(id));
-        public IEnumerable<AttributeDTO> ReadAll() => mapper.Map<IEnumerable<CFE.Entities.Models.Attribute>, List<AttributeDTO>>(unitOfWork.Attributes.ReadAll());
-        public void Update(AttributeDTO attributeDTO)
+        public AttributeViewModel Read(int id) => mapper.Map<AttributeViewModel>(unitOfWork.Attributes.Read(id));
+        public IEnumerable<AttributeViewModel> ReadAll() => mapper.Map<IEnumerable<CFE.Entities.Models.Attribute>, List<AttributeViewModel>>(unitOfWork.Attributes.ReadAll());
+        public void Update(AttributeViewModel attributeViewModel)
         {
-            unitOfWork.Attributes.Update(mapper.Map<CFE.Entities.Models.Attribute>(attributeDTO));
+            unitOfWork.Attributes.Update(mapper.Map<CFE.Entities.Models.Attribute>(attributeViewModel));
             unitOfWork.Save();
         }
         public void Dispose()

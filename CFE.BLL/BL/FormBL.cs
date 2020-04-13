@@ -3,13 +3,14 @@ using CFE.BLL.DTO;
 using CFE.DAL;
 using CFE.Entities.Models;
 using CFE.Infrastructure.Interfaces;
+using CFE.ViewModels.VM;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace CFE.BLL.BL
 {
-    public class FormBL : IRepository<FormDTO>, IDisposable
+    public class FormBL : IRepository<FormViewModel>, IDisposable
     {
         private IUnitOfWork unitOfWork;
         private IMapper mapper;
@@ -18,11 +19,11 @@ namespace CFE.BLL.BL
             // unitOfWork = new UnitOfWork();
             unitOfWork = _unitOfWork;
             mapper = _mapper;
-            // mapper = new MapperConfiguration(config => config.CreateMap<Form, FormDTO>()).CreateMapper();
+            // mapper = new MapperConfiguration(config => config.CreateMap<Form, FormViewModel>()).CreateMapper();
         }
-        public void Create(FormDTO formDTO)
+        public void Create(FormViewModel formViewModel)
         {
-            unitOfWork.Forms.Create(mapper.Map<Form>(formDTO));
+            unitOfWork.Forms.Create(mapper.Map<Form>(formViewModel));
             unitOfWork.Save();
         }
         public void Delete(int id)
@@ -30,11 +31,11 @@ namespace CFE.BLL.BL
             unitOfWork.Forms.Delete(id);
             unitOfWork.Save();
         }
-        public FormDTO Read(int id) => mapper.Map<FormDTO>(unitOfWork.Forms.Read(id));
-        public IEnumerable<FormDTO> ReadAll() => mapper.Map<IEnumerable<Form>, List<FormDTO>>(unitOfWork.Forms.ReadAll());
-        public void Update(FormDTO formDTO)
+        public FormViewModel Read(int id) => mapper.Map<FormViewModel>(unitOfWork.Forms.Read(id));
+        public IEnumerable<FormViewModel> ReadAll() => mapper.Map<IEnumerable<Form>, List<FormViewModel>>(unitOfWork.Forms.ReadAll());
+        public void Update(FormViewModel formViewModel)
         {
-            unitOfWork.Forms.Update(mapper.Map<Form>(formDTO));
+            unitOfWork.Forms.Update(mapper.Map<Form>(formViewModel));
             unitOfWork.Save();
         }
         public void Dispose()
