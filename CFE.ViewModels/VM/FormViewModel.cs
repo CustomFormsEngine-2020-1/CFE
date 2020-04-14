@@ -9,12 +9,12 @@ namespace CFE.ViewModels.VM
         // public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public string DTCreate { get; set; }
-        public string DTStart { get; set; }
-        public string DTFinish { get; set; }
-        public string IsPrivate { get; set; }
-        public string IsAnonymity { get; set; }
-        public string IsEditingAfterSaving { get; set; }
+        public DateTime? DTCreate { get; set; }
+        public DateTime? DTStart { get; set; }
+        public DateTime? DTFinish { get; set; }
+        public bool IsPrivate { get; set; }
+        public bool IsAnonymity { get; set; }
+        public bool IsEditingAfterSaving { get; set; }
         // public int UserId { get; set; }
     }
 }

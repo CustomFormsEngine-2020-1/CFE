@@ -16,20 +16,13 @@ namespace CFE.WebUI.Controllers
     {
         private IMapper mapper;
         private IUnitOfWork unitOfWork;
+        private FormCreateBL formCreateBL;
         private FormBL formBL;
-        private QuestionBL questionBL;
-        private AnswerBL answerBL;
-        private ElementBL elementBL;
-        private AttributeBL attributeBL;
         public FormController(IMapper _mapper, IUnitOfWork _unitOfWork)
         {
             mapper = _mapper;
             unitOfWork = _unitOfWork;
             formBL = new FormBL(mapper, unitOfWork);
-            questionBL = new QuestionBL (mapper, unitOfWork);
-            answerBL = new AnswerBL (mapper, unitOfWork);
-            elementBL = new ElementBL (mapper, unitOfWork);
-            attributeBL = new AttributeBL(mapper, unitOfWork);
         }
         // GET: Form
         public ActionResult Index()
@@ -57,8 +50,7 @@ namespace CFE.WebUI.Controllers
             try
             {
                 // TODO: Add insert logic here
-                var json = value.GetRawText();
-                var formCreateViewModel = JsonSerializer.Deserialize<FormCreateViewModel>(json);
+                formCreateBL = new FormCreateBL(mapper, unitOfWork, value);
                 return RedirectToAction(nameof(Index));
             }
             catch
