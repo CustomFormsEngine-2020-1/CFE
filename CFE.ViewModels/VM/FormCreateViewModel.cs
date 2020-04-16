@@ -14,7 +14,7 @@ namespace CFE.ViewModels.VM
         public string IsPrivate { get; set; }
         public string IsAnonymity { get; set; }
         public string IsEditingAfterSaving { get; set; }
-        public List<QuestionCreateViewModel> QuestionCreateViewModel { get; set; }
+        // public List<QuestionCreateViewModel> QuestionCreateViewModel { get; set; }
 
     }
 }

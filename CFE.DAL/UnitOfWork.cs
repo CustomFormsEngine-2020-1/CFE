@@ -123,7 +123,15 @@ namespace CFE.DAL
         }
         public void Save()
         {
-            applicationContext.SaveChanges();
+            try
+            {
+                applicationContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
+            
         }
     }
 }

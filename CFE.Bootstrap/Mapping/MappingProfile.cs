@@ -15,8 +15,17 @@ namespace CFE.Bootstrap.Mapping
             CreateMap<User, UserViewModel>();
             CreateMap<UserViewModel, User>();
 
-            CreateMap<Form, FormViewModel>();
-            CreateMap<FormViewModel, Form>();
+            // CreateMap<Form, FormViewModel>();
+            // CreateMap<FormViewModel, Form>();
+            // CreateMap<FormViewModel, Form>()
+            //         .ForMember("Name", opt => opt.MapFrom(item => item.Name))
+            //         .ForMember("Description", opt => opt.MapFrom(item => item.Description))
+            //         .ForMember("DTCreate", opt => opt.MapFrom(item => item.DTCreate))
+            //         .ForMember("DTStart", opt => opt.MapFrom(item => item.DTStart))
+            //         .ForMember("DTFinish", opt => opt.MapFrom(item => item.DTFinish))
+            //         .ForMember("IsPrivate", opt => opt.MapFrom(item => item.IsPrivate))
+            //         .ForMember("IsAnonymity", opt => opt.MapFrom(item => item.IsAnonymity))
+            //         .ForMember("IsEditingAfterSaving", opt => opt.MapFrom(src => src.IsEditingAfterSaving));
 
             CreateMap<Question, QuestionViewModel>();
             CreateMap<QuestionViewModel, Question>();
@@ -41,27 +50,6 @@ namespace CFE.Bootstrap.Mapping
 
             CreateMap<AttributeResult, AttributeResultViewModel>();
             CreateMap<AttributeResultViewModel, AttributeResult>();
-
-            CreateMap<List<Question>, List<QuestionViewModel>>();
-            CreateMap<List<QuestionViewModel>, List<Question>> ();
-
-            CreateMap<List<Answer>, List<AnswerViewModel>>();
-            CreateMap<List<AnswerViewModel>, List<Answer>>();
-
-            CreateMap<List<Element>, List<ElementViewModel>>();
-            CreateMap<List<ElementViewModel>, List<Element>>();
-
-            CreateMap<List<CFE.Entities.Models.Attribute>, List<AttributeViewModel>>();
-            CreateMap<List<AttributeViewModel>, List<CFE.Entities.Models.Attribute>>();
-
-            CreateMap<List<QuestionResult>, List<QuestionResultViewModel>>();
-            CreateMap<List<QuestionResultViewModel>, List<QuestionResult>>();
-
-            CreateMap<List<AnswerResult>, List<AnswerResultViewModel>>();
-            CreateMap<List<AnswerResultViewModel>, List<AnswerResult>>();
-
-            CreateMap<List<AttributeResult>, List<AttributeResultViewModel>>();
-            CreateMap<List<AttributeResultViewModel>, List<AttributeResult>>();
         }
 
     }

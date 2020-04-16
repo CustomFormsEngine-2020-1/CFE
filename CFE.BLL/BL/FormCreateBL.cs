@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CFE.DAL;
 using CFE.Infrastructure.Interfaces;
 using CFE.ViewModels.VM;
 using System;
@@ -20,27 +21,32 @@ namespace CFE.BLL.BL
         private AnswerBL answerBL;
         private ElementBL elementBL;
         private AttributeBL attributeBL;
+        public FormCreateBL()
+        {
 
-        public FormCreateBL(IMapper _mapper, IUnitOfWork _unitOfWork, JsonElement value)
+        }
+        public FormCreateBL(IMapper _mapper, IUnitOfWork _unitOfWork) // JsonElement value)
         {
             // unitOfWork = new UnitOfWork();
             unitOfWork = _unitOfWork;
             mapper = _mapper;
+            // formCreateViewModel = _formCreateViewModel;
             formBL = new FormBL(mapper, unitOfWork);
-            questionBL = new QuestionBL(mapper, unitOfWork);
-            answerBL = new AnswerBL(mapper, unitOfWork);
-            elementBL = new ElementBL(mapper, unitOfWork);
-            attributeBL = new AttributeBL(mapper, unitOfWork);
-            JsonDeserialize(value);
-            CreateForm();
+            // questionBL = new QuestionBL(mapper, unitOfWork);
+            // answerBL = new AnswerBL(mapper, unitOfWork);
+            // elementBL = new ElementBL(mapper, unitOfWork);
+            // attributeBL = new AttributeBL(mapper, unitOfWork);
+            // JsonDeserialize(value);
+            // CreateForm();
         }
+
 
         public void JsonDeserialize(JsonElement value)
         {
             var json = value.GetRawText();
             formCreateViewModel = JsonSerializer.Deserialize<FormCreateViewModel>(json);
         }
-        public void CreateForm()
+        public void CreateForm(FormCreateViewModel formCreateViewModel)
         {
             formViewModel = new FormViewModel
             {

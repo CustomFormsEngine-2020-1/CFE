@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
 using CFE.BLL.BL;
+using CFE.DAL;
 using CFE.Infrastructure.Interfaces;
 using CFE.ViewModels.VM;
 using Microsoft.AspNetCore.Http;
@@ -17,12 +18,12 @@ namespace CFE.WebUI.Controllers
         private IMapper mapper;
         private IUnitOfWork unitOfWork;
         private FormCreateBL formCreateBL;
-        private FormBL formBL;
+        // private FormBL formBL;
         public FormController(IMapper _mapper, IUnitOfWork _unitOfWork)
         {
             mapper = _mapper;
             unitOfWork = _unitOfWork;
-            formBL = new FormBL(mapper, unitOfWork);
+            // formBL = new FormBL(mapper, unitOfWork);
         }
         // GET: Form
         public ActionResult Index()
@@ -31,10 +32,10 @@ namespace CFE.WebUI.Controllers
         }
 
         // GET: Form/Details/
-        public ActionResult Details() => View(mapper.Map<List<FormViewModel>>(formBL.ReadAll()));
+        // public ActionResult Details() => View(mapper.Map<List<FormViewModel>>(formBL.ReadAll()));
 
         // GET: Form/Details/5
-        public ActionResult Details(int id) => View(mapper.Map<FormViewModel>(formBL.Read(id)));
+        // public ActionResult Details(int id) => View(mapper.Map<FormViewModel>(formBL.Read(id)));
 
         // GET: Form/Create
         public ActionResult Create()
@@ -45,12 +46,15 @@ namespace CFE.WebUI.Controllers
         // POST: Form/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([FromBody] JsonElement value)
+        public ActionResult Create(FormCreateViewModel formCreateViewModel)
         {
             try
             {
                 // TODO: Add insert logic here
-                formCreateBL = new FormCreateBL(mapper, unitOfWork, value);
+                formCreateBL = new FormCreateBL(mapper, unitOfWork);
+                formCreateBL.CreateForm(formCreateViewModel);
+                // formCreateBL = new FormCreateBL(mapper, formCreateViewModel);
+                // formCreateBL = new FormCreateBL(mapper, unitOfWork, value);
                 return RedirectToAction(nameof(Index));
             }
             catch
