@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using CFE.BLL.DTO;
+// using CFE.BLL.DTO;
+using CFE.Entities.Models;
 using CFE.ViewModels.VM;
 using System;
 using System.Collections.Generic;
@@ -11,35 +12,44 @@ namespace CFE.Bootstrap.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<UserDTO, UserViewModel>();
-            CreateMap<UserViewModel, UserDTO>();
+            CreateMap<User, UserViewModel>();
+            CreateMap<UserViewModel, User>();
 
-            CreateMap<FormDTO, FormViewModel>();
-            CreateMap<FormViewModel, FormDTO>();
+            // CreateMap<Form, FormViewModel>();
+            // CreateMap<FormViewModel, Form>();
+            // CreateMap<FormViewModel, Form>()
+            //         .ForMember("Name", opt => opt.MapFrom(item => item.Name))
+            //         .ForMember("Description", opt => opt.MapFrom(item => item.Description))
+            //         .ForMember("DTCreate", opt => opt.MapFrom(item => item.DTCreate))
+            //         .ForMember("DTStart", opt => opt.MapFrom(item => item.DTStart))
+            //         .ForMember("DTFinish", opt => opt.MapFrom(item => item.DTFinish))
+            //         .ForMember("IsPrivate", opt => opt.MapFrom(item => item.IsPrivate))
+            //         .ForMember("IsAnonymity", opt => opt.MapFrom(item => item.IsAnonymity))
+            //         .ForMember("IsEditingAfterSaving", opt => opt.MapFrom(src => src.IsEditingAfterSaving));
 
-            CreateMap<QuestionDTO, QuestionViewModel>();
-            CreateMap<QuestionViewModel, QuestionDTO>();
+            CreateMap<Question, QuestionViewModel>();
+            CreateMap<QuestionViewModel, Question>();
 
-            CreateMap<AnswerDTO, AnswerViewModel>();
-            CreateMap<AnswerViewModel, AnswerDTO>();
+            CreateMap<Answer, AnswerViewModel>();
+            CreateMap<AnswerViewModel, Answer>();
 
-            CreateMap<ElementDTO, ElementViewModel>();
-            CreateMap<ElementViewModel, ElementDTO>();
+            CreateMap<Element, ElementViewModel>();
+            CreateMap<ElementViewModel, Element>();
 
-            CreateMap<AttributeDTO, AttributeViewModel>();
-            CreateMap<AttributeViewModel, AttributeDTO>();
+            CreateMap<CFE.Entities.Models.Attribute, AttributeViewModel>();
+            CreateMap<AttributeViewModel, CFE.Entities.Models.Attribute>();
 
-            CreateMap<FormResultDTO, FormResultViewModel>();
-            CreateMap<FormResultViewModel, FormResultDTO>();
+            CreateMap<FormResult, FormResultViewModel>();
+            CreateMap<FormResultViewModel, FormResult>();
 
-            CreateMap<QuestionResultDTO, QuestionResultViewModel>();
-            CreateMap<QuestionResultViewModel, QuestionResultDTO>();
+            CreateMap<QuestionResult, QuestionResultViewModel>();
+            CreateMap<QuestionResultViewModel, QuestionResult>();
 
-            CreateMap<AnswerResultDTO, AnswerResultViewModel>();
-            CreateMap<AnswerResultViewModel, AnswerResultDTO>();
+            CreateMap<AnswerResult, AnswerResultViewModel>();
+            CreateMap<AnswerResultViewModel, AnswerResult>();
 
-            CreateMap<AttributeResultDTO, AttributeResultViewModel>();
-            CreateMap<AttributeResultViewModel, AttributeResultDTO>();
+            CreateMap<AttributeResult, AttributeResultViewModel>();
+            CreateMap<AttributeResultViewModel, AttributeResult>();
         }
 
     }

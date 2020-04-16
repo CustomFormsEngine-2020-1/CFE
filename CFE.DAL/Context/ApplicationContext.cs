@@ -22,7 +22,7 @@ namespace CFE.DAL.Context
 
         public ApplicationContext()
         {
-            Database.EnsureDeleted();
+            // Database.EnsureDeleted();
             Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -41,6 +41,33 @@ namespace CFE.DAL.Context
             modelBuilder.ApplyConfiguration(new QuestionResultConfiguration());
             modelBuilder.ApplyConfiguration(new AnswerResultConfiguration());
             modelBuilder.ApplyConfiguration(new AttributeResultConfiguration());
+
+            // modelBuilder.Entity<Element>().HasData(
+            // new Element[]
+            // {
+            //      new Element { Name = "TextBox", Description = "Однострочный текст" },
+            //      new Element { Name = "TextArea", Description = "Многострочный текст" },
+            //      new Element { Name = "Number", Description = "Число" },
+            //      new Element { Name = "CheckBox", Description = "Множественный выбор" },
+            //      new Element { Name = "CheckList", Description = "Список ответов" },
+            //      new Element { Name = "RadioButton", Description = "Переключатель - единичный выбор" },
+            //      new Element { Name = "DropDown", Description = "Выпадающий список" },
+            //      new Element { Name = "DatePicker", Description = "Выбор даты" },
+            //      new Element { Name = "TimePicker", Description = "Выбор времени" },
+            //      new Element { Name = "MonthCalendar", Description = "Промежуток дат" },
+            //      new Element { Name = "File", Description = "Файл" },
+            // });
+
+            // modelBuilder.Entity<CFE.Entities.Models.Attribute>().HasData(
+            // new CFE.Entities.Models.Attribute[]
+            // {
+            //      new CFE.Entities.Models.Attribute { Name = "Required", DisplayName = "Обязательное поле" },
+            //      new CFE.Entities.Models.Attribute { Name = "MaxValue", DisplayName = "Максимальное значение" },
+            //      new CFE.Entities.Models.Attribute { Name = "MinValue", DisplayName = "Минимальное значение" },
+            //      new CFE.Entities.Models.Attribute { Name = "Regex", DisplayName = "Регулярное выражение" },
+            //      new CFE.Entities.Models.Attribute { Name = "Format", DisplayName = "Формат" },
+            //      new CFE.Entities.Models.Attribute { Name = "ExtensionList", DisplayName = "Список расширений" }
+            // });
         }
     }
 }

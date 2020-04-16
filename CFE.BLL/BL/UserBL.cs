@@ -1,25 +1,29 @@
 ﻿using AutoMapper;
 using CFE.BLL.DTO;
+using CFE.DAL;
 using CFE.Entities.Models;
 using CFE.Infrastructure.Interfaces;
+using CFE.ViewModels.VM;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace CFE.BLL.BL
 {
-    public class UserBL : IRepository<UserDTO>
+    public class UserBL : IRepository<UserViewModel>, IDisposable
     {
         private IUnitOfWork unitOfWork;
         private IMapper mapper;
-        public UserBL(IUnitOfWork unitOfWork)
+        public UserBL(IMapper _mapper, IUnitOfWork _unitOfWork)
         {
-            this.unitOfWork = unitOfWork;
-            mapper = new MapperConfiguration(config => config.CreateMap<User, UserDTO>()).CreateMapper();
+            // unitOfWork = new UnitOfWork();
+            unitOfWork = _unitOfWork;
+            mapper = _mapper;
+            // mapper = new MapperConfiguration(config => config.CreateMap<User, UserViewModel>()).CreateMapper();
         }
-        public void Create(UserDTO userDTO)
+        public void Create(UserViewModel userViewModel)
         {
-            unitOfWork.Users.Create(mapper.Map<User>(userDTO));
+            unitOfWork.Users.Create(mapper.Map<User>(userViewModel));
             unitOfWork.Save();
         }
         public void Delete(int id)
@@ -27,12 +31,16 @@ namespace CFE.BLL.BL
             unitOfWork.Users.Delete(id);
             unitOfWork.Save();
         }
-        public UserDTO Read(int id) => mapper.Map<UserDTO>(unitOfWork.Users.Read(id));
-        public IEnumerable<UserDTO> ReadAll() => mapper.Map<IEnumerable<User>, List<UserDTO>>(unitOfWork.Users.ReadAll());
-        public void Update(UserDTO userDTO)
+        public UserViewModel Read(int id) => mapper.Map<UserViewModel>(unitOfWork.Users.Read(id));
+        public IEnumerable<UserViewModel> ReadAll() => mapper.Map<IEnumerable<User>, List<UserViewModel>>(unitOfWork.Users.ReadAll());
+        public void Update(UserViewModel userViewModel)
         {
-            unitOfWork.Users.Update(mapper.Map<User>(userDTO));
+            unitOfWork.Users.Update(mapper.Map<User>(userViewModel));
             unitOfWork.Save();
+        }
+        public void Dispose()
+        {
+            unitOfWork.Dispose();
         }
     }
 }

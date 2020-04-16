@@ -6,9 +6,9 @@ namespace CFE.ViewModels.VM
 {
     public class FormResultViewModel
     {
-        public int Id { get; set; }
-        public DateTime DTResult { get; set; }
-        public int FormId { get; set; }
-        public int UserId { get; set; }
+        // public int Id { get; set; }
+        public string DTResult { get; set; }
+        // public int FormId { get; set; }
+        // public int UserId { get; set; }
     }
 }

@@ -1,25 +1,42 @@
 ﻿using AutoMapper;
 using CFE.BLL.DTO;
+using CFE.DAL;
 using CFE.Entities.Models;
 using CFE.Infrastructure.Interfaces;
+using CFE.ViewModels.VM;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace CFE.BLL.BL
 {
-    public class FormBL : IRepository<FormDTO>
+    public class FormBL : IRepository<FormViewModel>, IDisposable
     {
         private IUnitOfWork unitOfWork;
         private IMapper mapper;
-        public FormBL(IUnitOfWork unitOfWork)
+        public FormBL(IMapper _mapper, IUnitOfWork _unitOfWork)
         {
-            this.unitOfWork = unitOfWork;
-            mapper = new MapperConfiguration(config => config.CreateMap<Form, FormDTO>()).CreateMapper();
+            // unitOfWork = new UnitOfWork();
+            unitOfWork = _unitOfWork;
+            mapper = _mapper;
+            // mapper = new MapperConfiguration(config => config.CreateMap<Form, FormViewModel>()).CreateMapper();
         }
-        public void Create(FormDTO formDTO)
+        public void Create(FormViewModel formViewModel)
         {
-            unitOfWork.Forms.Create(mapper.Map<Form>(formDTO));
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<FormViewModel, Form>()
+                    .ForMember("Name", opt => opt.MapFrom(item => item.Name))
+                    .ForMember("Description", opt => opt.MapFrom(item => item.Description))
+                    .ForMember("DTCreate", opt => opt.MapFrom(item => item.DTCreate))
+                    .ForMember("DTStart", opt => opt.MapFrom(item => item.DTStart))
+                    .ForMember("DTFinish", opt => opt.MapFrom(item => item.DTFinish))
+                    .ForMember("IsPrivate", opt => opt.MapFrom(item => item.IsPrivate))
+                    .ForMember("IsAnonymity", opt => opt.MapFrom(item => item.IsAnonymity))
+                    .ForMember("IsEditingAfterSaving", opt => opt.MapFrom(src => src.IsEditingAfterSaving)));
+            var mapper = new Mapper(config);
+            // Выполняем сопоставление
+            Form form = mapper.Map<FormViewModel, Form>(formViewModel);
+            // Form form = mapper.Map<Form>(formViewModel);
+            unitOfWork.Forms.Create(form);
             unitOfWork.Save();
         }
         public void Delete(int id)
@@ -27,12 +44,16 @@ namespace CFE.BLL.BL
             unitOfWork.Forms.Delete(id);
             unitOfWork.Save();
         }
-        public FormDTO Read(int id) => mapper.Map<FormDTO>(unitOfWork.Forms.Read(id));
-        public IEnumerable<FormDTO> ReadAll() => mapper.Map<IEnumerable<Form>, List<FormDTO>>(unitOfWork.Forms.ReadAll());
-        public void Update(FormDTO formDTO)
+        public FormViewModel Read(int id) => mapper.Map<FormViewModel>(unitOfWork.Forms.Read(id));
+        public IEnumerable<FormViewModel> ReadAll() => mapper.Map<IEnumerable<Form>, List<FormViewModel>>(unitOfWork.Forms.ReadAll());
+        public void Update(FormViewModel formViewModel)
         {
-            unitOfWork.Forms.Update(mapper.Map<Form>(formDTO));
+            unitOfWork.Forms.Update(mapper.Map<Form>(formViewModel));
             unitOfWork.Save();
+        }
+        public void Dispose()
+        {
+            unitOfWork.Dispose();
         }
     }
 }
