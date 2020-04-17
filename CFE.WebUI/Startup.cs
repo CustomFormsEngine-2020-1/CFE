@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CFE.Bootstrap.DI;
+using CFE.Bootstrap.Mapping;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,8 +28,8 @@ namespace CFE.WebUI
         {
             services.AddMvc();
             services.AddControllersWithViews();
-            
-            services.AddAutoMapper(typeof(Startup));
+
+            services.AddAutoMapper(typeof(MappingProfile).Assembly);
             services.AddDIServices();
         }
 

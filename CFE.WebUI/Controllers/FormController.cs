@@ -38,11 +38,11 @@ namespace CFE.WebUI.Controllers
         // public ActionResult Details(int id) => View(mapper.Map<FormViewModel>(formBL.Read(id)));
 
         // GET: Form/Create
+
         public ActionResult Create()
         {
             return View();
         }
-
         // POST: Form/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
