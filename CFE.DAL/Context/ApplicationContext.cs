@@ -22,7 +22,7 @@ namespace CFE.DAL.Context
 
         public ApplicationContext()
         {
-            // Database.EnsureDeleted();
+            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

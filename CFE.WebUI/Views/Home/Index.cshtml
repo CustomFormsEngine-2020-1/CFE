@@ -6,3 +6,109 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<div class="headline" id="headline">
+    <form align=center>
+        <div class="md-form headline-item">
+            <input type="text" id="form1" class="form-control" v-on:input="updateName" value="New form"
+                   style="font-size: 250%;">
+        </div>
+        <div class="md-form form-sm headline-item">
+            <input type="text" id="inputSMEx" class="form-control form-control-sm" v-on:input="updateDescription"
+                   value="Description">
+        </div>
+    </form>
+</div>
+
+<div class="question" id="question">
+    <form>
+
+        <! –– QUESTION NAME ––>
+
+        <div class="md-form headline-item">
+            <input type="text" id="form1" class="form-control" v-on:input="updateText" value="Question">
+        </div>
+
+        <! –– CHOOSE TYPE OF QUESTION ––>
+
+        <li class="nav-item dropdown nav-my-item" style="list-style-type: none; display: flex;
+                    align-items: center; justify-content: flex-start;">
+            <a class="nav-link dropdown-toggle nav-my-item" href="#" id="navbarDropdown" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Type
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <button class="dropdown-item" href="#" v-on:click="updateAnswerType('Text')">Text</button>
+                <button class="dropdown-item" href="#"
+                        v-on:click="updateAnswerType('Checkbox')">
+                    Checkbox
+                </button>
+                <button class="dropdown-item" href="#"
+                        v-on:click="updateAnswerType('Radiobutton')">
+                    Radiobutton
+                </button>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="defaultChecked2" checked
+                       v-model="isRequired">
+                <label class="custom-control-label" for="defaultChecked2">Required</label>
+            </div>
+        </li>
+
+        <! –– ANSWERS ––>
+
+        <div v-for="(ans, index) in answers"
+             style="display: flex;justify-content: space-between; align-items: flex-start;">
+            <input v-if="answerType =='Text'" type="text" class="form-control"
+                   aria-label="Text input with checkbox" v-on:input="updateAnswer($event, ans)"
+                   value='Input answer' v-bind:value="ans"
+                   style="margin: 0px 5px 0px 0px; margin-bottom: 16px;">
+
+            <div v-if="answerType =='Checkbox'" class="input-group mb-3"
+                 style="display: flex; justify-content: space-between;">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <input type="checkbox" aria-label="Checkbox for following text input">
+                    </div>
+                </div>
+                <input type="text" class="form-control" aria-label="Text input with checkbox"
+                       v-on:input="updateAnswer($event, index)" value='Input answer' v-bind:value="ans"
+                       style="margin: 0px 5px 0px 0px;">
+            </div>
+
+            <div v-if="answerType =='Radiobutton'" class="input-group" style="margin-bottom: 16px;">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <input type="radio" aria-label="Radio button for following text input">
+                    </div>
+                </div>
+                <input type="text" class="form-control" aria-label="Text input with radio button"
+                       v-on:input="updateAnswer($event, ans)" value='Input answer' v-bind:value="ans"
+                       style="margin: 0px 5px 0px 0px;">
+            </div>
+            <button type="button" class="btn btn-primary" v-on:click="duplicate(ans)"
+                    style="margin-right: 5px;">
+                Duplicate
+            </button>
+            <button type="button" class="btn btn-danger"
+                    v-on:click="deleteAnswer(index)">
+                Delete
+            </button>
+        </div>
+
+        <! –– ADD ––>
+
+        <a class="nav-link nav-my-item" href="#">
+            <button type="button" class="btn btn-primary" style="margin-left:-5px;"
+                    v-on:click="answers.push('Input answer ' + Id++)">
+                Add
+            </button>
+        </a>
+    </form>
+</div>
+
+<script src="https://unpkg.com/vue"></script>
+<script src="~/js/script.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
