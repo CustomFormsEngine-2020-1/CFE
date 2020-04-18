@@ -28,6 +28,18 @@ namespace CFE.DAL.Repositories
                 applicationContext.Users.Remove(user);
         }
 
+        public int GetId(User user)
+        {
+            int negativeResult = -1;
+            if (user != null)
+            {
+                return applicationContext.Users.FirstOrDefault(i => i.Login == user.Login &&
+                                                                    i.Password == user.Password &&
+                                                                    i.Email == user.Email).Id;
+            }
+            return negativeResult;
+        }
+
         public User Read(int id) => applicationContext.Users.Find(id) ?? new User(); 
         public IEnumerable<User> ReadAll() => applicationContext.Users.ToList() ?? new List<User>();
 
