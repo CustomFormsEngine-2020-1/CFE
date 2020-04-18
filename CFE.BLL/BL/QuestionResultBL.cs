@@ -23,8 +23,11 @@ namespace CFE.BLL.BL
         }
         public void Create(QuestionResultViewModel questionResultViewModel)
         {
-            unitOfWork.QuestionResults.Create(mapper.Map<QuestionResult>(questionResultViewModel));
-            unitOfWork.Save();
+            if (questionResultViewModel != null)
+            {
+                unitOfWork.QuestionResults.Create(MappingQuestionResultViewModel(questionResultViewModel));
+                unitOfWork.Save(); 
+            }
         }
         public void Delete(int id)
         {
@@ -35,12 +38,37 @@ namespace CFE.BLL.BL
         public IEnumerable<QuestionResultViewModel> ReadAll() => mapper.Map<IEnumerable<QuestionResult>, List<QuestionResultViewModel>>(unitOfWork.QuestionResults.ReadAll());
         public void Update(QuestionResultViewModel questionResultViewModel)
         {
-            unitOfWork.QuestionResults.Update(mapper.Map<QuestionResult>(questionResultViewModel));
-            unitOfWork.Save();
+            if (questionResultViewModel != null)
+            {
+                unitOfWork.QuestionResults.Update(MappingQuestionResultViewModel(questionResultViewModel));
+                unitOfWork.Save(); 
+            }
         }
         public void Dispose()
         {
             unitOfWork.Dispose();
+        }
+
+        public int GetId(QuestionResultViewModel questionResultViewModel)
+        {
+            int negativeResult = -1;
+            if (questionResultViewModel != null)
+                return unitOfWork.QuestionResults.GetId(MappingQuestionResultViewModel(questionResultViewModel));
+            return negativeResult;
+        }
+        private QuestionResult MappingQuestionResultViewModel(QuestionResultViewModel questionResultViewModel)
+        {
+            QuestionResult negativeResult = null;
+            if (questionResultViewModel != null)
+            {
+                var config = new MapperConfiguration(cfg => cfg.CreateMap<QuestionResultViewModel, QuestionResult>()
+                    .ForMember("FormResultId", opt => opt.MapFrom(item => item.FormResultId))
+                    .ForMember("QuestionId", opt => opt.MapFrom(item => item.QuestionId)));
+                var mapper = new Mapper(config);
+                // Выполняем сопоставление
+                return mapper.Map<QuestionResultViewModel, QuestionResult>(questionResultViewModel);
+            }
+            return negativeResult;
         }
     }
 }

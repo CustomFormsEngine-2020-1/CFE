@@ -8,6 +8,6 @@ namespace CFE.ViewModels.VM
     {
         // public int Id { get; set; }
         public string Name { get; set; }
-        // public int QuestionId { get; set; }
+        public int QuestionId { get; set; }
     }
 }

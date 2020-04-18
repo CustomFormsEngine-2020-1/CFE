@@ -28,6 +28,18 @@ namespace CFE.DAL.Repositories
                 applicationContext.Attributes.Remove(attribute);
         }
 
+        public int GetId(Entities.Models.Attribute attribute)
+        {
+            int negativeResult = -1;
+            if (attribute != null)
+            {
+                return applicationContext.Attributes.FirstOrDefault(i => i.Name == attribute.Name &&
+                                                                         i.DisplayName == attribute.DisplayName &&
+                                                                         i.ElementId == attribute.ElementId).Id;
+            }
+            return negativeResult;
+        }
+
         public CFE.Entities.Models.Attribute Read(int id) => applicationContext.Attributes.Find(id) ?? new CFE.Entities.Models.Attribute();
         public IEnumerable<CFE.Entities.Models.Attribute> ReadAll() => applicationContext.Attributes.ToList() ?? new List<CFE.Entities.Models.Attribute>();
 

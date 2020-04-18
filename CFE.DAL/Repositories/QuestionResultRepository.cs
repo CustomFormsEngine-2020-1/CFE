@@ -28,6 +28,17 @@ namespace CFE.DAL.Repositories
                 applicationContext.QuestionResults.Remove(questionResult);
         }
 
+        public int GetId(QuestionResult questionResult)
+        {
+            int negativeResult = -1;
+            if (questionResult != null)
+            {
+                return applicationContext.QuestionResults.FirstOrDefault(i => i.QuestionId == questionResult.QuestionId &&
+                                                                              i.FormResultId == questionResult.FormResultId).Id;
+            }
+            return negativeResult;
+        }
+
         public QuestionResult Read(int id) => applicationContext.QuestionResults.Find(id) ?? new QuestionResult();
         public IEnumerable<QuestionResult> ReadAll() => applicationContext.QuestionResults.ToList() ?? new List<QuestionResult>();
 

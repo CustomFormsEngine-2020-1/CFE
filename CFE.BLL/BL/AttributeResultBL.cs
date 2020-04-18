@@ -23,8 +23,11 @@ namespace CFE.BLL.BL
         }
         public void Create(AttributeResultViewModel attributeResultViewModel)
         {
-            unitOfWork.AttributeResults.Create(mapper.Map<AttributeResult>(attributeResultViewModel));
-            unitOfWork.Save();
+            if (attributeResultViewModel != null)
+            {
+                unitOfWork.AttributeResults.Create(MappingAttributeResultViewModel(attributeResultViewModel));
+                unitOfWork.Save();
+            }
         }
         public void Delete(int id)
         {
@@ -35,12 +38,36 @@ namespace CFE.BLL.BL
         public IEnumerable<AttributeResultViewModel> ReadAll() => mapper.Map<IEnumerable<AttributeResult>, List<AttributeResultViewModel>>(unitOfWork.AttributeResults.ReadAll());
         public void Update(AttributeResultViewModel attributeResultViewModel)
         {
-            unitOfWork.AttributeResults.Update(mapper.Map<AttributeResult>(attributeResultViewModel));
-            unitOfWork.Save();
+            if (attributeResultViewModel != null)
+            {
+                unitOfWork.AttributeResults.Update(MappingAttributeResultViewModel(attributeResultViewModel));
+                unitOfWork.Save();
+            }
         }
         public void Dispose()
         {
             unitOfWork.Dispose();
+        }
+        public int GetId(AttributeResultViewModel attributeResultViewModel)
+        {
+            int negativeResult = -1;
+            if (attributeResultViewModel != null)
+                return unitOfWork.AttributeResults.GetId(MappingAttributeResultViewModel(attributeResultViewModel));
+            return negativeResult;
+        }
+        private AttributeResult MappingAttributeResultViewModel(AttributeResultViewModel attributeResultViewModel)
+        {
+            AttributeResult negativeResult = null;
+            if (attributeResultViewModel != null)
+            {
+                var config = new MapperConfiguration(cfg => cfg.CreateMap<AttributeResultViewModel, AttributeResult>()
+                    .ForMember("Value", opt => opt.MapFrom(item => item.Value))
+                    .ForMember("AttributeId", opt => opt.MapFrom(item => item.AttributeId)));
+                var mapper = new Mapper(config);
+                // Выполняем сопоставление
+                return mapper.Map<AttributeResultViewModel, AttributeResult>(attributeResultViewModel);
+            }
+            return negativeResult;
         }
     }
 }

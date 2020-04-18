@@ -53,5 +53,22 @@ namespace CFE.DAL.Repositories
                 applicationContext.Forms.Add(newForm);
             }
         }
+        public int GetId(Form form)
+        {
+            int negativeResult = -1;
+            if (form != null)
+            {
+                return applicationContext.Forms.FirstOrDefault(i => i.Name == form.Name && 
+                                                                    i.Description == form.Description &&
+                                                                    i.DTCreate == form.DTCreate &&
+                                                                    i.DTStart == form.DTStart &&
+                                                                    i.DTFinish == form.DTFinish &&
+                                                                    i.IsPrivate == form.IsPrivate &&
+                                                                    i.IsAnonymity == form.IsAnonymity &&
+                                                                    i.IsEditingAfterSaving == form.IsEditingAfterSaving &&
+                                                                    i.UserId == form.UserId).Id;
+            }
+            return negativeResult;
+        }
     }
 }

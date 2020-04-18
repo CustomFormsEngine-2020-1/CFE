@@ -23,8 +23,11 @@ namespace CFE.BLL.BL
         }
         public void Create(QuestionViewModel questionViewModel)
         {
-            unitOfWork.Questions.Create(mapper.Map<Question>(questionViewModel));
-            unitOfWork.Save();
+            if (questionViewModel != null)
+            {
+                unitOfWork.Questions.Create(MappingQuestionViewModel(questionViewModel));
+                unitOfWork.Save(); 
+            }
         }
         public void Delete(int id)
         {
@@ -35,12 +38,37 @@ namespace CFE.BLL.BL
         public IEnumerable<QuestionViewModel> ReadAll() => mapper.Map<IEnumerable<Question>, List<QuestionViewModel>>(unitOfWork.Questions.ReadAll());
         public void Update(QuestionViewModel questionViewModel)
         {
-            unitOfWork.Questions.Update(mapper.Map<Question>(questionViewModel));
-            unitOfWork.Save();
+            if (questionViewModel != null)
+            {
+                unitOfWork.Questions.Update(MappingQuestionViewModel(questionViewModel));
+                unitOfWork.Save(); 
+            }
         }
         public void Dispose()
         {
             unitOfWork.Dispose();
+        }
+        public int GetId(QuestionViewModel questionViewModel)
+        {
+            int negativeResult = -1;
+            if (questionViewModel != null)
+                return unitOfWork.Questions.GetId(MappingQuestionViewModel(questionViewModel));
+            return negativeResult;
+        }
+        private Question MappingQuestionViewModel(QuestionViewModel questionViewModel)
+        {
+            Question negativeResult = null;
+            if (questionViewModel != null)
+            {
+                var config = new MapperConfiguration(cfg => cfg.CreateMap<QuestionViewModel, Question>()
+                    .ForMember("Name", opt => opt.MapFrom(item => item.Name))
+                    .ForMember("FormId", opt => opt.MapFrom(item => item.FormId))
+                    .ForMember("ElementId", opt => opt.MapFrom(item => item.ElementId)));
+                var mapper = new Mapper(config);
+                // Выполняем сопоставление
+                return mapper.Map<QuestionViewModel, Question>(questionViewModel);
+            }
+            return negativeResult;
         }
     }
 }
