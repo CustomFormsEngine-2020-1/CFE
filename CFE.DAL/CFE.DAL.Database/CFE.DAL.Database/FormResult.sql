@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[FormResult]
+(
+	[Id] INT NOT NULL PRIMARY KEY, 
+    [DTResult] DATETIME NULL, 
+    [FormId] INT NULL FOREIGN KEY REFERENCES Form(Id), 
+    [CustomUserId] INT NULL FOREIGN KEY REFERENCES CustomUser(Id)
+)
