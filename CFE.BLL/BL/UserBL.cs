@@ -23,8 +23,11 @@ namespace CFE.BLL.BL
         }
         public void Create(UserViewModel userViewModel)
         {
-            unitOfWork.Users.Create(mapper.Map<User>(userViewModel));
-            unitOfWork.Save();
+            if (userViewModel != null)
+            {
+                unitOfWork.Users.Create(MappingUserViewModel(userViewModel));
+                unitOfWork.Save(); 
+            }
         }
         public void Delete(int id)
         {
@@ -35,12 +38,37 @@ namespace CFE.BLL.BL
         public IEnumerable<UserViewModel> ReadAll() => mapper.Map<IEnumerable<User>, List<UserViewModel>>(unitOfWork.Users.ReadAll());
         public void Update(UserViewModel userViewModel)
         {
-            unitOfWork.Users.Update(mapper.Map<User>(userViewModel));
-            unitOfWork.Save();
+            if (userViewModel != null)
+            {
+                unitOfWork.Users.Update(MappingUserViewModel(userViewModel));
+                unitOfWork.Save(); 
+            }
         }
         public void Dispose()
         {
             unitOfWork.Dispose();
+        }
+        public int GetId(UserViewModel userViewModel)
+        {
+            int negativeResult = -1;
+            if (userViewModel != null)
+                return unitOfWork.Users.GetId(MappingUserViewModel(userViewModel));
+            return negativeResult;
+        }
+        private User MappingUserViewModel(UserViewModel userViewModel)
+        {
+            User negativeResult = null;
+            if (userViewModel != null)
+            {
+                var config = new MapperConfiguration(cfg => cfg.CreateMap<UserViewModel, User>()
+                    .ForMember("Login", opt => opt.MapFrom(item => item.Login))
+                    .ForMember("Password", opt => opt.MapFrom(item => item.Password))
+                    .ForMember("Email", opt => opt.MapFrom(item => item.Email)));
+                var mapper = new Mapper(config);
+                // Выполняем сопоставление
+                return mapper.Map<UserViewModel, User>(userViewModel);
+            }
+            return negativeResult;
         }
     }
 }

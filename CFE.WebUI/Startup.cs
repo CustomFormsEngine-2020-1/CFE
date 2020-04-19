@@ -28,7 +28,6 @@ namespace CFE.WebUI
         {
             services.AddMvc();
             services.AddControllersWithViews();
-
             services.AddAutoMapper(typeof(MappingProfile).Assembly);
             services.AddDIServices();
         }

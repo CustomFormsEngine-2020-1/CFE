@@ -23,8 +23,11 @@ namespace CFE.BLL.BL
         }
         public void Create(AttributeViewModel attributeViewModel)
         {
-            unitOfWork.Attributes.Create(mapper.Map<CFE.Entities.Models.Attribute>(attributeViewModel));
-            unitOfWork.Save();
+            if (attributeViewModel != null)
+            {
+                unitOfWork.Attributes.Create(MappingAttributeViewModel(attributeViewModel));
+                unitOfWork.Save();
+            }
         }
         public void Delete(int id)
         {
@@ -35,12 +38,37 @@ namespace CFE.BLL.BL
         public IEnumerable<AttributeViewModel> ReadAll() => mapper.Map<IEnumerable<CFE.Entities.Models.Attribute>, List<AttributeViewModel>>(unitOfWork.Attributes.ReadAll());
         public void Update(AttributeViewModel attributeViewModel)
         {
-            unitOfWork.Attributes.Update(mapper.Map<CFE.Entities.Models.Attribute>(attributeViewModel));
-            unitOfWork.Save();
+            if (attributeViewModel != null)
+            {
+                unitOfWork.Attributes.Update(MappingAttributeViewModel(attributeViewModel));
+                unitOfWork.Save();
+            }
         }
         public void Dispose()
         {
             unitOfWork.Dispose();
+        }
+        public int GetId(AttributeViewModel attributeViewModel)
+        {
+            int negativeResult = -1;
+            if (attributeViewModel != null)
+                return unitOfWork.Attributes.GetId(MappingAttributeViewModel(attributeViewModel));
+            return negativeResult;
+        }
+        private CFE.Entities.Models.Attribute MappingAttributeViewModel(AttributeViewModel attributeViewModel)
+        {
+            CFE.Entities.Models.Attribute negativeResult = null;
+            if (attributeViewModel != null)
+            {
+                var config = new MapperConfiguration(cfg => cfg.CreateMap<AttributeViewModel, CFE.Entities.Models.Attribute>()
+                    .ForMember("Name", opt => opt.MapFrom(item => item.Name))
+                    .ForMember("DisplayName", opt => opt.MapFrom(item => item.DisplayName))
+                    .ForMember("ElementId", opt => opt.MapFrom(item => item.ElementId)));
+                var mapper = new Mapper(config);
+                // Выполняем сопоставление
+                return mapper.Map<AttributeViewModel, CFE.Entities.Models.Attribute>(attributeViewModel);
+            }
+            return negativeResult;
         }
     }
 }

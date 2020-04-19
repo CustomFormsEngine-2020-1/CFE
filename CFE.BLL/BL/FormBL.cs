@@ -16,10 +16,8 @@ namespace CFE.BLL.BL
         private IMapper mapper;
         public FormBL(IMapper _mapper, IUnitOfWork _unitOfWork)
         {
-            // unitOfWork = new UnitOfWork();
             unitOfWork = _unitOfWork;
             mapper = _mapper;
-            // mapper = new MapperConfiguration(config => config.CreateMap<Form, FormViewModel>()).CreateMapper();
         }
         public void Create(FormViewModel formViewModel)
         {
@@ -36,9 +34,15 @@ namespace CFE.BLL.BL
             // Выполняем сопоставление
             Form form = mapper.Map<FormViewModel, Form>(formViewModel);
             // Form form = mapper.Map<Form>(formViewModel);
-            unitOfWork.Forms.Create(form);
-            unitOfWork.Save();
-
+            //unitOfWork.Forms.Create(form);
+            //unitOfWork.Save();
+            if (formViewModel != null)
+            {
+                // Form form = mapper.Map<Form>(formViewModel);
+                unitOfWork.Forms.Create(MappingFormViewModel(formViewModel));
+                unitOfWork.Save();
+            }
+            
         }
         public void Delete(int id)
         {
@@ -49,12 +53,46 @@ namespace CFE.BLL.BL
         public IEnumerable<FormViewModel> ReadAll() => mapper.Map<IEnumerable<Form>, List<FormViewModel>>(unitOfWork.Forms.ReadAll());
         public void Update(FormViewModel formViewModel)
         {
-            unitOfWork.Forms.Update(mapper.Map<Form>(formViewModel));
-            unitOfWork.Save();
+            if (formViewModel != null)
+            {
+                // unitOfWork.Forms.Update(mapper.Map<Form>(formViewModel));
+                unitOfWork.Forms.Update(MappingFormViewModel(formViewModel));
+                unitOfWork.Save(); 
+            }
         }
         public void Dispose()
         {
             unitOfWork.Dispose();
+        }
+
+        public int GetId(FormViewModel formViewModel)
+        {
+            int negativeResult = -1;
+            if (formViewModel != null)
+                return unitOfWork.Forms.GetId(MappingFormViewModel(formViewModel));
+            return negativeResult;
+        }
+
+        private Form MappingFormViewModel(FormViewModel formViewModel)
+        {
+            Form negativeResult = null;
+            if (formViewModel != null)
+            {
+                var config = new MapperConfiguration(cfg => cfg.CreateMap<FormViewModel, Form>()
+                    .ForMember("Name", opt => opt.MapFrom(item => item.Name))
+                    .ForMember("Description", opt => opt.MapFrom(item => item.Description))
+                    .ForMember("DTCreate", opt => opt.MapFrom(item => item.DTCreate))
+                    .ForMember("DTStart", opt => opt.MapFrom(item => item.DTStart))
+                    .ForMember("DTFinish", opt => opt.MapFrom(item => item.DTFinish))
+                    .ForMember("IsPrivate", opt => opt.MapFrom(item => item.IsPrivate))
+                    .ForMember("IsAnonymity", opt => opt.MapFrom(item => item.IsAnonymity))
+                    .ForMember("IsEditingAfterSaving", opt => opt.MapFrom(src => src.IsEditingAfterSaving))
+                    .ForMember("UserId", opt => opt.MapFrom(src => src.UserId)));
+                var mapper = new Mapper(config);
+                // Выполняем сопоставление
+                return mapper.Map<FormViewModel, Form>(formViewModel); 
+            }
+            return negativeResult;
         }
     }
 }

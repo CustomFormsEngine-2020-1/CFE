@@ -23,8 +23,11 @@ namespace CFE.BLL.BL
         }
         public void Create(ElementViewModel elementViewModel)
         {
-            unitOfWork.Elements.Create(mapper.Map<Element>(elementViewModel));
-            unitOfWork.Save();
+            if (elementViewModel != null)
+            {
+                unitOfWork.Elements.Create(MappingElementViewModel(elementViewModel));
+                unitOfWork.Save(); 
+            }
         }
         public void Delete(int id)
         {
@@ -35,12 +38,36 @@ namespace CFE.BLL.BL
         public IEnumerable<ElementViewModel> ReadAll() => mapper.Map<IEnumerable<Element>, List<ElementViewModel>>(unitOfWork.Elements.ReadAll());
         public void Update(ElementViewModel elementViewModel)
         {
-            unitOfWork.Elements.Update(mapper.Map<Element>(elementViewModel));
-            unitOfWork.Save();
+            if (elementViewModel != null)
+            {
+                unitOfWork.Elements.Update(MappingElementViewModel(elementViewModel));
+                unitOfWork.Save(); 
+            }
         }
         public void Dispose()
         {
             unitOfWork.Dispose();
+        }
+        public int GetId(ElementViewModel elementViewModel)
+        {
+            int negativeResult = -1;
+            if (elementViewModel != null)
+                return unitOfWork.Elements.GetId(MappingElementViewModel(elementViewModel));
+            return negativeResult;
+        }
+        private Element MappingElementViewModel(ElementViewModel elementViewModel)
+        {
+            Element negativeResult = null;
+            if (elementViewModel != null)
+            {
+                var config = new MapperConfiguration(cfg => cfg.CreateMap<ElementViewModel, Element>()
+                    .ForMember("Name", opt => opt.MapFrom(item => item.Name))
+                    .ForMember("Description", opt => opt.MapFrom(item => item.Description)));
+                var mapper = new Mapper(config);
+                // Выполняем сопоставление
+                return mapper.Map<ElementViewModel, Element>(elementViewModel);
+            }
+            return negativeResult;
         }
     }
 }

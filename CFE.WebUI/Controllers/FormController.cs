@@ -51,8 +51,9 @@ namespace CFE.WebUI.Controllers
             try
             {
                 // TODO: Add insert logic here
-                formCreateBL = new FormCreateBL(mapper, unitOfWork);
-                formCreateBL.CreateForm(formCreateViewModel);
+                formCreateBL = new FormCreateBL(mapper, unitOfWork, formCreateViewModel);
+                formCreateBL.CreateFormViewModel();
+                formCreateBL.CreateQuestionCreateViewModel();
                 // formCreateBL = new FormCreateBL(mapper, formCreateViewModel);
                 // formCreateBL = new FormCreateBL(mapper, unitOfWork, value);
                 return RedirectToAction(nameof(Index));
