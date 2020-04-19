@@ -19,13 +19,13 @@ namespace CFE.BLL.BL
             // unitOfWork = new UnitOfWork();
             unitOfWork = _unitOfWork;
             mapper = _mapper;
-            // mapper = new MapperConfiguration(config => config.CreateMap<Answer, AnswerViewModel>()).CreateMapper();
         }
         public void Create(AnswerViewModel answerViewModel)
         {
             if (answerViewModel != null)
             {
-                unitOfWork.Answers.Create(MappingAnswerViewModel(answerViewModel));
+                // unitOfWork.Answers.Create(MappingAnswerViewModel(answerViewModel));
+                unitOfWork.Answers.Create(mapper.Map<Answer>(answerViewModel));
                 unitOfWork.Save(); 
             }
         }
@@ -35,12 +35,13 @@ namespace CFE.BLL.BL
             unitOfWork.Save();
         }
         public AnswerViewModel Read(int id) => mapper.Map<AnswerViewModel>(unitOfWork.Answers.Read(id));
-        public IEnumerable<AnswerViewModel> ReadAll() => mapper.Map<IEnumerable<CFE.Entities.Models.Answer>, List<AnswerViewModel>>(unitOfWork.Answers.ReadAll());
+        public IEnumerable<AnswerViewModel> ReadAll() => mapper.Map<IEnumerable<Answer>, List<AnswerViewModel>>(unitOfWork.Answers.ReadAll());
         public void Update(AnswerViewModel answerViewModel)
         {
             if (answerViewModel != null)
             {
-                unitOfWork.Answers.Update(MappingAnswerViewModel(answerViewModel));
+                // unitOfWork.Answers.Update(MappingAnswerViewModel(answerViewModel));
+                unitOfWork.Answers.Update(mapper.Map<Answer>(answerViewModel));
                 unitOfWork.Save(); 
             }
         }
@@ -52,22 +53,23 @@ namespace CFE.BLL.BL
         {
             int negativeResult = -1;
             if (answerViewModel != null)
-                return unitOfWork.Answers.GetId(MappingAnswerViewModel(answerViewModel));
+                return unitOfWork.Answers.GetId(mapper.Map<Answer>(answerViewModel));
+                // return unitOfWork.Answers.GetId(MappingAnswerViewModel(answerViewModel));
             return negativeResult;
         }
-        private Answer MappingAnswerViewModel(AnswerViewModel answerViewModel)
-        {
-            Answer negativeResult = null;
-            if (answerViewModel != null)
-            {
-                var config = new MapperConfiguration(cfg => cfg.CreateMap<AnswerViewModel, Answer>()
-                    .ForMember("Name", opt => opt.MapFrom(item => item.Name))
-                    .ForMember("QuestionId", opt => opt.MapFrom(item => item.QuestionId)));
-                var mapper = new Mapper(config);
-                // Выполняем сопоставление
-                return mapper.Map<AnswerViewModel, Answer>(answerViewModel);
-            }
-            return negativeResult;
-        }
+        // private Answer MappingAnswerViewModel(AnswerViewModel answerViewModel)
+        // {
+        //     Answer negativeResult = null;
+        //     if (answerViewModel != null)
+        //     {
+        //         var config = new MapperConfiguration(cfg => cfg.CreateMap<AnswerViewModel, Answer>()
+        //             .ForMember("Name", opt => opt.MapFrom(item => item.Name))
+        //             .ForMember("QuestionId", opt => opt.MapFrom(item => item.QuestionId)));
+        //         var mapper = new Mapper(config);
+        //         // Выполняем сопоставление
+        //         return mapper.Map<AnswerViewModel, Answer>(answerViewModel);
+        //     }
+        //     return negativeResult;
+        // }
     }
 }

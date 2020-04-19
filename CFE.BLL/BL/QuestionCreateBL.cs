@@ -46,7 +46,7 @@ namespace CFE.BLL.BL
                     Name = questionCreateViewModel.ElementViewModel.Name,
                     Description = questionCreateViewModel.ElementViewModel.Description
                 };
-                elementBL.Create(elementViewModel); // ??? 
+                // elementBL.Create(elementViewModel); // ??? 
 
                 QuestionViewModel questionViewModel = new QuestionViewModel
                 {
