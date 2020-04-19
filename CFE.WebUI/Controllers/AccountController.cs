@@ -18,6 +18,10 @@ namespace CFE.WebUI.Controllers
             return View("Index");
         }
 
-        
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
     }
 }
