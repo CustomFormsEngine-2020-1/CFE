@@ -40,12 +40,10 @@ namespace CFE.WebUI.Controllers
 
         // POST: Form/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(UserViewModel userViewModel)
         {
             try
             {
-                // TODO: Add insert logic here
                 userCreateBL = new UserBL(mapper, unitOfWork);
                 userCreateBL.Create(userViewModel);
                
@@ -53,7 +51,7 @@ namespace CFE.WebUI.Controllers
             }
             catch
             {
-                return View();
+                return View("Register");
             }
         }
     }

@@ -20,8 +20,8 @@ namespace CFE.DAL.Context
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-             Database.EnsureDeleted();
-            Database.EnsureCreated();
+            //Database.EnsureDeleted();
+            //Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
