@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using CFE.DAL;
+using CFE.Entities.Models;
 using CFE.Infrastructure.Interfaces;
 using CFE.ViewModels.VM;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 
@@ -27,6 +29,7 @@ namespace CFE.BLL.BL
         {
             unitOfWork = _unitOfWork;
             mapper = _mapper;
+            Init();
             formCreateViewModel = _formCreateViewModel;
             // jsonElement = _jsonElement;
             formBL = new FormBL(mapper, unitOfWork);
@@ -103,6 +106,29 @@ namespace CFE.BLL.BL
             if (!string.IsNullOrEmpty(stringInt))                                                       // Сhecking the input variable <longStringDateTime> to <null>
                 return Int32.TryParse(stringInt, out intValue) ? intValue : negativeResult;             // TryParse function converts the string representation of datetime to its 64 - bit signed integer -
             return negativeResult;                                                                      // - equivalent. A return value indicates whether the operation succeeded
+        }
+        private void Init()
+        {
+            if (unitOfWork.Elements.ReadAll().Count() == 0)
+            {
+                List<Element> listElement = new List<Element>
+                {
+                      new Element {  Name = "TextBox", Description = "Однострочный текст" },
+                      new Element {  Name = "TextArea", Description = "Многострочный текст" },
+                      new Element {  Name = "Number", Description = "Число" },
+                      new Element {  Name = "CheckBox", Description = "Множественный выбор" },
+                      new Element {  Name = "CheckList", Description = "Список ответов" },
+                      new Element {  Name = "RadioButton", Description = "Переключатель - единичный выбор" },
+                      new Element {  Name = "DropDown", Description = "Выпадающий список" },
+                      new Element {  Name = "DatePicker", Description = "Выбор даты" },
+                      new Element {  Name = "TimePicker", Description = "Выбор времени" },
+                      new Element {  Name = "MonthCalendar", Description = "Промежуток дат" },
+                      new Element {  Name = "File", Description = "Файл" },
+                };
+                foreach (var element in listElement)
+                    unitOfWork.Elements.Create(element);
+                unitOfWork.Save();
+            }
         }
     }
 }

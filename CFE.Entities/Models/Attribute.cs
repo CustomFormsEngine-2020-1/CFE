@@ -10,7 +10,7 @@ namespace CFE.Entities.Models
         public string Name { get; set; }
         public string DisplayName { get; set; }
         public int ElementId { get; set; }
-        public Element Element { get; set; }
+        // public Element Element { get; set; }
 
     }
 }

@@ -9,7 +9,7 @@ namespace CFE.Entities.Models
         public int Id { get; set; }
         public string Value { get; set; }
         public int AttributeId { get; set; }
-        public Attribute Attribute { get; set; }
+        // public Attribute Attribute { get; set; }
 
     }
 }
