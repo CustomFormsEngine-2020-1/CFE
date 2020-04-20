@@ -23,25 +23,22 @@ namespace CFE.DAL.Context
             // Database.EnsureDeleted();
             Database.EnsureCreated();
         }
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //   // optionsBuilder.UseSqlServer(@"Server=(localdb)\\MSSQLLocalDB;Database=CFE.EFCoreDb;Trusted_Connection=True;");
-        //}
-       
-
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;;Database=CFE.EFCoreDb2;Trusted_Connection=True;");
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-            //modelBuilder.ApplyConfiguration(new UserConfiguration());
-            //modelBuilder.ApplyConfiguration(new FormConfiguration());
-            //modelBuilder.ApplyConfiguration(new QuestionConfiguration());
-            //modelBuilder.ApplyConfiguration(new AnswerConfiguration());
-            //modelBuilder.ApplyConfiguration(new ElementConfiguration());
-            //modelBuilder.ApplyConfiguration(new AttributeConfiguration());
-            //modelBuilder.ApplyConfiguration(new FormResultConfiguration());
-            //modelBuilder.ApplyConfiguration(new QuestionResultConfiguration());
-            //modelBuilder.ApplyConfiguration(new AnswerResultConfiguration());
-            //modelBuilder.ApplyConfiguration(new AttributeResultConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new FormConfiguration());
+            modelBuilder.ApplyConfiguration(new QuestionConfiguration());
+            modelBuilder.ApplyConfiguration(new AnswerConfiguration());
+            modelBuilder.ApplyConfiguration(new ElementConfiguration());
+            modelBuilder.ApplyConfiguration(new AttributeConfiguration());
+            modelBuilder.ApplyConfiguration(new FormResultConfiguration());
+            modelBuilder.ApplyConfiguration(new QuestionResultConfiguration());
+            modelBuilder.ApplyConfiguration(new AnswerResultConfiguration());
+            modelBuilder.ApplyConfiguration(new AttributeResultConfiguration());
 
             // modelBuilder.Entity<Element>().HasData(
             // new Element[]
