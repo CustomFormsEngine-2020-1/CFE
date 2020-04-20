@@ -20,16 +20,16 @@ namespace CFE.DAL.Context
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-            // Database.EnsureDeleted();
+             Database.EnsureDeleted();
             Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;;Database=CFE.EFCoreDb2;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=CFE.EFCoreDb23;Trusted_Connection=True;");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new UserConfiguration());
+           // modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new FormConfiguration());
             modelBuilder.ApplyConfiguration(new QuestionConfiguration());
             modelBuilder.ApplyConfiguration(new AnswerConfiguration());
@@ -39,7 +39,7 @@ namespace CFE.DAL.Context
             modelBuilder.ApplyConfiguration(new QuestionResultConfiguration());
             modelBuilder.ApplyConfiguration(new AnswerResultConfiguration());
             modelBuilder.ApplyConfiguration(new AttributeResultConfiguration());
-
+            base.OnModelCreating(modelBuilder);
             // modelBuilder.Entity<Element>().HasData(
             // new Element[]
             // {
