@@ -8,39 +8,40 @@ using System.Text;
 
 namespace CFE.DAL.Repositories
 {
-    public class UserRepository : IRepository<User>
+    public class UserRepository : IUserRepository<User>
     {
         private ApplicationContext applicationContext;
         public UserRepository(ApplicationContext applicationContext)
         {
             this.applicationContext = applicationContext;
         }
-        public void Create(User user)
+        public  void Create(User user)
         {
             if (user != null)
                 applicationContext.Users.Add(user);
         }
 
-        public void Delete(int id)
+        public  void Delete(string id)
         {
             User user = applicationContext.Users.Find(id);
             if (user != null)
                 applicationContext.Users.Remove(user);
         }
 
-        public int GetId(User user)
+        public string GetId(User user)
         {
-            int negativeResult = -1;
+            string  negativeResult = null;
             if (user != null)
             {
-                return applicationContext.Users.FirstOrDefault(i => i.Login == user.Login &&
-                                                                    i.Password == user.Password &&
-                                                                    i.Email == user.Email).Id;
+                //return applicationContext.Users.FirstOrDefault(i => i.Login == user.Login &&
+                //                                                    i.Password == user.Password &&
+                //                                                    i.Email == user.Email).Id;
+                return applicationContext.Users.FirstOrDefault(i => i.Password == user.Password && i.Email == user.Email).Id;
             }
             return negativeResult;
         }
 
-        public User Read(int id) => applicationContext.Users.Find(id) ?? new User(); 
+        public User Read(string id) => applicationContext.Users.Find(id) ?? new User(); 
         public IEnumerable<User> ReadAll() => applicationContext.Users.ToList() ?? new List<User>();
 
         public void Update(User user)
@@ -51,7 +52,7 @@ namespace CFE.DAL.Repositories
                 applicationContext.Users.Remove(previousUser);
                 User newUser = new User()
                 {
-                    Login = user.Login,
+                   // Login = user.Login,
                     Password = user.Password,
                     Email = user.Email
                 };

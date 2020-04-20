@@ -10,7 +10,7 @@ using System.Text;
 
 namespace CFE.BLL.BL
 {
-    public class UserBL : IRepository<UserViewModel>, IDisposable
+    public class UserBL : IUserRepository<UserViewModel>, IDisposable
     {
         private IUnitOfWork unitOfWork;
         private IMapper mapper;
@@ -29,12 +29,12 @@ namespace CFE.BLL.BL
                 unitOfWork.Save(); 
             }
         }
-        public void Delete(int id)
+        public void Delete(string id)
         {
             unitOfWork.Users.Delete(id);
             unitOfWork.Save();
         }
-        public UserViewModel Read(int id) => mapper.Map<UserViewModel>(unitOfWork.Users.Read(id));
+        public UserViewModel Read(string id) => mapper.Map<UserViewModel>(unitOfWork.Users.Read(id));
         public IEnumerable<UserViewModel> ReadAll() => mapper.Map<IEnumerable<User>, List<UserViewModel>>(unitOfWork.Users.ReadAll());
         public void Update(UserViewModel userViewModel)
         {
@@ -48,9 +48,10 @@ namespace CFE.BLL.BL
         {
             unitOfWork.Dispose();
         }
-        public int GetId(UserViewModel userViewModel)
+        public string GetId(UserViewModel userViewModel)
         {
-            int negativeResult = -1;
+            string negativeResult = null;
+
             if (userViewModel != null)
                 return unitOfWork.Users.GetId(MappingUserViewModel(userViewModel));
             return negativeResult;
@@ -61,7 +62,7 @@ namespace CFE.BLL.BL
             if (userViewModel != null)
             {
                 var config = new MapperConfiguration(cfg => cfg.CreateMap<UserViewModel, User>()
-                    .ForMember("Login", opt => opt.MapFrom(item => item.Login))
+                   // .ForMember("Login", opt => opt.MapFrom(item => item.Login))
                     .ForMember("Password", opt => opt.MapFrom(item => item.Password))
                     .ForMember("Email", opt => opt.MapFrom(item => item.Email)));
                 var mapper = new Mapper(config);

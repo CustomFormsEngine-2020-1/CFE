@@ -1,16 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using CFE.Bootstrap.DI;
 using CFE.Bootstrap.Mapping;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using CFE.DAL.Context;
+using CFE.Entities.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace CFE.WebUI
 {
@@ -27,6 +26,10 @@ namespace CFE.WebUI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>();
             services.AddControllersWithViews();
             
             services.AddAutoMapper(typeof(MappingProfile).Assembly);

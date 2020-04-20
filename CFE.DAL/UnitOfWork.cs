@@ -22,12 +22,13 @@ namespace CFE.DAL
         private AnswerResultRepository answerResultRepository;
         private AttributeResultRepository attributeResultRepository;
 
-        public UnitOfWork()
+        public UnitOfWork(ApplicationContext context)
         {
-            applicationContext = new ApplicationContext();
+            //applicationContext = new ApplicationContext();
+            applicationContext = context;
         }
 
-        public IRepository<User> Users
+        public IUserRepository<User> Users
         {
             get
             {
