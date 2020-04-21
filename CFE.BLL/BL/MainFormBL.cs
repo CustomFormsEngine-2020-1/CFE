@@ -11,26 +11,25 @@ using System.Text.Json;
 
 namespace CFE.BLL.BL
 {
-    public class FormCreateBL
+    public class MainFormBL
     {
         private IUnitOfWork unitOfWork;
         private IMapper mapper;
         private FormCreateViewModel formCreateViewModel;
-        private JsonElement jsonElement;
         private FormViewModel formViewModel;
         private List<QuestionCreateViewModel> listQuestionCreateViewModel;
         private FormBL formBL;
 
-        public FormCreateBL()
+        public MainFormBL()
         {
 
         }
-        public FormCreateBL(IMapper _mapper, IUnitOfWork _unitOfWork, FormCreateViewModel _formCreateViewModel) // JsonElement _jsonElement)
+        public MainFormBL(IMapper _mapper, IUnitOfWork _unitOfWork) // FormCreateViewModel _formCreateViewModel) // JsonElement _jsonElement)
         {
             unitOfWork = _unitOfWork;
             mapper = _mapper;
             Init();
-            formCreateViewModel = _formCreateViewModel;
+            // formCreateViewModel = _formCreateViewModel;
             // jsonElement = _jsonElement;
             formBL = new FormBL(mapper, unitOfWork);
             // JsonDeserialize(value);
@@ -38,7 +37,7 @@ namespace CFE.BLL.BL
         }
 
 
-        public void JsonDeserialize()
+        public void JsonDeserialize(JsonElement jsonElement)
         {
             var json = jsonElement.GetRawText();
             formCreateViewModel = JsonSerializer.Deserialize<FormCreateViewModel>(json);
@@ -59,12 +58,30 @@ namespace CFE.BLL.BL
             };
             formBL.Create(formViewModel);
         }
+        public FormCreateViewModel CreateFormCreateViewModel(int formId)
+        {
+            FormViewModel formViewModel = formBL.Read(formId);
+            formCreateViewModel = new FormCreateViewModel
+            {
+                Name = formViewModel.Name,
+                Description = formViewModel.Description,
+                DTCreate = formViewModel.DTCreate.ToString(),
+                DTStart = formViewModel.DTStart.ToString(),
+                DTFinish = formViewModel.DTFinish.ToString(),
+                IsPrivate = formViewModel.IsPrivate.ToString(),
+                IsAnonymity = formViewModel.IsAnonymity.ToString(),
+                IsEditingAfterSaving = formViewModel.IsEditingAfterSaving.ToString(),
+                UserId = formViewModel.UserId.ToString(),
+                QuestionCreateViewModel = new List<QuestionCreateViewModel>()
+            };
+            return formCreateViewModel;
+        }
 
         public void CreateQuestionCreateViewModel()
         {
-            listQuestionCreateViewModel = formCreateViewModel.QuestionCreateViewModel;
-            QuestionCreateBL questionCreateBL = new QuestionCreateBL(mapper, unitOfWork, formViewModel, listQuestionCreateViewModel);
-            questionCreateBL.Create();
+            List<QuestionCreateViewModel> listQuestionCreateViewModel = formCreateViewModel.QuestionCreateViewModel;
+            MainQuestionBL mainQuestionCreateBL = new MainQuestionBL(mapper, unitOfWork, formViewModel, listQuestionCreateViewModel);
+            mainQuestionCreateBL.Create();
         }
         private DateTime? ConvertingStringDateTimeToSqlDateTime(string stringDateTime, string sqlFormatDateTime = "yyyy-MM-dd HH:mm:ss")
         {
