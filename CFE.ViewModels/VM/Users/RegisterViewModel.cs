@@ -6,6 +6,7 @@ namespace CFE.ViewModels.VM.Users
     {
         [Required(ErrorMessage = "Не указан Email")]
         [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Не указан пароль")]
