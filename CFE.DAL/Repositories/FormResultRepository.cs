@@ -31,9 +31,10 @@ namespace CFE.DAL.Repositories
             int negativeResult = -1;
             if (formResult != null)
             {
-                return applicationContext.FormResults.FirstOrDefault(i => i.DTResult == formResult.DTResult &&
-                                                                          i.FormId == formResult.FormId &&
-                                                                          i.UserId == formResult.UserId).Id;
+                return formResult.Id;
+                // return applicationContext.FormResults.FirstOrDefault(i => i.DTResult == formResult.DTResult &&
+                //                                                           i.FormId == formResult.FormId &&
+                //                                                           i.UserId == formResult.UserId).Id;
             }
             return negativeResult;
         }

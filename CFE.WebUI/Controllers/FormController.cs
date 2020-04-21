@@ -17,6 +17,7 @@ namespace CFE.WebUI.Controllers
         {
             mapper = _mapper;
             unitOfWork = _unitOfWork;
+            formCreateBL = new MainFormBL(mapper, unitOfWork);
             // formBL = new FormBL(mapper, unitOfWork);
         }
         // GET: Form
@@ -29,12 +30,11 @@ namespace CFE.WebUI.Controllers
         // public ActionResult Details() => View(mapper.Map<List<FormViewModel>>(formBL.ReadAll()));
 
         // GET: Form/Details/5
-        // public ActionResult Details(int id)
-        // {
-        //     View(mapper.Map<FormViewModel>(formBL.Read(id)));
-        // }
-
-
+        public ActionResult Details(int id)
+        {
+            return View(formCreateBL.ResponseForm(id));
+        }
+        
         public ActionResult FormView()
         {
             return View();
@@ -54,11 +54,7 @@ namespace CFE.WebUI.Controllers
             try
             {
                 // TODO: Add insert logic here
-                formCreateBL = new MainFormBL(mapper, unitOfWork);
-                formCreateBL.CreateFormViewModel();
-                formCreateBL.CreateQuestionCreateViewModel();
-                // formCreateBL = new FormCreateBL(mapper, formCreateViewModel);
-                // formCreateBL = new FormCreateBL(mapper, unitOfWork, value);
+                formCreateBL.SaveForm(jsonElement);
                 return RedirectToAction(nameof(Index));
             }
             catch

@@ -31,8 +31,9 @@ namespace CFE.DAL.Repositories
             int negativeResult = -1;
             if (answerResult != null)
             {
-                return applicationContext.AnswerResults.FirstOrDefault(i => i.Value == answerResult.Value &&
-                                                                            i.QuestionResultId == answerResult.QuestionResultId).Id;
+                return answerResult.Id;
+                // return applicationContext.AnswerResults.FirstOrDefault(i => i.Value == answerResult.Value &&
+                //                                                             i.QuestionResultId == answerResult.QuestionResultId).Id;
             }
             return negativeResult;
         }

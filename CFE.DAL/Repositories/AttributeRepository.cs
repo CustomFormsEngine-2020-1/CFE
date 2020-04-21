@@ -30,9 +30,10 @@ namespace CFE.DAL.Repositories
             int negativeResult = -1;
             if (attribute != null)
             {
-                return applicationContext.Attributes.FirstOrDefault(i => i.Name == attribute.Name &&
-                                                                         i.DisplayName == attribute.DisplayName &&
-                                                                         i.ElementId == attribute.ElementId).Id;
+                return attribute.Id;
+                // return applicationContext.Attributes.FirstOrDefault(i => i.Name == attribute.Name &&
+                //                                                          i.DisplayName == attribute.DisplayName &&
+                //                                                          i.QuestionId == attribute.QuestionId).Id;
             }
             return negativeResult;
         }
@@ -50,7 +51,7 @@ namespace CFE.DAL.Repositories
                 {
                     Name = attribute.Name,
                     DisplayName = attribute.DisplayName,
-                    ElementId = attribute.ElementId
+                    QuestionId = attribute.QuestionId
                 };
 
                 applicationContext.Attributes.Add(newAttribute);
