@@ -4,6 +4,7 @@ using CFE.DAL;
 using CFE.Entities.Models;
 using CFE.Infrastructure.Interfaces;
 using CFE.ViewModels.VM;
+using CFE.ViewModels.VM.Users;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -56,6 +57,16 @@ namespace CFE.BLL.BL
                 return unitOfWork.Users.GetId(mapper.Map<User>(userViewModel));
             }
             return negativeResult;
+        }
+
+        public string CheckUser(User user)
+        {
+
+            if (user != null)
+            {
+                return unitOfWork.Users.GetId(mapper.Map<User>(user));
+            }
+            return "";
         }
        
     }

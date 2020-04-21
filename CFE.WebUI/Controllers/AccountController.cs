@@ -66,6 +66,9 @@ namespace CFE.WebUI.Controllers
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                userCreateBL = new UserBL(mapper, unitOfWork);
+                User user = new User { Email = model.Email, Password = model.Password };
+                var result2 =  userCreateBL.CheckUser(user);
 
                 if (result.Succeeded)
                 {
