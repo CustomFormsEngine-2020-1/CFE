@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CFE.Infrastructure", "..\CF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CFE.ViewModels", "..\CFE.ViewModels\CFE.ViewModels.csproj", "{863742DA-E61A-4D43-9812-AD824978661E}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CFE.DAL.SSDT", "..\CFE.DAL.SSDT\CFE.DAL.SSDT.sqlproj", "{3C964A94-5FAF-4167-BB25-3CB58126EE99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,12 @@ Global
 		{863742DA-E61A-4D43-9812-AD824978661E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{863742DA-E61A-4D43-9812-AD824978661E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{863742DA-E61A-4D43-9812-AD824978661E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C964A94-5FAF-4167-BB25-3CB58126EE99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C964A94-5FAF-4167-BB25-3CB58126EE99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C964A94-5FAF-4167-BB25-3CB58126EE99}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{3C964A94-5FAF-4167-BB25-3CB58126EE99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C964A94-5FAF-4167-BB25-3CB58126EE99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C964A94-5FAF-4167-BB25-3CB58126EE99}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

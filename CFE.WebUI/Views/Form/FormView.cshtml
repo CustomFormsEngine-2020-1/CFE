@@ -1,0 +1,38 @@
+﻿@model CFE.ViewModels.VM.FormCreateViewModel
+
+@{
+    ViewData["Title"] = "FormView";
+}
+<h1>FormView</h1>
+
+<div>
+    <h4>FormCreateViewModel</h4>
+    <hr />
+</div>
+
+<div id="app">
+    <button type="button" class="btn btn-primary" style="margin: 10px;"
+            v-on:click="redirectToEdit">
+        Create
+    </button>
+    <div class="headline" id="headline">
+        <form align=center>
+            <div class="md-form headline-item">
+                <p style="font-size: 250%; margin:0">{{formData.name}}</p>
+            </div>
+            <div class="md-form form-sm headline-item">
+                <p style="margin:0">{{formData.description}}</p>
+            </div>
+        </form>
+    </div>
+    <question ìd="question" v-for="(que, queIndex) in questions" :key="queIndex" :que="que" :que-index="queIndex"
+              :questions="questions">
+    </question>
+</div>
+
+<script src="https://unpkg.com/vue"></script>
+<script src="~/js/scriptView.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+

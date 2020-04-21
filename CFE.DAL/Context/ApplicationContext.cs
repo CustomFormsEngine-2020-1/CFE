@@ -1,13 +1,11 @@
 ﻿using CFE.DAL.Configurations;
 using CFE.Entities.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CFE.DAL.Context
 {
-    public class ApplicationContext : DbContext
+    public class ApplicationContext : IdentityDbContext<User>
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Form> Forms { get; set; }
@@ -19,18 +17,19 @@ namespace CFE.DAL.Context
         public DbSet<Element> Elements { get; set; }
         public DbSet<CFE.Entities.Models.Attribute> Attributes { get; set; }
         public DbSet<AttributeResult> AttributeResults { get; set; }
-        public ApplicationContext()
+
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
             //Database.EnsureDeleted();
-           // Database.EnsureCreated();
+            Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-CT9PI34\SQLEXPRESS;Database=CFE.EFCoreDb;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=CFE.EFCoreDb;Trusted_Connection=True;");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            // modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new FormConfiguration());
             modelBuilder.ApplyConfiguration(new QuestionConfiguration());
             modelBuilder.ApplyConfiguration(new AnswerConfiguration());
@@ -40,7 +39,7 @@ namespace CFE.DAL.Context
             modelBuilder.ApplyConfiguration(new QuestionResultConfiguration());
             modelBuilder.ApplyConfiguration(new AnswerResultConfiguration());
             modelBuilder.ApplyConfiguration(new AttributeResultConfiguration());
-
+            base.OnModelCreating(modelBuilder);
             // modelBuilder.Entity<Element>().HasData(
             // new Element[]
             // {

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace CFE.Infrastructure.Interfaces
 {
@@ -12,5 +10,6 @@ namespace CFE.Infrastructure.Interfaces
         void Create(T item);
         void Update(T item);
         void Delete(int id);
+
     }
 }

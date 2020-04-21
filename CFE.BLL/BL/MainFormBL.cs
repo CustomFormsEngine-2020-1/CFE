@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
-using CFE.DAL;
 using CFE.Entities.Models;
 using CFE.Infrastructure.Interfaces;
 using CFE.ViewModels.VM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.Json;
 
 namespace CFE.BLL.BL
@@ -135,7 +133,7 @@ namespace CFE.BLL.BL
             DateTime? negativeResult = null;                                                             // Resulting output variable in case of fail / error or exception
 
             try
-            {   
+            {
                 if (string.IsNullOrEmpty(stringDateTime))                                                // Сhecking the input variable <stringDateTime> to <null> and <empty>
                 {
                     return DateTime.TryParseExact(stringDateTime,                                        // TryParseExact function converts the specified string -
