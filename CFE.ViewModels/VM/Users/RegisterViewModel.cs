@@ -7,11 +7,11 @@ namespace CFE.ViewModels.VM.Users
 {
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Не указан Email")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Не указан пароль")]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }

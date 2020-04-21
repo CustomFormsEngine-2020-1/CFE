@@ -58,16 +58,6 @@ namespace CFE.BLL.BL
             }
             return negativeResult;
         }
-
-        public string CheckUser(User user)
-        {
-
-            if (user != null)
-            {
-                return unitOfWork.Users.GetId(mapper.Map<User>(user));
-            }
-            return "";
-        }
        
     }
 }
