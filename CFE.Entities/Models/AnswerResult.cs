@@ -9,7 +9,7 @@ namespace CFE.Entities.Models
         public int Id { get; set; }
         public string Value { get; set; }
         public int QuestionResultId { get; set; }
-        public QuestionResult QuestionResult { get; set; }
+        // public QuestionResult QuestionResult { get; set; }
 
     }
 }

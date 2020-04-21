@@ -1,33 +1,35 @@
 ﻿using AutoMapper;
 using CFE.DAL;
+using CFE.Entities.Models;
 using CFE.Infrastructure.Interfaces;
 using CFE.ViewModels.VM;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 
 namespace CFE.BLL.BL
 {
-    public class FormCreateBL
+    public class MainFormBL
     {
         private IUnitOfWork unitOfWork;
         private IMapper mapper;
         private FormCreateViewModel formCreateViewModel;
-        private JsonElement jsonElement;
         private FormViewModel formViewModel;
         private List<QuestionCreateViewModel> listQuestionCreateViewModel;
         private FormBL formBL;
 
-        public FormCreateBL()
+        public MainFormBL()
         {
 
         }
-        public FormCreateBL(IMapper _mapper, IUnitOfWork _unitOfWork, FormCreateViewModel _formCreateViewModel) // JsonElement _jsonElement)
+        public MainFormBL(IMapper _mapper, IUnitOfWork _unitOfWork) // FormCreateViewModel _formCreateViewModel) // JsonElement _jsonElement)
         {
             unitOfWork = _unitOfWork;
             mapper = _mapper;
-            formCreateViewModel = _formCreateViewModel;
+            Init();
+            // formCreateViewModel = _formCreateViewModel;
             // jsonElement = _jsonElement;
             formBL = new FormBL(mapper, unitOfWork);
             // JsonDeserialize(value);
@@ -35,7 +37,7 @@ namespace CFE.BLL.BL
         }
 
 
-        public void JsonDeserialize()
+        public void JsonDeserialize(JsonElement jsonElement)
         {
             var json = jsonElement.GetRawText();
             formCreateViewModel = JsonSerializer.Deserialize<FormCreateViewModel>(json);
@@ -56,12 +58,30 @@ namespace CFE.BLL.BL
             };
             formBL.Create(formViewModel);
         }
+        public FormCreateViewModel CreateFormCreateViewModel(int formId)
+        {
+            FormViewModel formViewModel = formBL.Read(formId);
+            formCreateViewModel = new FormCreateViewModel
+            {
+                Name = formViewModel.Name,
+                Description = formViewModel.Description,
+                DTCreate = formViewModel.DTCreate.ToString(),
+                DTStart = formViewModel.DTStart.ToString(),
+                DTFinish = formViewModel.DTFinish.ToString(),
+                IsPrivate = formViewModel.IsPrivate.ToString(),
+                IsAnonymity = formViewModel.IsAnonymity.ToString(),
+                IsEditingAfterSaving = formViewModel.IsEditingAfterSaving.ToString(),
+                UserId = formViewModel.UserId.ToString(),
+                QuestionCreateViewModel = new List<QuestionCreateViewModel>()
+            };
+            return formCreateViewModel;
+        }
 
         public void CreateQuestionCreateViewModel()
         {
-            listQuestionCreateViewModel = formCreateViewModel.QuestionCreateViewModel;
-            QuestionCreateBL questionCreateBL = new QuestionCreateBL(mapper, unitOfWork, formViewModel, listQuestionCreateViewModel);
-            questionCreateBL.Create();
+            List<QuestionCreateViewModel> listQuestionCreateViewModel = formCreateViewModel.QuestionCreateViewModel;
+            MainQuestionBL mainQuestionCreateBL = new MainQuestionBL(mapper, unitOfWork, formViewModel, listQuestionCreateViewModel);
+            mainQuestionCreateBL.Create();
         }
         private DateTime? ConvertingStringDateTimeToSqlDateTime(string stringDateTime, string sqlFormatDateTime = "yyyy-MM-dd HH:mm:ss")
         {
@@ -103,6 +123,29 @@ namespace CFE.BLL.BL
             if (!string.IsNullOrEmpty(stringInt))                                                       // Сhecking the input variable <longStringDateTime> to <null>
                 return Int32.TryParse(stringInt, out intValue) ? intValue : negativeResult;             // TryParse function converts the string representation of datetime to its 64 - bit signed integer -
             return negativeResult;                                                                      // - equivalent. A return value indicates whether the operation succeeded
+        }
+        private void Init()
+        {
+            if (unitOfWork.Elements.ReadAll().Count() == 0)
+            {
+                List<Element> listElement = new List<Element>
+                {
+                      new Element {  Name = "TextBox", Description = "Однострочный текст" },
+                      new Element {  Name = "TextArea", Description = "Многострочный текст" },
+                      new Element {  Name = "Number", Description = "Число" },
+                      new Element {  Name = "CheckBox", Description = "Множественный выбор" },
+                      new Element {  Name = "CheckList", Description = "Список ответов" },
+                      new Element {  Name = "RadioButton", Description = "Переключатель - единичный выбор" },
+                      new Element {  Name = "DropDown", Description = "Выпадающий список" },
+                      new Element {  Name = "DatePicker", Description = "Выбор даты" },
+                      new Element {  Name = "TimePicker", Description = "Выбор времени" },
+                      new Element {  Name = "MonthCalendar", Description = "Промежуток дат" },
+                      new Element {  Name = "File", Description = "Файл" },
+                };
+                foreach (var element in listElement)
+                    unitOfWork.Elements.Create(element);
+                unitOfWork.Save();
+            }
         }
     }
 }

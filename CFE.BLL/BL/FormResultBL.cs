@@ -19,13 +19,13 @@ namespace CFE.BLL.BL
             // unitOfWork = new UnitOfWork();
             unitOfWork = _unitOfWork;
             mapper = _mapper;
-            // mapper = new MapperConfiguration(config => config.CreateMap<FormResult, FormResultViewModel>()).CreateMapper();
         }
         public void Create(FormResultViewModel formResultViewModel)
         {
             if (formResultViewModel != null)
             {
-                unitOfWork.FormResults.Create(MappingFormResultViewModel(formResultViewModel));
+                unitOfWork.FormResults.Create(mapper.Map<FormResult>(formResultViewModel));
+                // unitOfWork.FormResults.Create(MappingFormResultViewModel(formResultViewModel));
                 unitOfWork.Save(); 
             }
         }
@@ -40,7 +40,8 @@ namespace CFE.BLL.BL
         {
             if (formResultViewModel != null)
             {
-                unitOfWork.FormResults.Update(MappingFormResultViewModel(formResultViewModel));
+                unitOfWork.FormResults.Update(mapper.Map<FormResult>(formResultViewModel));
+                // unitOfWork.FormResults.Update(MappingFormResultViewModel(formResultViewModel));
                 unitOfWork.Save(); 
             }
         }
@@ -53,23 +54,24 @@ namespace CFE.BLL.BL
         {
             int negativeResult = -1;
             if (formResultViewModel != null)
-                return unitOfWork.FormResults.GetId(MappingFormResultViewModel(formResultViewModel));
+                return unitOfWork.FormResults.GetId(mapper.Map<FormResult>(formResultViewModel));
+                // return unitOfWork.FormResults.GetId(MappingFormResultViewModel(formResultViewModel));
             return negativeResult;
         }
-        private FormResult MappingFormResultViewModel(FormResultViewModel formResultViewModel)
-        {
-            FormResult negativeResult = null;
-            if (formResultViewModel != null)
-            {
-                var config = new MapperConfiguration(cfg => cfg.CreateMap<FormResultViewModel, FormResult>()
-                    .ForMember("DTResult", opt => opt.MapFrom(item => item.DTResult))
-                    .ForMember("FormId", opt => opt.MapFrom(item => item.FormId))
-                    .ForMember("UserId", opt => opt.MapFrom(item => item.UserId)));
-                var mapper = new Mapper(config);
-                // Выполняем сопоставление
-                return mapper.Map<FormResultViewModel, FormResult>(formResultViewModel);
-            }
-            return negativeResult;
-        }
+        // private FormResult MappingFormResultViewModel(FormResultViewModel formResultViewModel)
+        // {
+        //     FormResult negativeResult = null;
+        //     if (formResultViewModel != null)
+        //     {
+        //         var config = new MapperConfiguration(cfg => cfg.CreateMap<FormResultViewModel, FormResult>()
+        //             .ForMember("DTResult", opt => opt.MapFrom(item => item.DTResult))
+        //             .ForMember("FormId", opt => opt.MapFrom(item => item.FormId))
+        //             .ForMember("UserId", opt => opt.MapFrom(item => item.UserId)));
+        //         var mapper = new Mapper(config);
+        //         // Выполняем сопоставление
+        //         return mapper.Map<FormResultViewModel, FormResult>(formResultViewModel);
+        //     }
+        //     return negativeResult;
+        // }
     }
 }

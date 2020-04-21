@@ -15,17 +15,8 @@ namespace CFE.Bootstrap.Mapping
             CreateMap<User, UserViewModel>();
             CreateMap<UserViewModel, User>();
 
-            // CreateMap<Form, FormViewModel>();
-            // CreateMap<FormViewModel, Form>();
-            // CreateMap<FormViewModel, Form>()
-            //         .ForMember("Name", opt => opt.MapFrom(item => item.Name))
-            //         .ForMember("Description", opt => opt.MapFrom(item => item.Description))
-            //         .ForMember("DTCreate", opt => opt.MapFrom(item => item.DTCreate))
-            //         .ForMember("DTStart", opt => opt.MapFrom(item => item.DTStart))
-            //         .ForMember("DTFinish", opt => opt.MapFrom(item => item.DTFinish))
-            //         .ForMember("IsPrivate", opt => opt.MapFrom(item => item.IsPrivate))
-            //         .ForMember("IsAnonymity", opt => opt.MapFrom(item => item.IsAnonymity))
-            //         .ForMember("IsEditingAfterSaving", opt => opt.MapFrom(src => src.IsEditingAfterSaving));
+            CreateMap<Form, FormViewModel>();
+            CreateMap<FormViewModel, Form>();
 
             CreateMap<Question, QuestionViewModel>();
             CreateMap<QuestionViewModel, Question>();

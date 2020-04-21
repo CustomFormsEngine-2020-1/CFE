@@ -19,13 +19,13 @@ namespace CFE.BLL.BL
             // unitOfWork = new UnitOfWork();
             unitOfWork = _unitOfWork;
             mapper = _mapper;
-            // mapper = new MapperConfiguration(config => config.CreateMap<User, UserViewModel>()).CreateMapper();
         }
         public void Create(UserViewModel userViewModel)
         {
             if (userViewModel != null)
             {
-                unitOfWork.Users.Create(MappingUserViewModel(userViewModel));
+                unitOfWork.Users.Create(mapper.Map<User>(userViewModel));
+                // unitOfWork.Users.Create(MappingUserViewModel(userViewModel));
                 unitOfWork.Save(); 
             }
         }
@@ -40,7 +40,8 @@ namespace CFE.BLL.BL
         {
             if (userViewModel != null)
             {
-                unitOfWork.Users.Update(MappingUserViewModel(userViewModel));
+                unitOfWork.Users.Update(mapper.Map<User>(userViewModel));
+                // unitOfWork.Users.Update(MappingUserViewModel(userViewModel));
                 unitOfWork.Save(); 
             }
         }
@@ -52,23 +53,24 @@ namespace CFE.BLL.BL
         {
             int negativeResult = -1;
             if (userViewModel != null)
-                return unitOfWork.Users.GetId(MappingUserViewModel(userViewModel));
+                return unitOfWork.Users.GetId(mapper.Map<User>(userViewModel));
+                // return unitOfWork.Users.GetId(MappingUserViewModel(userViewModel));
             return negativeResult;
         }
-        private User MappingUserViewModel(UserViewModel userViewModel)
-        {
-            User negativeResult = null;
-            if (userViewModel != null)
-            {
-                var config = new MapperConfiguration(cfg => cfg.CreateMap<UserViewModel, User>()
-                    .ForMember("Login", opt => opt.MapFrom(item => item.Login))
-                    .ForMember("Password", opt => opt.MapFrom(item => item.Password))
-                    .ForMember("Email", opt => opt.MapFrom(item => item.Email)));
-                var mapper = new Mapper(config);
-                // Выполняем сопоставление
-                return mapper.Map<UserViewModel, User>(userViewModel);
-            }
-            return negativeResult;
-        }
+        // private User MappingUserViewModel(UserViewModel userViewModel)
+        // {
+        //     User negativeResult = null;
+        //     if (userViewModel != null)
+        //     {
+        //         var config = new MapperConfiguration(cfg => cfg.CreateMap<UserViewModel, User>()
+        //             .ForMember("Login", opt => opt.MapFrom(item => item.Login))
+        //             .ForMember("Password", opt => opt.MapFrom(item => item.Password))
+        //             .ForMember("Email", opt => opt.MapFrom(item => item.Email)));
+        //         var mapper = new Mapper(config);
+        //         // Выполняем сопоставление
+        //         return mapper.Map<UserViewModel, User>(userViewModel);
+        //     }
+        //     return negativeResult;
+        // }
     }
 }

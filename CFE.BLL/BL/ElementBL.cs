@@ -19,13 +19,13 @@ namespace CFE.BLL.BL
             // unitOfWork = new UnitOfWork();
             unitOfWork = _unitOfWork;
             mapper = _mapper;
-            // mapper = new MapperConfiguration(config => config.CreateMap<Element, ElementViewModel>()).CreateMapper();
         }
         public void Create(ElementViewModel elementViewModel)
         {
             if (elementViewModel != null)
             {
-                unitOfWork.Elements.Create(MappingElementViewModel(elementViewModel));
+                unitOfWork.Elements.Create(mapper.Map<Element>(elementViewModel));
+                // unitOfWork.Elements.Create(MappingElementViewModel(elementViewModel));
                 unitOfWork.Save(); 
             }
         }
@@ -40,7 +40,8 @@ namespace CFE.BLL.BL
         {
             if (elementViewModel != null)
             {
-                unitOfWork.Elements.Update(MappingElementViewModel(elementViewModel));
+                unitOfWork.Elements.Update(mapper.Map<Element>(elementViewModel));
+                // unitOfWork.Elements.Update(MappingElementViewModel(elementViewModel));
                 unitOfWork.Save(); 
             }
         }
@@ -52,22 +53,23 @@ namespace CFE.BLL.BL
         {
             int negativeResult = -1;
             if (elementViewModel != null)
-                return unitOfWork.Elements.GetId(MappingElementViewModel(elementViewModel));
+                return unitOfWork.Elements.GetId(mapper.Map<Element>(elementViewModel));
+                // return unitOfWork.Elements.GetId(MappingElementViewModel(elementViewModel));
             return negativeResult;
         }
-        private Element MappingElementViewModel(ElementViewModel elementViewModel)
-        {
-            Element negativeResult = null;
-            if (elementViewModel != null)
-            {
-                var config = new MapperConfiguration(cfg => cfg.CreateMap<ElementViewModel, Element>()
-                    .ForMember("Name", opt => opt.MapFrom(item => item.Name))
-                    .ForMember("Description", opt => opt.MapFrom(item => item.Description)));
-                var mapper = new Mapper(config);
-                // Выполняем сопоставление
-                return mapper.Map<ElementViewModel, Element>(elementViewModel);
-            }
-            return negativeResult;
-        }
+        // private Element MappingElementViewModel(ElementViewModel elementViewModel)
+        // {
+        //     Element negativeResult = null;
+        //     if (elementViewModel != null)
+        //     {
+        //         var config = new MapperConfiguration(cfg => cfg.CreateMap<ElementViewModel, Element>()
+        //             .ForMember("Name", opt => opt.MapFrom(item => item.Name))
+        //             .ForMember("Description", opt => opt.MapFrom(item => item.Description)));
+        //         var mapper = new Mapper(config);
+        //         // Выполняем сопоставление
+        //         return mapper.Map<ElementViewModel, Element>(elementViewModel);
+        //     }
+        //     return negativeResult;
+        // }
     }
 }

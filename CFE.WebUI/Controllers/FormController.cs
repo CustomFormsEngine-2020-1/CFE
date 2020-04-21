@@ -17,7 +17,7 @@ namespace CFE.WebUI.Controllers
     {
         private IMapper mapper;
         private IUnitOfWork unitOfWork;
-        private FormCreateBL formCreateBL;
+        private MainFormBL formCreateBL;
         // private FormBL formBL;
         public FormController(IMapper _mapper, IUnitOfWork _unitOfWork)
         {
@@ -35,7 +35,11 @@ namespace CFE.WebUI.Controllers
         // public ActionResult Details() => View(mapper.Map<List<FormViewModel>>(formBL.ReadAll()));
 
         // GET: Form/Details/5
-        // public ActionResult Details(int id) => View(mapper.Map<FormViewModel>(formBL.Read(id)));
+        // public ActionResult Details(int id)
+        // {
+        //     View(mapper.Map<FormViewModel>(formBL.Read(id)));
+        // }
+            
 
         // GET: Form/Create
 
@@ -46,12 +50,12 @@ namespace CFE.WebUI.Controllers
         // POST: Form/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(FormCreateViewModel formCreateViewModel)
+        public ActionResult Create(JsonElement jsonElement)
         {
             try
             {
                 // TODO: Add insert logic here
-                formCreateBL = new FormCreateBL(mapper, unitOfWork, formCreateViewModel);
+                formCreateBL = new MainFormBL(mapper, unitOfWork);
                 formCreateBL.CreateFormViewModel();
                 formCreateBL.CreateQuestionCreateViewModel();
                 // formCreateBL = new FormCreateBL(mapper, formCreateViewModel);
