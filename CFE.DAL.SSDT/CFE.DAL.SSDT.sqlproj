@@ -84,4 +84,7 @@
   <ItemGroup>
     <None Include="dbo\Publish\CFE.DAL.SSDT.publish.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="CFE.DAL.SSDT.refactorlog" />
+  </ItemGroup>
 </Project>
