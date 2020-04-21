@@ -2,15 +2,7 @@
 
 <div class="card bg-light">
     <article class="card-body mx-auto" style="max-width: 400px;">
-        <h4 class="card-title mt-3 text-center">Регистрация пользователя</h4>
-        <p class="text-center">Начните работу с сервисом с помощью социальных сетей</p>
-        <p>
-            <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i> &nbsp; Login via Twitter</a>
-            <a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i> &nbsp; Login via facebook</a>
-        </p>
-        <p class="divider-text">
-            <span class="bg-light">OR</span>
-        </p>
+        <h4 class="card-title mt-3 text-center">User reginstration</h4>
         <form method="post" asp-controller="Account" asp-action="Create">
             <div asp-validation-summary="ModelOnly"></div>
             @*<div class="form-group input-group">
@@ -65,9 +57,9 @@
                 <span asp-validation-for="PasswordConfirm"></span>
             </div> <!-- form-group// -->
             <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block"> Создать учетную запись  </button>
+                <button type="submit" class="btn btn-primary btn-block"> Sign up </button>
             </div> <!-- form-group// -->
-            <p class="text-center">У Вас уже есть учетная запись? <a asp-controller="Account" asp-action="Login">Войти</a> </p>
+            <p class="text-center">Already registered? <a asp-controller="Account" asp-action="Login">Sign in</a> </p>
         </form>
     </article>
 </div>

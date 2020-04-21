@@ -2,7 +2,6 @@ const answerTypeText = 'Text';
 const answerTypeNumber = 'Number';
 const answerTypeTextarea = 'Textarea';
 const answerTypeDate = 'Date';
-const answerTypeFile = 'File';
 const answerTypeCheckbox = 'Checkbox';
 const answerTypeRadiobutton = 'Radiobutton';
 const answerTypeDropdown = 'Drop-down';
@@ -17,7 +16,6 @@ const answerTypeChoices = [
     answerTypeDropdown,
     answerTypeTime,
     answerTypeDate,
-    answerTypeFile,
 
 ]
 
@@ -26,7 +24,6 @@ const answerTypesToClear = [
     answerTypeNumber,
     answerTypeTextarea,
     answerTypeDate,
-    answerTypeFile,
     answerTypeTime
 ]
 
@@ -71,18 +68,18 @@ Vue.component('question', {
             <! –– CHOOSE TYPE OF QUESTION ––>
 
                 <li class="nav-item dropdown nav-my-item" style="list-style-type: none; display: flex;
-                align-items: center; justify-content: flex-start;">
+                align-items: flex-end; justify-content: flex-start;">
                     <div class="nav-link dropdown-toggle nav-my-item" id="navbarDropdown" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        Type
+                        {{que.answerType}}
                     </div>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <button v-for="type in answerTypeChoices" class="dropdown-item" v-on:click="updateAnswerType(type)"
                             type="button">{{type}}</button>
                     </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" v-model="que.isRequired">
-                    <label class="form-check-label">
+                    <div >
+                    <input type="checkbox" value="" v-model="que.isRequired">
+                    <label>
                       Required
                     </label>
                   </div>
@@ -91,16 +88,17 @@ Vue.component('question', {
                 <! –– ANSWERS ––>
 
                     <div v-for="(ans, index) in que.answers"
-                        style="display: flex;justify-content: space-between; align-items: flex-start;">
+                        style="display: flex;justify-content: space-between; align-items: center;">
                         <input v-if="que.answerType =='Drop-down'" type="text" class="form-control"
+style="display: flex; justify-content: space-between; margin-bottom: 0px; margin-right: 5px;"
                             aria-label="Text input with checkbox" v-on:input="updateAnswer($event, index)"
                             value='Input answer' v-bind:value="ans.value"
-                            style="margin: 0px 5px 0px 0px; margin-bottom: 16px;">
+                            >
 
-                        <div v-if="que.answerType =='Checkbox'" class="input-group mb-3"
-                            style="display: flex; justify-content: space-between;">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
+                        <div v-if="que.answerType =='Checkbox'" class="input-group"
+                            style="display: flex; justify-content: space-between; margin-bottom: 0px;">
+                            <div class="input-group-prepend" >
+                                <div class="input-group-text" style="padding: .375rem .75rem; border: 1px solid #ced4da; border-right: none;">
                                     <input type="checkbox" aria-label="Checkbox for following text input">
                                 </div>
                             </div>
@@ -109,9 +107,10 @@ Vue.component('question', {
                                 style="margin: 0px 5px 0px 0px;">
                         </div>
 
-                        <div v-if="que.answerType =='Radiobutton'" class="input-group" style="margin-bottom: 16px;">
+                        <div v-if="que.answerType =='Radiobutton'"  class="input-group"
+                            style="display: flex; justify-content: space-between; margin-bottom: 0px;">
                             <div class="input-group-prepend">
-                                <div class="input-group-text">
+                                <div class="input-group-text" style="padding: .375rem .75rem; border: 1px solid #ced4da; border-right: none;">
                                     <input type="radio" aria-label="Radio button for following text input"
                                         v-model="check" v-bind:value="index">
                                 </div>
@@ -176,6 +175,9 @@ Vue.component('question', {
             Id: 0,
             check: ""
         }
+    },
+    created: function () {
+        this.Id = (this.que && this.que.answers && this.que.answers.length) || 0;
     },
     methods: {
         updateRequired(event) {
@@ -253,6 +255,19 @@ var app = new Vue({
         questions: [createNewQuestion()],
         numberOfQuestions: 1,
     },
+    created: function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const data = urlParams.get('data');
+        if (data) {
+            const decodedData = atob(data);
+            const parsedDecodedData = JSON.parse(decodedData);
+            const { questions, ...rest } = parsedDecodedData;
+
+            this.formData = rest;
+            this.questions = questions;
+            this.numberOfQuestions = questions.length;
+        }
+    },
     methods: {
         addQuestion() {
             this.questions.push(createNewQuestion());
@@ -279,7 +294,7 @@ var app = new Vue({
             }
             const jsonData = JSON.stringify(dataToSend);
 
-            fetch('http://localhost:44378', {
+            fetch('http://localhost:44378/Form/Create', {
                 method: 'POST',
                 body: jsonData,
                 headers: {
@@ -293,6 +308,10 @@ var app = new Vue({
                     alert("Failed to send data. Something went wrong.")
                 })
 
+        },
+        redirectToView() {
+            const encodedUrl = btoa(JSON.stringify({ ...this.formData, questions: this.questions }));
+            window.location.assign(`FormView?data=${encodedUrl}`)
         }
     }
 })

@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using CFE.BLL.BL;
-using CFE.ViewModels.VM;
-using CFE.ViewModels.VM.Users;
 using CFE.Entities.Models;
 using CFE.Infrastructure.Interfaces;
+using CFE.ViewModels.VM;
+using CFE.ViewModels.VM.Users;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 
 namespace CFE.WebUI.Controllers
 {
@@ -27,7 +27,7 @@ namespace CFE.WebUI.Controllers
         {
             return View();
         }
-      
+
 
         [HttpGet]
         public IActionResult Register()
@@ -43,7 +43,7 @@ namespace CFE.WebUI.Controllers
             {
                 userCreateBL = new UserBL(mapper, unitOfWork);
                 userCreateBL.Create(userViewModel);
-               
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -68,7 +68,7 @@ namespace CFE.WebUI.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                 userCreateBL = new UserBL(mapper, unitOfWork);
                 User user = new User { Email = model.Email, Password = model.Password };
-                var result2 =  userCreateBL.CheckUser(user);
+                var result2 = userCreateBL.CheckUser(user);
 
                 if (result.Succeeded)
                 {

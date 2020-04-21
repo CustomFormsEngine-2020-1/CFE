@@ -1,15 +1,15 @@
 using AutoMapper;
 using CFE.Bootstrap.DI;
 using CFE.Bootstrap.Mapping;
+using CFE.DAL.Context;
+using CFE.Entities.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using CFE.DAL.Context;
-using CFE.Entities.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 
 namespace CFE.WebUI
 {
@@ -31,7 +31,7 @@ namespace CFE.WebUI
 
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>();
             services.AddControllersWithViews();
-            
+
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddDIServices();
         }

@@ -1,11 +1,4 @@
-﻿using CFE.Entities.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CFE.DAL.Configurations
+﻿namespace CFE.DAL.Configurations
 {
     //public class UserConfiguration : IEntityTypeConfiguration<User>
     //{
