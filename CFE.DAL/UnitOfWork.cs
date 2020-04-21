@@ -132,7 +132,6 @@ namespace CFE.DAL
             {
                 Console.WriteLine(ex.StackTrace);
             }
-            
         }
     }
 }

@@ -6,7 +6,22 @@
     <title>@ViewData["Title"] - CFE.WebUI</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link href="/bootstrap-material-design/dist/css/bootstrap-material-design.css" rel="stylesheet">
+    <link href="/bootstrap-material-design/assets/css/docs.min.css" rel="stylesheet">
+    <link rel="apple-touch-icon" href="/bootstrap-material-design/apple-touch-icon.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 </head>
 <body>
     <header>
@@ -25,6 +40,22 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Form" asp-action="Create">Create</a>
+                        </li>
+                        <li class="nav-item dropdown nav-my-item" style="list-style-type: none">
+                            <a class="nav-link dropdown-toggle nav-my-item" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Color
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <button class="dropdown-item" href="#" onclick="changeColor('#eca1a6')">Red</button>
+                                <button class="dropdown-item" href="#" onclick="changeColor('#b5e7a0')">Green</button>
+                                <button class="dropdown-item" href="#" onclick="changeColor('lightblue')">Blue</button>
+                                <button class="dropdown-item" href="#" onclick="changeColor('#ffef96')">Yellow</button>
+                                <button class="dropdown-item" href="#" onclick="changeColor('#f9d5e5')">Pink</button>
+                            </div>
+                        </li>
                     </ul>
                 </div>
                 <div>
@@ -40,11 +71,6 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - CFE.WebUI - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -20,6 +20,11 @@ namespace CFE.DAL.Repositories
             if (element != null)
                 applicationContext.Elements.Add(element);
         }
+        public void Create(List<Element> listElement)
+        {
+            if (listElement != null)
+                applicationContext.Elements.AddRange(listElement);
+        }
 
         public void Delete(int id)
         {
@@ -34,7 +39,7 @@ namespace CFE.DAL.Repositories
             if (element != null)
             {
                 return applicationContext.Elements.FirstOrDefault(i => i.Name == element.Name &&
-                                                                    i.Description == element.Description).Id;
+                                                                       i.Description == element.Description).Id;
             }
             return negativeResult;
         }

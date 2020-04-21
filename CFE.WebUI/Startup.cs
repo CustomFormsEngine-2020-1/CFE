@@ -32,7 +32,7 @@ namespace CFE.WebUI
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>();
             services.AddControllersWithViews();
             
-            services.AddAutoMapper(typeof(MappingProfile).Assembly);
+            services.AddAutoMapper(typeof(MappingProfile));
             services.AddDIServices();
         }
 

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace CFE.BLL.BL
 {
-    public class QuestionCreateBL
+    public class MainQuestionBL
     {
         private IUnitOfWork unitOfWork;
         private IMapper mapper;
@@ -22,7 +22,7 @@ namespace CFE.BLL.BL
         private AttributeBL attributeBL;
         private AttributeResultBL attributeResultBL;
 
-        public QuestionCreateBL(IMapper _mapper, IUnitOfWork _unitOfWork, 
+        public MainQuestionBL(IMapper _mapper, IUnitOfWork _unitOfWork, 
                                 FormViewModel _formViewModel, List<QuestionCreateViewModel> _listQuestionCreateViewModel)
         {
             // unitOfWork = new UnitOfWork();
@@ -46,7 +46,7 @@ namespace CFE.BLL.BL
                     Name = questionCreateViewModel.ElementViewModel.Name,
                     Description = questionCreateViewModel.ElementViewModel.Description
                 };
-                elementBL.Create(elementViewModel); // ??? 
+                // elementBL.Create(elementViewModel); // ??? 
 
                 QuestionViewModel questionViewModel = new QuestionViewModel
                 {

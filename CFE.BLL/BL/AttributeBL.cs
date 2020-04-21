@@ -19,13 +19,13 @@ namespace CFE.BLL.BL
             // unitOfWork = new UnitOfWork();
             unitOfWork = _unitOfWork;
             mapper = _mapper;
-            // mapper = new MapperConfiguration(config => config.CreateMap<Attribute, AttributeViewModel>()).CreateMapper();
         }
         public void Create(AttributeViewModel attributeViewModel)
         {
             if (attributeViewModel != null)
             {
-                unitOfWork.Attributes.Create(MappingAttributeViewModel(attributeViewModel));
+                unitOfWork.Attributes.Create(mapper.Map<CFE.Entities.Models.Attribute>(attributeViewModel));
+                // unitOfWork.Attributes.Create(MappingAttributeViewModel(attributeViewModel));
                 unitOfWork.Save();
             }
         }
@@ -40,7 +40,8 @@ namespace CFE.BLL.BL
         {
             if (attributeViewModel != null)
             {
-                unitOfWork.Attributes.Update(MappingAttributeViewModel(attributeViewModel));
+                unitOfWork.Attributes.Update(mapper.Map<CFE.Entities.Models.Attribute>(attributeViewModel));
+                // unitOfWork.Attributes.Update(MappingAttributeViewModel(attributeViewModel));
                 unitOfWork.Save();
             }
         }
@@ -52,23 +53,24 @@ namespace CFE.BLL.BL
         {
             int negativeResult = -1;
             if (attributeViewModel != null)
-                return unitOfWork.Attributes.GetId(MappingAttributeViewModel(attributeViewModel));
+                return unitOfWork.Attributes.GetId(mapper.Map<CFE.Entities.Models.Attribute>(attributeViewModel));
+                // return unitOfWork.Attributes.GetId(MappingAttributeViewModel(attributeViewModel));
             return negativeResult;
         }
-        private CFE.Entities.Models.Attribute MappingAttributeViewModel(AttributeViewModel attributeViewModel)
-        {
-            CFE.Entities.Models.Attribute negativeResult = null;
-            if (attributeViewModel != null)
-            {
-                var config = new MapperConfiguration(cfg => cfg.CreateMap<AttributeViewModel, CFE.Entities.Models.Attribute>()
-                    .ForMember("Name", opt => opt.MapFrom(item => item.Name))
-                    .ForMember("DisplayName", opt => opt.MapFrom(item => item.DisplayName))
-                    .ForMember("ElementId", opt => opt.MapFrom(item => item.ElementId)));
-                var mapper = new Mapper(config);
-                // Выполняем сопоставление
-                return mapper.Map<AttributeViewModel, CFE.Entities.Models.Attribute>(attributeViewModel);
-            }
-            return negativeResult;
-        }
+        // private CFE.Entities.Models.Attribute MappingAttributeViewModel(AttributeViewModel attributeViewModel)
+        // {
+        //     CFE.Entities.Models.Attribute negativeResult = null;
+        //     if (attributeViewModel != null)
+        //     {
+        //         var config = new MapperConfiguration(cfg => cfg.CreateMap<AttributeViewModel, CFE.Entities.Models.Attribute>()
+        //             .ForMember("Name", opt => opt.MapFrom(item => item.Name))
+        //             .ForMember("DisplayName", opt => opt.MapFrom(item => item.DisplayName))
+        //             .ForMember("ElementId", opt => opt.MapFrom(item => item.ElementId)));
+        //         var mapper = new Mapper(config);
+        //         // Выполняем сопоставление
+        //         return mapper.Map<AttributeViewModel, CFE.Entities.Models.Attribute>(attributeViewModel);
+        //     }
+        //     return negativeResult;
+        // }
     }
 }

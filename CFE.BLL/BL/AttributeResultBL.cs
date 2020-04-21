@@ -19,13 +19,13 @@ namespace CFE.BLL.BL
             // unitOfWork = new UnitOfWork();
             unitOfWork = _unitOfWork;
             mapper = _mapper;
-            // mapper = new MapperConfiguration(config => config.CreateMap<AttributeResult, AttributeResultViewModel>()).CreateMapper();
         }
         public void Create(AttributeResultViewModel attributeResultViewModel)
         {
             if (attributeResultViewModel != null)
             {
-                unitOfWork.AttributeResults.Create(MappingAttributeResultViewModel(attributeResultViewModel));
+                unitOfWork.AttributeResults.Create(mapper.Map<AttributeResult>(attributeResultViewModel));
+                // unitOfWork.AttributeResults.Create(MappingAttributeResultViewModel(attributeResultViewModel));
                 unitOfWork.Save();
             }
         }
@@ -40,7 +40,8 @@ namespace CFE.BLL.BL
         {
             if (attributeResultViewModel != null)
             {
-                unitOfWork.AttributeResults.Update(MappingAttributeResultViewModel(attributeResultViewModel));
+                unitOfWork.AttributeResults.Update(mapper.Map<AttributeResult>(attributeResultViewModel));
+                // unitOfWork.AttributeResults.Update(MappingAttributeResultViewModel(attributeResultViewModel));
                 unitOfWork.Save();
             }
         }
@@ -52,22 +53,23 @@ namespace CFE.BLL.BL
         {
             int negativeResult = -1;
             if (attributeResultViewModel != null)
-                return unitOfWork.AttributeResults.GetId(MappingAttributeResultViewModel(attributeResultViewModel));
+                return unitOfWork.AttributeResults.GetId(mapper.Map<AttributeResult>(attributeResultViewModel));
+                // return unitOfWork.AttributeResults.GetId(MappingAttributeResultViewModel(attributeResultViewModel));
             return negativeResult;
         }
-        private AttributeResult MappingAttributeResultViewModel(AttributeResultViewModel attributeResultViewModel)
-        {
-            AttributeResult negativeResult = null;
-            if (attributeResultViewModel != null)
-            {
-                var config = new MapperConfiguration(cfg => cfg.CreateMap<AttributeResultViewModel, AttributeResult>()
-                    .ForMember("Value", opt => opt.MapFrom(item => item.Value))
-                    .ForMember("AttributeId", opt => opt.MapFrom(item => item.AttributeId)));
-                var mapper = new Mapper(config);
-                // Выполняем сопоставление
-                return mapper.Map<AttributeResultViewModel, AttributeResult>(attributeResultViewModel);
-            }
-            return negativeResult;
-        }
+        // private AttributeResult MappingAttributeResultViewModel(AttributeResultViewModel attributeResultViewModel)
+        // {
+        //     AttributeResult negativeResult = null;
+        //     if (attributeResultViewModel != null)
+        //     {
+        //         var config = new MapperConfiguration(cfg => cfg.CreateMap<AttributeResultViewModel, AttributeResult>()
+        //             .ForMember("Value", opt => opt.MapFrom(item => item.Value))
+        //             .ForMember("AttributeId", opt => opt.MapFrom(item => item.AttributeId)));
+        //         var mapper = new Mapper(config);
+        //         // Выполняем сопоставление
+        //         return mapper.Map<AttributeResultViewModel, AttributeResult>(attributeResultViewModel);
+        //     }
+        //     return negativeResult;
+        // }
     }
 }

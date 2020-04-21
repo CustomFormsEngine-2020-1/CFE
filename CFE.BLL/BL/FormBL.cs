@@ -21,13 +21,27 @@ namespace CFE.BLL.BL
         }
         public void Create(FormViewModel formViewModel)
         {
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<FormViewModel, Form>()
+                    .ForMember("Name", opt => opt.MapFrom(item => item.Name))
+                    .ForMember("Description", opt => opt.MapFrom(item => item.Description))
+                    .ForMember("DTCreate", opt => opt.MapFrom(item => item.DTCreate))
+                    .ForMember("DTStart", opt => opt.MapFrom(item => item.DTStart))
+                    .ForMember("DTFinish", opt => opt.MapFrom(item => item.DTFinish))
+                    .ForMember("IsPrivate", opt => opt.MapFrom(item => item.IsPrivate))
+                    .ForMember("IsAnonymity", opt => opt.MapFrom(item => item.IsAnonymity))
+                    .ForMember("IsEditingAfterSaving", opt => opt.MapFrom(src => src.IsEditingAfterSaving)));
+            var mapper = new Mapper(config);
+            // Выполняем сопоставление
+            Form form = mapper.Map<FormViewModel, Form>(formViewModel);
+            // Form form = mapper.Map<Form>(formViewModel);
+            //unitOfWork.Forms.Create(form);
+            //unitOfWork.Save();
             if (formViewModel != null)
             {
-                // Form form = mapper.Map<Form>(formViewModel);
-                unitOfWork.Forms.Create(MappingFormViewModel(formViewModel));
+                unitOfWork.Forms.Create(mapper.Map<Form>(formViewModel));
+                // unitOfWork.Forms.Create(MappingFormViewModel(formViewModel));
                 unitOfWork.Save();
             }
-            
         }
         public void Delete(int id)
         {
@@ -40,8 +54,8 @@ namespace CFE.BLL.BL
         {
             if (formViewModel != null)
             {
-                // unitOfWork.Forms.Update(mapper.Map<Form>(formViewModel));
-                unitOfWork.Forms.Update(MappingFormViewModel(formViewModel));
+                unitOfWork.Forms.Update(mapper.Map<Form>(formViewModel));
+                // unitOfWork.Forms.Update(MappingFormViewModel(formViewModel));
                 unitOfWork.Save(); 
             }
         }
@@ -54,30 +68,31 @@ namespace CFE.BLL.BL
         {
             int negativeResult = -1;
             if (formViewModel != null)
-                return unitOfWork.Forms.GetId(MappingFormViewModel(formViewModel));
+                return unitOfWork.Forms.GetId(mapper.Map<Form>(formViewModel));
+                // return unitOfWork.Forms.GetId(MappingFormViewModel(formViewModel));
             return negativeResult;
         }
 
-        private Form MappingFormViewModel(FormViewModel formViewModel)
-        {
-            Form negativeResult = null;
-            if (formViewModel != null)
-            {
-                var config = new MapperConfiguration(cfg => cfg.CreateMap<FormViewModel, Form>()
-                    .ForMember("Name", opt => opt.MapFrom(item => item.Name))
-                    .ForMember("Description", opt => opt.MapFrom(item => item.Description))
-                    .ForMember("DTCreate", opt => opt.MapFrom(item => item.DTCreate))
-                    .ForMember("DTStart", opt => opt.MapFrom(item => item.DTStart))
-                    .ForMember("DTFinish", opt => opt.MapFrom(item => item.DTFinish))
-                    .ForMember("IsPrivate", opt => opt.MapFrom(item => item.IsPrivate))
-                    .ForMember("IsAnonymity", opt => opt.MapFrom(item => item.IsAnonymity))
-                    .ForMember("IsEditingAfterSaving", opt => opt.MapFrom(src => src.IsEditingAfterSaving))
-                    .ForMember("UserId", opt => opt.MapFrom(src => src.UserId)));
-                var mapper = new Mapper(config);
-                // Выполняем сопоставление
-                return mapper.Map<FormViewModel, Form>(formViewModel); 
-            }
-            return negativeResult;
-        }
+        // private Form MappingFormViewModel(FormViewModel formViewModel)
+        // {
+        //     Form negativeResult = null;
+        //     if (formViewModel != null)
+        //     {
+        //         var config = new MapperConfiguration(cfg => cfg.CreateMap<FormViewModel, Form>()
+        //             .ForMember("Name", opt => opt.MapFrom(item => item.Name))
+        //             .ForMember("Description", opt => opt.MapFrom(item => item.Description))
+        //             .ForMember("DTCreate", opt => opt.MapFrom(item => item.DTCreate))
+        //             .ForMember("DTStart", opt => opt.MapFrom(item => item.DTStart))
+        //             .ForMember("DTFinish", opt => opt.MapFrom(item => item.DTFinish))
+        //             .ForMember("IsPrivate", opt => opt.MapFrom(item => item.IsPrivate))
+        //             .ForMember("IsAnonymity", opt => opt.MapFrom(item => item.IsAnonymity))
+        //             .ForMember("IsEditingAfterSaving", opt => opt.MapFrom(src => src.IsEditingAfterSaving))
+        //             .ForMember("UserId", opt => opt.MapFrom(src => src.UserId)));
+        //         var mapper = new Mapper(config);
+        //         // Выполняем сопоставление
+        //         return mapper.Map<FormViewModel, Form>(formViewModel); 
+        //     }
+        //     return negativeResult;
+        // }
     }
 }

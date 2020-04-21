@@ -43,17 +43,17 @@ namespace CFE.DAL.Context
             // modelBuilder.Entity<Element>().HasData(
             // new Element[]
             // {
-            //      new Element { Name = "TextBox", Description = "Однострочный текст" },
-            //      new Element { Name = "TextArea", Description = "Многострочный текст" },
-            //      new Element { Name = "Number", Description = "Число" },
-            //      new Element { Name = "CheckBox", Description = "Множественный выбор" },
-            //      new Element { Name = "CheckList", Description = "Список ответов" },
-            //      new Element { Name = "RadioButton", Description = "Переключатель - единичный выбор" },
-            //      new Element { Name = "DropDown", Description = "Выпадающий список" },
-            //      new Element { Name = "DatePicker", Description = "Выбор даты" },
-            //      new Element { Name = "TimePicker", Description = "Выбор времени" },
-            //      new Element { Name = "MonthCalendar", Description = "Промежуток дат" },
-            //      new Element { Name = "File", Description = "Файл" },
+            //       new Element { Id = 1, Name = "TextBox", Description = "Однострочный текст" },
+            //       new Element { Id = 2, Name = "TextArea", Description = "Многострочный текст" },
+            //       new Element { Id = 3, Name = "Number", Description = "Число" },
+            //       new Element { Id = 4, Name = "CheckBox", Description = "Множественный выбор" },
+            //       new Element { Id = 5, Name = "CheckList", Description = "Список ответов" },
+            //       new Element { Id = 6, Name = "RadioButton", Description = "Переключатель - единичный выбор" },
+            //       new Element { Id = 7, Name = "DropDown", Description = "Выпадающий список" },
+            //       new Element { Id = 8, Name = "DatePicker", Description = "Выбор даты" },
+            //       new Element { Id = 9, Name = "TimePicker", Description = "Выбор времени" },
+            //       new Element { Id = 10, Name = "MonthCalendar", Description = "Промежуток дат" },
+            //       new Element { Id = 11, Name = "File", Description = "Файл" },
             // });
 
             // modelBuilder.Entity<CFE.Entities.Models.Attribute>().HasData(
