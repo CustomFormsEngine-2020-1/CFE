@@ -44,17 +44,6 @@ namespace CFE.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            //try
-            //{
-            //    userCreateBL = new UserBL(mapper, unitOfWork);
-            //    userCreateBL.Create(userViewModel);
-
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //catch
-            //{
-            //    return View("Register");
-            //}
 
             if (ModelState.IsValid)
             {
@@ -65,7 +54,7 @@ namespace CFE.WebUI.Controllers
                 {
                     // установка куки
                     await _signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Account");
                 }
                 else
                 {
@@ -82,8 +71,7 @@ namespace CFE.WebUI.Controllers
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
-            return View();
-           // return View(new LoginViewModel { ReturnUrl = returnUrl });
+            return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
 
         [HttpPost]
@@ -103,7 +91,7 @@ namespace CFE.WebUI.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Account");
                     }
                 }
                 else
@@ -119,8 +107,8 @@ namespace CFE.WebUI.Controllers
         public async Task<IActionResult> Logout()
         {
             // удаляем аутентификационные куки
-           // await _signInManager.SignOutAsync();
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await _signInManager.SignOutAsync();
+            
             return RedirectToAction("Index", "Home");
         }
 
