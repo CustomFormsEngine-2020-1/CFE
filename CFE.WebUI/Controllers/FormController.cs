@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using CFE.BLL.BL;
-using CFE.DAL;
 using CFE.Infrastructure.Interfaces;
-using CFE.ViewModels.VM;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace CFE.WebUI.Controllers
 {
@@ -40,7 +34,11 @@ namespace CFE.WebUI.Controllers
         {
             return View(formCreateBL.ResponseForm(id));
         }
-
+        
+        public ActionResult FormView()
+        {
+            return View();
+        }
 
         // GET: Form/Create
 

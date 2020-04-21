@@ -1,13 +1,11 @@
 ﻿using CFE.Entities.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CFE.Infrastructure.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        IRepository<User> Users { get; }
+        IUserRepository<User> Users { get; }
         IRepository<Form> Forms { get; }
         IRepository<Question> Questions { get; }
         IRepository<Answer> Answers { get; }

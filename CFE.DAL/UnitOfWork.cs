@@ -3,8 +3,6 @@ using CFE.DAL.Repositories;
 using CFE.Entities.Models;
 using CFE.Infrastructure.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CFE.DAL
 {
@@ -22,12 +20,13 @@ namespace CFE.DAL
         private AnswerResultRepository answerResultRepository;
         private AttributeResultRepository attributeResultRepository;
 
-        public UnitOfWork()
+        public UnitOfWork(ApplicationContext context)
         {
-            applicationContext = new ApplicationContext();
+            //applicationContext = new ApplicationContext();
+            applicationContext = context;
         }
 
-        public IRepository<User> Users
+        public IUserRepository<User> Users
         {
             get
             {

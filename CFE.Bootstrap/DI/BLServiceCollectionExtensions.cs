@@ -1,15 +1,7 @@
-﻿using CFE.BLL.BL;
-// using CFE.BLL.DTO;
+﻿// using CFE.BLL.DTO;
 using CFE.DAL;
-using CFE.DAL.Context;
-using CFE.DAL.Repositories;
-using CFE.Entities.Models;
 using CFE.Infrastructure.Interfaces;
-using CFE.ViewModels.VM;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CFE.Bootstrap.DI
 {

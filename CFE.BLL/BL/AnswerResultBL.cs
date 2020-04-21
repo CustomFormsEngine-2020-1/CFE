@@ -1,12 +1,9 @@
 using AutoMapper;
-using CFE.BLL.DTO;
-using CFE.DAL;
 using CFE.Entities.Models;
 using CFE.Infrastructure.Interfaces;
 using CFE.ViewModels.VM;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CFE.BLL.BL
 {
@@ -54,7 +51,7 @@ namespace CFE.BLL.BL
             int negativeResult = -1;
             if (answerResultViewModel != null)
                 return unitOfWork.AnswerResults.GetId(mapper.Map<AnswerResult>(answerResultViewModel));
-                // return unitOfWork.AnswerResults.GetId(MappingAnswerResultViewModel(answerResultViewModel));
+            // return unitOfWork.AnswerResults.GetId(MappingAnswerResultViewModel(answerResultViewModel));
             return negativeResult;
         }
         // private AnswerResult MappingAnswerResultViewModel(AnswerResultViewModel answerResultViewModel)
