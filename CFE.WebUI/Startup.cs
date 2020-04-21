@@ -1,8 +1,12 @@
 using AutoMapper;
 using CFE.Bootstrap.DI;
 using CFE.Bootstrap.Mapping;
+using CFE.DAL.Context;
+using CFE.Entities.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -39,7 +43,7 @@ namespace CFE.WebUI
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
                 });
             services.AddControllersWithViews();
-            
+
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddDIServices();
         }

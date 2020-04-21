@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using CFE.Infrastructure.Interfaces;
 using CFE.ViewModels.VM;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CFE.BLL.BL
 {
@@ -22,7 +20,7 @@ namespace CFE.BLL.BL
         private AttributeBL attributeBL;
         private AttributeResultBL attributeResultBL;
 
-        public MainQuestionBL(IMapper _mapper, IUnitOfWork _unitOfWork, 
+        public MainQuestionBL(IMapper _mapper, IUnitOfWork _unitOfWork,
                                 FormViewModel _formViewModel, List<QuestionCreateViewModel> _listQuestionCreateViewModel)
         {
             // unitOfWork = new UnitOfWork();

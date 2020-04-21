@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CFE.Infrastructure.Interfaces;
+using CFE.WebUI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using CFE.WebUI.Models;
-using CFE.Infrastructure.Interfaces;
+using System.Diagnostics;
 
 namespace CFE.WebUI.Controllers
 {
@@ -17,7 +13,7 @@ namespace CFE.WebUI.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            
+
         }
 
         public IActionResult Index()

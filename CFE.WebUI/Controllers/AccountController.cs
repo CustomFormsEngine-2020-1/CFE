@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using CFE.BLL.BL;
-using CFE.ViewModels.VM;
-using CFE.ViewModels.VM.Users;
 using CFE.Entities.Models;
 using CFE.Infrastructure.Interfaces;
+using CFE.ViewModels.VM;
+using CFE.ViewModels.VM.Users;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -33,7 +34,7 @@ namespace CFE.WebUI.Controllers
         {
             return View();
         }
-      
+
 
         [HttpGet]
         public IActionResult Register()

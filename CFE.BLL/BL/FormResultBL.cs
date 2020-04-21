@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
-using CFE.BLL.DTO;
-using CFE.DAL;
 using CFE.Entities.Models;
 using CFE.Infrastructure.Interfaces;
 using CFE.ViewModels.VM;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CFE.BLL.BL
 {
@@ -26,7 +23,7 @@ namespace CFE.BLL.BL
             {
                 unitOfWork.FormResults.Create(mapper.Map<FormResult>(formResultViewModel));
                 // unitOfWork.FormResults.Create(MappingFormResultViewModel(formResultViewModel));
-                unitOfWork.Save(); 
+                unitOfWork.Save();
             }
         }
         public void Delete(int id)
@@ -42,7 +39,7 @@ namespace CFE.BLL.BL
             {
                 unitOfWork.FormResults.Update(mapper.Map<FormResult>(formResultViewModel));
                 // unitOfWork.FormResults.Update(MappingFormResultViewModel(formResultViewModel));
-                unitOfWork.Save(); 
+                unitOfWork.Save();
             }
         }
         public void Dispose()
@@ -55,7 +52,7 @@ namespace CFE.BLL.BL
             int negativeResult = -1;
             if (formResultViewModel != null)
                 return unitOfWork.FormResults.GetId(mapper.Map<FormResult>(formResultViewModel));
-                // return unitOfWork.FormResults.GetId(MappingFormResultViewModel(formResultViewModel));
+            // return unitOfWork.FormResults.GetId(MappingFormResultViewModel(formResultViewModel));
             return negativeResult;
         }
         // private FormResult MappingFormResultViewModel(FormResultViewModel formResultViewModel)

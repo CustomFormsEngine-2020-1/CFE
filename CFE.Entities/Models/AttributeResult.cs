@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CFE.Entities.Models
+﻿namespace CFE.Entities.Models
 {
     public class AttributeResult
     {

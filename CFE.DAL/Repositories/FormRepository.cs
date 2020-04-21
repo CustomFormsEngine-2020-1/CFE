@@ -1,10 +1,8 @@
 ﻿using CFE.DAL.Context;
 using CFE.Entities.Models;
 using CFE.Infrastructure.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace CFE.DAL.Repositories
 {
@@ -58,7 +56,7 @@ namespace CFE.DAL.Repositories
             int negativeResult = -1;
             if (form != null)
             {
-                return applicationContext.Forms.FirstOrDefault(i => i.Name == form.Name && 
+                return applicationContext.Forms.FirstOrDefault(i => i.Name == form.Name &&
                                                                     i.Description == form.Description &&
                                                                     i.DTCreate == form.DTCreate &&
                                                                     i.DTStart == form.DTStart &&

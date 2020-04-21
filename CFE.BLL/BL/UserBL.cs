@@ -1,13 +1,9 @@
 ﻿using AutoMapper;
-using CFE.BLL.DTO;
-using CFE.DAL;
 using CFE.Entities.Models;
 using CFE.Infrastructure.Interfaces;
 using CFE.ViewModels.VM;
-using CFE.ViewModels.VM.Users;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CFE.BLL.BL
 {
@@ -26,7 +22,7 @@ namespace CFE.BLL.BL
             {
                 userViewModel.Id = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
                 unitOfWork.Users.Create(mapper.Map<User>(userViewModel));
-                unitOfWork.Save(); 
+                unitOfWork.Save();
             }
         }
         public void Delete(string id)
@@ -41,7 +37,7 @@ namespace CFE.BLL.BL
             if (userViewModel != null)
             {
                 unitOfWork.Users.Update(mapper.Map<User>(userViewModel));
-                unitOfWork.Save(); 
+                unitOfWork.Save();
             }
         }
         public void Dispose()

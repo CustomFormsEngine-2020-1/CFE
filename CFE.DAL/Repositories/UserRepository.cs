@@ -1,10 +1,8 @@
 ﻿using CFE.DAL.Context;
 using CFE.Entities.Models;
 using CFE.Infrastructure.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace CFE.DAL.Repositories
 {
@@ -15,13 +13,13 @@ namespace CFE.DAL.Repositories
         {
             this.applicationContext = applicationContext;
         }
-        public  void Create(User user)
+        public void Create(User user)
         {
             if (user != null)
                 applicationContext.Users.Add(user);
         }
 
-        public  void Delete(string id)
+        public void Delete(string id)
         {
             User user = applicationContext.Users.Find(id);
             if (user != null)
@@ -30,7 +28,7 @@ namespace CFE.DAL.Repositories
 
         public string GetId(User user)
         {
-            string  negativeResult = null;
+            string negativeResult = null;
             if (user != null)
             {
                 //return applicationContext.Users.FirstOrDefault(i => i.Login == user.Login &&
@@ -41,7 +39,7 @@ namespace CFE.DAL.Repositories
             return negativeResult;
         }
 
-        public User Read(string id) => applicationContext.Users.Find(id) ?? new User(); 
+        public User Read(string id) => applicationContext.Users.Find(id) ?? new User();
         public IEnumerable<User> ReadAll() => applicationContext.Users.ToList() ?? new List<User>();
 
         public void Update(User user)
@@ -52,7 +50,7 @@ namespace CFE.DAL.Repositories
                 applicationContext.Users.Remove(previousUser);
                 User newUser = new User()
                 {
-                   // Login = user.Login,
+                    // Login = user.Login,
                     Password = user.Password,
                     Email = user.Email
                 };

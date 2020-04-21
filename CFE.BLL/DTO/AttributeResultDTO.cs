@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CFE.BLL.DTO
+﻿namespace CFE.BLL.DTO
 {
     // public class AttributeResultDTO
     // {

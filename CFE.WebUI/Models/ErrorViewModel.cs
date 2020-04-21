@@ -1,5 +1,3 @@
-using System;
-
 namespace CFE.WebUI.Models
 {
     public class ErrorViewModel
