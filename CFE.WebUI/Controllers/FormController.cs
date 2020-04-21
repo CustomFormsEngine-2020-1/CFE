@@ -1,9 +1,15 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.Json;
+using System.Threading.Tasks;
+using AutoMapper;
 using CFE.BLL.BL;
+using CFE.DAL;
 using CFE.Infrastructure.Interfaces;
+using CFE.ViewModels.VM;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
 namespace CFE.WebUI.Controllers
 {
@@ -11,13 +17,13 @@ namespace CFE.WebUI.Controllers
     {
         private IMapper mapper;
         private IUnitOfWork unitOfWork;
-        private MainFormBL formCreateBL;
+        private MainFormBL mainFormBL;
         // private FormBL formBL;
         public FormController(IMapper _mapper, IUnitOfWork _unitOfWork)
         {
             mapper = _mapper;
             unitOfWork = _unitOfWork;
-            formCreateBL = new MainFormBL(mapper, unitOfWork);
+            mainFormBL = new MainFormBL(mapper, unitOfWork);
             // formBL = new FormBL(mapper, unitOfWork);
         }
         // GET: Form
@@ -30,15 +36,8 @@ namespace CFE.WebUI.Controllers
         // public ActionResult Details() => View(mapper.Map<List<FormViewModel>>(formBL.ReadAll()));
 
         // GET: Form/Details/5
-        public ActionResult Details(int id)
-        {
-            return View(formCreateBL.ResponseForm(id));
-        }
-        
-        public ActionResult FormView()
-        {
-            return View();
-        }
+        public ActionResult Details(int id) => View(mainFormBL.ResponseForm(id));
+
 
         // GET: Form/Create
 
@@ -54,7 +53,7 @@ namespace CFE.WebUI.Controllers
             try
             {
                 // TODO: Add insert logic here
-                formCreateBL.SaveForm(jsonElement);
+                mainFormBL.SaveForm(jsonElement);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -89,6 +88,7 @@ namespace CFE.WebUI.Controllers
         // GET: Form/Delete/5
         public ActionResult Delete(int id)
         {
+            mainFormBL.DeleteForm(id);
             return View();
         }
 
