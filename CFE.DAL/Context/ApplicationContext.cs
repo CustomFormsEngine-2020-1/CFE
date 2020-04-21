@@ -19,11 +19,10 @@ namespace CFE.DAL.Context
         public DbSet<Element> Elements { get; set; }
         public DbSet<CFE.Entities.Models.Attribute> Attributes { get; set; }
         public DbSet<AttributeResult> AttributeResults { get; set; }
-
         public ApplicationContext()
         {
-            // Database.EnsureDeleted();
-            Database.EnsureCreated();
+            //Database.EnsureDeleted();
+           // Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

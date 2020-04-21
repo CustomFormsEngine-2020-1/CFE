@@ -1,0 +1,32 @@
+.nav-my-bg {
+  background-color: white;
+}
+
+.nav-my-item {
+  color: black;
+}
+
+.headline {
+  background-color: white;
+  margin-top: 20px;
+  width: 70%;
+  margin-left: 15%;
+  border-radius: 15px;
+  border: 1px solid lightslategrey;
+  padding: 10px;
+}
+
+.headline-item {
+  padding: 10px;
+}
+
+.question {
+  background-color: white;
+  margin-top: 20px;
+  width: 70%;
+  margin-left: 15%;
+  border-radius: 15px;
+  border: 1px solid lightslategrey;
+  padding: 10px;
+}
+/*# sourceMappingURL=style.css.map */

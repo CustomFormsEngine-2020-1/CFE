@@ -68,6 +68,45 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+
+
+
+<div id="app">
+    <div class="headline" id="headline">
+        <form align=center>
+            <div class="md-form headline-item">
+                <input type="text" id="form1" class="form-control" v-on:input="updateName" :value="formData.name"
+                       style="font-size: 250%;">
+            </div>
+            <div class="md-form form-sm headline-item">
+                <input type="text" id="inputSMEx" class="form-control form-control-sm"
+                       v-on:input="updateDescription" :value="formData.description">
+            </div>
+        </form>
+    </div>
+
+    <question ìd="question" v-for="(que, queIndex) in questions" :key="queIndex" :que="que" :que-index="queIndex"
+              :questions="questions">
+    </question>
+
+    <form align=center style="margin: 10px">
+        <button type="button" class="btn btn-primary" align=center v-on:click="addQuestion()">
+            Add
+            question
+        </button>
+        <button type="button" class="btn btn-primary" v-on:click="sendData">Send</button>
+    </form>
+</div>
+
+
+<script src="https://unpkg.com/vue"></script>
+<script src="~/js/site.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

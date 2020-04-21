@@ -1,9 +1,3 @@
-ï»¿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-
-
 const answerTypeText = 'Text';
 const answerTypeNumber = 'Number';
 const answerTypeTextarea = 'Textarea';
@@ -68,13 +62,13 @@ Vue.component('question', {
     <div class="question">
     <form>
 
-        <! â€“â€“ QUESTION NAME â€“â€“>
+        <! –– QUESTION NAME ––>
 
             <div class="md-form headline-item">
                 <input type="text" id="form1" class="form-control" v-on:input="updateText" v-bind:value="que.name">
             </div>
 
-            <! â€“â€“ CHOOSE TYPE OF QUESTION â€“â€“>
+            <! –– CHOOSE TYPE OF QUESTION ––>
 
                 <li class="nav-item dropdown nav-my-item" style="list-style-type: none; display: flex;
                 align-items: center; justify-content: flex-start;">
@@ -94,7 +88,7 @@ Vue.component('question', {
                   </div>
                 </li>
 
-                <! â€“â€“ ANSWERS â€“â€“>
+                <! –– ANSWERS ––>
 
                     <div v-for="(ans, index) in que.answers"
                         style="display: flex;justify-content: space-between; align-items: flex-start;">
@@ -157,7 +151,7 @@ Vue.component('question', {
                             style="margin-left: 10px; margin-bottom: 0px;">
                             <label style="margin-bottom: 0px;">File input</label>
                         </div>
-                    <! â€“â€“ ADD â€“â€“>
+                    <! –– ADD ––>
                         <div style="display: flex; justify-content: space-between">
                                     <div class="nav-link nav-my-item"
                                         v-if="que.answerType =='Radiobutton' || que.answerType =='Checkbox' || que.answerType =='Drop-down'">
@@ -285,7 +279,7 @@ var app = new Vue({
             }
             const jsonData = JSON.stringify(dataToSend);
 
-            fetch('http://localhost:44378/Form/Create', {
+            fetch('http://localhost:44378', {
                 method: 'POST',
                 body: jsonData,
                 headers: {
