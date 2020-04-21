@@ -33,9 +33,10 @@ namespace CFE.DAL.Repositories
             int negativeResult = -1;
             if (user != null)
             {
-                return applicationContext.Users.FirstOrDefault(i => i.Login == user.Login &&
-                                                                    i.Password == user.Password &&
-                                                                    i.Email == user.Email).Id;
+                return user.Id;
+                // return applicationContext.Users.FirstOrDefault(i => i.Login == user.Login &&
+                //                                                     i.Password == user.Password &&
+                //                                                     i.Email == user.Email).Id;
             }
             return negativeResult;
         }

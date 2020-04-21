@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using CFE.Entities.Models;
 using CFE.Infrastructure.Interfaces;
 using CFE.ViewModels.VM;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CFE.BLL.BL
@@ -22,14 +24,12 @@ namespace CFE.BLL.BL
         private AttributeBL attributeBL;
         private AttributeResultBL attributeResultBL;
 
-        public MainQuestionBL(IMapper _mapper, IUnitOfWork _unitOfWork, 
-                                FormViewModel _formViewModel, List<QuestionCreateViewModel> _listQuestionCreateViewModel)
+        public MainQuestionBL(IMapper _mapper, IUnitOfWork _unitOfWork)
         {
             // unitOfWork = new UnitOfWork();
             unitOfWork = _unitOfWork;
             mapper = _mapper;
-            formViewModel = _formViewModel;
-            listQuestionCreateViewModel = _listQuestionCreateViewModel;
+            formBL = new FormBL(mapper, unitOfWork);
             questionBL = new QuestionBL(mapper, unitOfWork);
             elementBL = new ElementBL(mapper, unitOfWork);
             answerBL = new AnswerBL(mapper, unitOfWork);
@@ -37,8 +37,10 @@ namespace CFE.BLL.BL
             attributeResultBL = new AttributeResultBL(mapper, unitOfWork);
         }
 
-        public void Create()
+        public void Create(FormViewModel _formViewModel, List<QuestionCreateViewModel> _listQuestionCreateViewModel)
         {
+            formViewModel = _formViewModel;
+            listQuestionCreateViewModel = _listQuestionCreateViewModel;
             foreach (var questionCreateViewModel in listQuestionCreateViewModel)
             {
                 ElementViewModel elementViewModel = new ElementViewModel
@@ -55,13 +57,14 @@ namespace CFE.BLL.BL
                     ElementId = elementBL.GetId(elementViewModel)
                 };
                 questionBL.Create(questionViewModel);
+                int questionId = questionBL.GetId(questionViewModel);
 
                 foreach (var answerViewModel in questionCreateViewModel.AnswerViewModel)
                 {
                     AnswerViewModel answerVM = new AnswerViewModel
                     {
                         Name = answerViewModel.Name,
-                        QuestionId = questionBL.GetId(questionViewModel)
+                        QuestionId = questionId
                     };
                     answerBL.Create(answerVM);
                 }
@@ -72,7 +75,7 @@ namespace CFE.BLL.BL
                     {
                         Name = attributeViewModel.Name,
                         DisplayName = attributeViewModel.DisplayName,
-                        ElementId = elementBL.GetId(elementViewModel)
+                        QuestionId = questionId
                     };
                     attributeBL.Create(attributeVM);
                 }
@@ -89,8 +92,25 @@ namespace CFE.BLL.BL
             }
         }
 
-
-
-
+        public List<QuestionCreateViewModel> GetQuestionCreateViewModel(int formId)
+        {
+            listQuestionCreateViewModel = new List<QuestionCreateViewModel>();
+            var questionViewModels = questionBL.ReadAll().Where(i => i.FormId == formId).ToList();
+            foreach (var questionViewModel in questionViewModels)
+            {
+                QuestionCreateViewModel questionCreateViewModel = new QuestionCreateViewModel();
+                int questionId = questionBL.GetId(questionViewModel);
+                questionCreateViewModel.QuestionViewModel = questionViewModel;
+                questionCreateViewModel.ElementViewModel = elementBL.Read(questionViewModel.ElementId);
+                questionCreateViewModel.AnswerViewModel = answerBL.ReadAll().Where(i => i.QuestionId == questionId).ToList();
+                questionCreateViewModel.AttributeViewModel = attributeBL.ReadAll().Where(i => i.QuestionId == questionId).ToList();
+                foreach (var attribute in questionCreateViewModel.AttributeViewModel)
+                {
+                    questionCreateViewModel.AttributeResultViewModel.Add(attributeResultBL.ReadAll()
+                        .FirstOrDefault(i => i.AttributeId == attributeBL.GetId(attribute)));
+                }
+            }
+            return listQuestionCreateViewModel;
+        }
     }
 }

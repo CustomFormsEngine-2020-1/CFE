@@ -19,6 +19,7 @@ namespace CFE.BLL.BL
         private FormViewModel formViewModel;
         private List<QuestionCreateViewModel> listQuestionCreateViewModel;
         private FormBL formBL;
+        private MainQuestionBL mainQuestionBL;
 
         public MainFormBL()
         {
@@ -32,11 +33,24 @@ namespace CFE.BLL.BL
             // formCreateViewModel = _formCreateViewModel;
             // jsonElement = _jsonElement;
             formBL = new FormBL(mapper, unitOfWork);
+            mainQuestionBL = new MainQuestionBL(mapper, unitOfWork);
             // JsonDeserialize(value);
             // CreateForm();
         }
 
+        public void SaveForm(JsonElement jsonElement)
+        {
+            JsonDeserialize(jsonElement);
+            CreateFormViewModel();
+            CreateQuestionCreateViewModel();
+        }
 
+        public string ResponseForm(int formId)
+        {
+            FormCreateViewModel formCreateViewModel = CreateFormCreateViewModel(formId);
+            string json = JsonSerializer.Serialize<FormCreateViewModel>(formCreateViewModel);
+            return json;
+        }
         public void JsonDeserialize(JsonElement jsonElement)
         {
             var json = jsonElement.GetRawText();
@@ -61,7 +75,7 @@ namespace CFE.BLL.BL
         public FormCreateViewModel CreateFormCreateViewModel(int formId)
         {
             FormViewModel formViewModel = formBL.Read(formId);
-            formCreateViewModel = new FormCreateViewModel
+            FormCreateViewModel formCreateViewModel = new FormCreateViewModel
             {
                 Name = formViewModel.Name,
                 Description = formViewModel.Description,
@@ -72,7 +86,7 @@ namespace CFE.BLL.BL
                 IsAnonymity = formViewModel.IsAnonymity.ToString(),
                 IsEditingAfterSaving = formViewModel.IsEditingAfterSaving.ToString(),
                 UserId = formViewModel.UserId.ToString(),
-                QuestionCreateViewModel = new List<QuestionCreateViewModel>()
+                QuestionCreateViewModel = mainQuestionBL.GetQuestionCreateViewModel(formId)
             };
             return formCreateViewModel;
         }
@@ -80,8 +94,8 @@ namespace CFE.BLL.BL
         public void CreateQuestionCreateViewModel()
         {
             List<QuestionCreateViewModel> listQuestionCreateViewModel = formCreateViewModel.QuestionCreateViewModel;
-            MainQuestionBL mainQuestionCreateBL = new MainQuestionBL(mapper, unitOfWork, formViewModel, listQuestionCreateViewModel);
-            mainQuestionCreateBL.Create();
+            MainQuestionBL mainQuestionCreateBL = new MainQuestionBL(mapper, unitOfWork);
+            mainQuestionCreateBL.Create(formViewModel, listQuestionCreateViewModel);
         }
         private DateTime? ConvertingStringDateTimeToSqlDateTime(string stringDateTime, string sqlFormatDateTime = "yyyy-MM-dd HH:mm:ss")
         {
