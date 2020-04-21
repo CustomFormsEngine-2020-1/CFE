@@ -43,11 +43,11 @@ namespace CFE.WebUI.Controllers
 
 
         // GET: Form/Create
+
         public ActionResult Create()
         {
             return View();
         }
-
         // POST: Form/Create
         [HttpPost]
         [ValidateAntiForgeryToken]

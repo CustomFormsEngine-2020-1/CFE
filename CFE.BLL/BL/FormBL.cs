@@ -21,6 +21,21 @@ namespace CFE.BLL.BL
         }
         public void Create(FormViewModel formViewModel)
         {
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<FormViewModel, Form>()
+                    .ForMember("Name", opt => opt.MapFrom(item => item.Name))
+                    .ForMember("Description", opt => opt.MapFrom(item => item.Description))
+                    .ForMember("DTCreate", opt => opt.MapFrom(item => item.DTCreate))
+                    .ForMember("DTStart", opt => opt.MapFrom(item => item.DTStart))
+                    .ForMember("DTFinish", opt => opt.MapFrom(item => item.DTFinish))
+                    .ForMember("IsPrivate", opt => opt.MapFrom(item => item.IsPrivate))
+                    .ForMember("IsAnonymity", opt => opt.MapFrom(item => item.IsAnonymity))
+                    .ForMember("IsEditingAfterSaving", opt => opt.MapFrom(src => src.IsEditingAfterSaving)));
+            var mapper = new Mapper(config);
+            // Выполняем сопоставление
+            Form form = mapper.Map<FormViewModel, Form>(formViewModel);
+            // Form form = mapper.Map<Form>(formViewModel);
+            //unitOfWork.Forms.Create(form);
+            //unitOfWork.Save();
             if (formViewModel != null)
             {
                 unitOfWork.Forms.Create(mapper.Map<Form>(formViewModel));
