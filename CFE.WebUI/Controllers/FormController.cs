@@ -70,7 +70,7 @@ namespace CFE.WebUI.Controllers
         // GET: Form/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View("FormView");
         }
 
         // POST: Form/Edit/5
