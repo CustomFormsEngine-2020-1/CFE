@@ -232,7 +232,7 @@ function transformQuestionsToSendingDataFormat(questions) {
                 Name: "isRequired",
                 DisplayName: "Required",
             }],
-            AttributeResultViewModel: { Value: que.isRequired },
+            AttributeResultViewModel: { Value: (que.isRequired || que.isRequired === false) && que.isRequired.toString() },
             AnswerViewModel: que.answers.map(ans => ({ Name: ans.value }))
         })
     })
@@ -290,6 +290,7 @@ var app = new Vue({
                 IsAnonymity: localFormData.isAnonymity,
                 IsEditingAfterSaving: localFormData.isEditingAfterSaving,
                 UserId: "test user",
+                QuestionCreateViewModel: transformQuestionsToSendingDataFormat(this.questions)
             }
             const jsonData = JSON.stringify(dataToSend);
 
