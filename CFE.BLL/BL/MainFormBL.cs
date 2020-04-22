@@ -95,6 +95,38 @@ namespace CFE.BLL.BL
             MainQuestionBL mainQuestionCreateBL = new MainQuestionBL(mapper, unitOfWork);
             mainQuestionCreateBL.Create(formViewModel, listQuestionCreateViewModel);
         }
+
+        public void DeleteForm(int formId)
+        {
+            FormBL formBL = new FormBL(mapper, unitOfWork);
+            QuestionBL questionBL = new QuestionBL(mapper, unitOfWork);
+            AnswerBL answerBL = new AnswerBL(mapper, unitOfWork);
+            AttributeBL attributeBL = new AttributeBL(mapper, unitOfWork);
+            AttributeResultBL attributeResultBL = new AttributeResultBL(mapper, unitOfWork);
+
+            var questionViewModels = questionBL.ReadAll().Where(i => i.FormId == formId).ToList();
+            foreach (var questionViewModel in questionViewModels)
+            {
+                int questionId = questionBL.GetId(questionViewModel);
+                var answerViewModels = answerBL.ReadAll().Where(i => i.QuestionId == questionId).ToList();
+
+                foreach (var answerViewModel in answerViewModels)
+                    answerBL.Delete(answerBL.GetId(answerViewModel));
+
+                var attributeViewModels = attributeBL.ReadAll().Where(i => i.QuestionId == questionId).ToList();
+                foreach (var attributeViewModel in attributeViewModels)
+                {
+                    int attributeId = attributeBL.GetId(attributeViewModel);
+                    AttributeResultViewModel attributeResultViewModel = attributeResultBL.ReadAll()
+                        .FirstOrDefault(i => i.AttributeId == attributeId);
+                    attributeResultBL.Delete(attributeResultBL.GetId(attributeResultViewModel));
+                    attributeBL.Delete(attributeId);
+                }
+                questionBL.Delete(questionId);
+            }
+            formBL.Delete(formId);
+        }
+
         private DateTime? ConvertingStringDateTimeToSqlDateTime(string stringDateTime, string sqlFormatDateTime = "yyyy-MM-dd HH:mm:ss")
         {
             DateTime sqlDateTime = new DateTime();                                                       // Resulting output variable in case of success
