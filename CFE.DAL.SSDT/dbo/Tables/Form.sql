@@ -8,7 +8,9 @@
     [IsPrivate]            BIT            NOT NULL,
     [IsAnonymity]          BIT            NOT NULL,
     [IsEditingAfterSaving] BIT            NOT NULL,
-    [UserId]               INT            NOT NULL,
+    [UserId]               NVARCHAR (MAX) NOT NULL,
     CONSTRAINT [PK_Form] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+
 

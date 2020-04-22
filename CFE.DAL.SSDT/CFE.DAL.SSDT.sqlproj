@@ -82,9 +82,9 @@
     <Build Include="dbo\Tables\__EFMigrationsHistory.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="dbo\Publish\CFE.DAL.SSDT.publish.xml" />
+    <RefactorLog Include="CFE.DAL.SSDT.refactorlog" />
   </ItemGroup>
   <ItemGroup>
-    <RefactorLog Include="CFE.DAL.SSDT.refactorlog" />
+    <None Include="dbo\Publish\CFE.DAL.SSDT.publish.xml" />
   </ItemGroup>
 </Project>
