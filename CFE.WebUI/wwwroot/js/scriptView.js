@@ -270,7 +270,7 @@ var app = new Vue({
             }
             const jsonData = JSON.stringify(dataToSend);
 
-            fetch('http://localhost:44378/Form/Create', {
+            fetch('https://localhost:44378/Form/Create', {
                 method: 'POST',
                 body: jsonData,
                 headers: {

@@ -49,7 +49,7 @@ namespace CFE.WebUI.Controllers
 
         // POST: Form/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Create(JsonElement jsonElement)
         {
             try

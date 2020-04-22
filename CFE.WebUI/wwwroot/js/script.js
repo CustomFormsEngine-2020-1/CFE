@@ -293,11 +293,12 @@ var app = new Vue({
                 QuestionCreateViewModel: transformQuestionsToSendingDataFormat(this.questions)
             }
             const jsonData = JSON.stringify(dataToSend);
-
-            fetch('http://localhost:44378/Form/Create', {
+           
+            fetch('/Form/Create', {
                 method: 'POST',
                 body: jsonData,
                 headers: {
+                    'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 }
             })
@@ -305,8 +306,11 @@ var app = new Vue({
                     alert("Successfully sent data.");
                 })
                 .catch(e => {
+                    console.log(e);
                     alert("Failed to send data. Something went wrong.")
                 })
+
+
 
         },
         redirectToView() {
