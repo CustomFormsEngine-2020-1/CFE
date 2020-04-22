@@ -22,6 +22,39 @@
                 <input type="text" id="inputSMEx" class="form-control form-control-sm"
                        v-on:input="updateDescription" :value="formData.description">
             </div>
+            <div class="form-group row" style="display: flex; align-items: center;  justify-content: flex-start;">
+                <label for="date-start" class="col-2 col-form-label">Form start</label>
+                <div class="col-10">
+                    <input class="form-control" type="datetime-local" v-model="formData.dtStart" id="date-start">
+                </div>
+            </div>
+            <div class="form-group row" style="display: flex; align-items: center;  justify-content: flex-start;">
+                <label for="date-end" class="col-2 col-form-label">Form end</label>
+                <div class="col-10">
+                    <input class="form-control" type="datetime-local" v-model="formData.dtStop" id="date-end">
+                </div>
+            </div>
+            <h5 style="color: darkred; text-align: center;" v-if="formData && formData.dtStart && formData.dtStop && new Date(formData.dtStart).getTime() >= new Date(formData.dtStop).getTime()">Date end MUST BE GREATER then date end!!!</h5>
+            <div style="display: flex;    align-items: center;    justify-content: space-around;">
+                <div style="display: flex; align-items: center;">
+                    <input type="checkbox" value="" v-model="formData.isPrivate">
+                    <label style="margin-bottom: 0;">
+                        Is private
+                    </label>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <input type="checkbox" value="" v-model="formData.isAnonymity">
+                    <label style="margin-bottom: 0;">
+                        Is anonymity
+                    </label>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <input type="checkbox" value="" v-model="formData.isEditingAfterSaving">
+                    <label style="margin-bottom: 0;">
+                        Editing after saving
+                    </label>
+                </div>
+            </div>
         </form>
     </div>
 
@@ -34,8 +67,8 @@
             Add
             question
         </button>
-        <button type="button" class="btn btn-primary" v-on:click="redirectToView">View</button>
-        <button type="button" class="btn btn-primary" v-on:click="sendData">Send</button>
+        <button type="button" class="btn btn-primary" :disabled="formData && formData.dtStart && formData.dtStop && new Date(formData.dtStart).getTime() >= new Date(formData.dtStop).getTime()" v-on:click="redirectToView">View</button>
+        <button type="button" class="btn btn-primary" :disabled="formData && formData.dtStart && formData.dtStop && new Date(formData.dtStart).getTime() >= new Date(formData.dtStop).getTime()" v-on:click="sendData">Send</button>
     </form>
 </div>
 

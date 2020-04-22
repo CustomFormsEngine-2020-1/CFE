@@ -15,11 +15,19 @@
 </div>
 
 <div id="app">
+
+
+
     <button type="button" class="btn btn-primary" style="margin: 10px;"
             v-on:click="redirectToEdit">
         Create
     </button>
-    <div class="headline" id="headline">
+
+    <h3 align="center" v-if="formData && formData.dtStart && new Date(formData.dtStart).getTime() >= Date.now()">You are too early. Form will be open on {{formData.dtStart.replace('T', ' ')}}</h3>
+    <h3 align="center" v-if="formData && formData.dtStop && new Date(formData.dtStop).getTime() <= Date.now()">You are too late. Form was open until {{formData.dtStop.replace('T', ' ')}}</h3>
+    
+    <div v-if="formData && formData.dtStart && new Date(formData.dtStart).getTime() <= Date.now() && ((formData.dtStop && new Date(formData.dtStop).getTime() >= Date.now()) || !formData.dtStop)">
+        <div class="headline" id="headline">
         <form align=center>
             <div class="md-form headline-item">
                 <p style="font-size: 250%; margin:0">{{formData.name}}</p>
@@ -29,9 +37,10 @@
             </div>
         </form>
     </div>
-    <question ìd="question" v-for="(que, queIndex) in questions" :key="queIndex" :que="que" :que-index="queIndex"
-              :questions="questions">
-    </question>
+        <question ìd="question" v-for="(que, queIndex) in questions" :key="queIndex" :que="que" :que-index="queIndex"
+                :questions="questions">
+        </question>
+    </div>
 </div>
 
 <script src="https://unpkg.com/vue"></script>

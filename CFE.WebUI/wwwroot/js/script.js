@@ -77,12 +77,12 @@ Vue.component('question', {
                         <button v-for="type in answerTypeChoices" class="dropdown-item" v-on:click="updateAnswerType(type)"
                             type="button">{{type}}</button>
                     </div>
-                    <div >
-                    <input type="checkbox" value="" v-model="que.isRequired">
-                    <label>
-                      Required
-                    </label>
-                  </div>
+                    <div>
+                        <input type="checkbox" value="" v-model="que.isRequired">
+                        <label>
+                        Required
+                        </label>
+                    </div>
                 </li>
 
                 <! –– ANSWERS ––>
@@ -244,13 +244,12 @@ var app = new Vue({
         formData: {
             name: 'Form name',
             description: 'Description',
-            dtCreate: new Date,
-            dtStart: new Date,
-            dtStop: new Date,
+            dtStart: '2020-04-23T12:00',
+            dtStop: null,
             dtResult: new Date,
-            isPrivate: "false",
-            isAnonymity: "false",
-            isEditingAfterSaving: "false"
+            isPrivate: true,
+            isAnonymity: true,
+            isEditingAfterSaving: false
         },
         questions: [createNewQuestion()],
         numberOfQuestions: 1,
@@ -283,12 +282,12 @@ var app = new Vue({
             const dataToSend = {
                 Name: localFormData.name,
                 Description: localFormData.description,
-                DTCreate: localFormData.dtCreate,
-                DTStart: localFormData.dtStart,
-                DTFinish: localFormData.dtStop,
-                IsPrivate: localFormData.isPrivate,
-                IsAnonymity: localFormData.isAnonymity,
-                IsEditingAfterSaving: localFormData.isEditingAfterSaving,
+                DTCreate: new Date,
+                DTStart: localFormData.dtStart || '',
+                DTFinish: localFormData.dtStop || '',
+                IsPrivate: localFormData.isPrivate.toString(),
+                IsAnonymity: localFormData.isAnonymity.toString(),
+                IsEditingAfterSaving: localFormData.isEditingAfterSaving.toString(),
                 UserId: "test user",
                 QuestionCreateViewModel: transformQuestionsToSendingDataFormat(this.questions)
             }
@@ -313,6 +312,9 @@ var app = new Vue({
         redirectToView() {
             const encodedUrl = btoa(JSON.stringify({ ...this.formData, questions: this.questions }));
             window.location.assign(`Details?data=${encodedUrl}`)
+        },
+        handleDate(event) {
+            console.log(event.target.valueAsNumber);
         }
     }
 })
