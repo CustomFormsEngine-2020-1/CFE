@@ -3,6 +3,7 @@ using CFE.Entities.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace CFE.DAL.Context
 {
     public class ApplicationContext : IdentityDbContext<User>
