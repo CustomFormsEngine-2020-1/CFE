@@ -89,8 +89,8 @@ Vue.component('question', {
                              </li>
                         <div v-for="(ans, index) in que.answers"
                              style="display: flex;justify-content: space-between; align-items: flex-start;">
-                        <div v-if="que.answerType =='Checkbox'" class="input-group mb-3"
-                            style="display: flex;">
+                        <div v-if="que.answerType =='Checkbox'" class="input-group"
+                            style=" display: flex;   justify-content: flex-start;   align-items: center;">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
                                     <input type="checkbox" aria-label="Checkbox for following text input" v-on:click="updateUserAnswer(index, que)">
@@ -99,7 +99,7 @@ Vue.component('question', {
                             <p style="margin: 0px 5px 0px 5px; ">{{que.answers[index].value}}</p>
                         </div>
 
-                        <div v-if="que.answerType =='Radiobutton'" class="input-group" style="margin-bottom: 16px;">
+                        <div v-if="que.answerType =='Radiobutton'" class="input-group" style="margin-bottom: 16px; display: flex;   justify-content: flex-start;   align-items: center;">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
                                     <input type="radio" aria-label="Radio button for following text input"
@@ -262,15 +262,14 @@ var app = new Vue({
                 DTCreate: localFormData.dtCreate,
                 DTStart: localFormData.dtStart,
                 DTFinish: localFormData.dtStop,
-                DTResult: localFormData.dtResult,
                 IsPrivate: localFormData.isPrivate,
                 IsAnonymity: localFormData.isAnonymity,
                 IsEditingAfterSaving: localFormData.isEditingAfterSaving,
-                QuestionCreateViewModel: transformQuestionsToSendingDataFormat(this.questions)
+                UserId: null,
             }
             const jsonData = JSON.stringify(dataToSend);
 
-            fetch('http://localhost:44378/Form/Create', {
+            fetch('/Form/Create', {
                 method: 'POST',
                 body: jsonData,
                 headers: {

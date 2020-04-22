@@ -151,7 +151,7 @@ style="display: flex; justify-content: space-between; margin-bottom: 0px; margin
                             <label style="margin-bottom: 0px;">File input</label>
                         </div>
                     <! –– ADD ––>
-                        <div style="display: flex; justify-content: space-between">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
                                     <div class="nav-link nav-my-item"
                                         v-if="que.answerType =='Radiobutton' || que.answerType =='Checkbox' || que.answerType =='Drop-down'">
                                         <button type="button" class="btn btn-primary"
@@ -248,9 +248,9 @@ var app = new Vue({
             dtStart: new Date,
             dtStop: new Date,
             dtResult: new Date,
-            isPrivate: false,
-            isAnonymity: false,
-            isEditingAfterSaving: false
+            isPrivate: "false",
+            isAnonymity: "false",
+            isEditingAfterSaving: "false"
         },
         questions: [createNewQuestion()],
         numberOfQuestions: 1,
@@ -286,15 +286,14 @@ var app = new Vue({
                 DTCreate: localFormData.dtCreate,
                 DTStart: localFormData.dtStart,
                 DTFinish: localFormData.dtStop,
-                DTResult: localFormData.dtResult,
                 IsPrivate: localFormData.isPrivate,
                 IsAnonymity: localFormData.isAnonymity,
                 IsEditingAfterSaving: localFormData.isEditingAfterSaving,
-                QuestionCreateViewModel: transformQuestionsToSendingDataFormat(this.questions)
+                UserId: "test user",
             }
             const jsonData = JSON.stringify(dataToSend);
 
-            fetch('http://localhost:44378/Form/Create', {
+            fetch('/Form/Create', {
                 method: 'POST',
                 body: jsonData,
                 headers: {
@@ -302,16 +301,17 @@ var app = new Vue({
                 }
             })
                 .then(response => {
-                    alert("Successfully sent data.");
+                    console.log(response);
                 })
                 .catch(e => {
+                    console.error(e);
                     alert("Failed to send data. Something went wrong.")
                 })
 
         },
         redirectToView() {
             const encodedUrl = btoa(JSON.stringify({ ...this.formData, questions: this.questions }));
-            window.location.assign(`FormView?data=${encodedUrl}`)
+            window.location.assign(`Details?data=${encodedUrl}`)
         }
     }
 })
