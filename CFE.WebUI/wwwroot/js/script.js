@@ -226,13 +226,14 @@ function transformQuestionsToSendingDataFormat(questions) {
                 Name: que.name
             },
             ElementViewModel: {
-                Name: que.answerType
+                Name: que.answerType,
+                Description: que.answerType,
             },
             AttributeViewModel: [{
                 Name: "isRequired",
                 DisplayName: "Required",
             }],
-            AttributeResultViewModel: { Value: (que.isRequired || que.isRequired === false) && que.isRequired.toString() },
+            AttributeResultViewModel: que.answers.map(ans =>{ Value: (que.isRequired || que.isRequired === false) && que.isRequired.toString() }),
             AnswerViewModel: que.answers.map(ans => ({ Name: ans.value }))
         })
     })
@@ -279,6 +280,12 @@ var app = new Vue({
         },
         sendData() {
             const localFormData = { ...this.formData };
+            //let userData = localStorage.getItem('userData');
+            //if (!userData) {
+            //    userData = '{userId: "guest user"}';
+            //}
+            //const parsedUserData = JSON.parse(userData);
+
             const dataToSend = {
                 Name: localFormData.name,
                 Description: localFormData.description,
@@ -288,7 +295,7 @@ var app = new Vue({
                 IsPrivate: localFormData.isPrivate.toString(),
                 IsAnonymity: localFormData.isAnonymity.toString(),
                 IsEditingAfterSaving: localFormData.isEditingAfterSaving.toString(),
-                UserId: "test user",
+                UserId: "test",
                 QuestionCreateViewModel: transformQuestionsToSendingDataFormat(this.questions)
             }
             const jsonData = JSON.stringify(dataToSend);
