@@ -128,7 +128,7 @@ namespace CFE.BLL.BL
                 IsPrivate = ConvertingStringBoolToBool(formCreateViewModel.IsPrivate),
                 IsAnonymity = ConvertingStringBoolToBool(formCreateViewModel.IsAnonymity),
                 IsEditingAfterSaving = ConvertingStringBoolToBool(formCreateViewModel.IsEditingAfterSaving),
-                UserId = ConvertingStringIntToInt(formCreateViewModel.UserId)
+                UserId = formCreateViewModel.UserId
             };
             List<QuestionCreateViewModel> listQuestionCreateViewModel = formCreateViewModel.QuestionCreateViewModel;
             formBL.Update(formViewModel);
