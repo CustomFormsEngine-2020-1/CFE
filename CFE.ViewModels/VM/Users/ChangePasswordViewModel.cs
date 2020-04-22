@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CFE.ViewModels.VM.Users
+﻿namespace CFE.ViewModels.VM.Users
 {
     public class ChangePasswordViewModel
     {
