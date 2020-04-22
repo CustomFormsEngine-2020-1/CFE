@@ -44,16 +44,6 @@ const defaultQuestionTemplate = {
     answers: []
 }
 
-
-
-window.onload = () => {
-    document.body.style.backgroundColor = "lightblue"
-}
-
-const changeColor = (color) => {
-    document.body.style.backgroundColor = color
-}
-
 Vue.component('question', {
     template: `
     <div class="question">
@@ -280,18 +270,13 @@ var app = new Vue({
         },
         sendData() {
             const localFormData = { ...this.formData };
-            //let userData = localStorage.getItem('userData');
-            //if (!userData) {
-            //    userData = '{userId: "guest user"}';
-            //}
-            //const parsedUserData = JSON.parse(userData);
 
             const dataToSend = {
                 Name: localFormData.name,
                 Description: localFormData.description,
-                DTCreate: new Date,
-                DTStart: localFormData.dtStart || '',
-                DTFinish: localFormData.dtStop || '',
+                DTCreate: Date.now(),
+                DTStart: localFormData.dtStart ? new Date(localFormData.dtStart).getTime() : null,
+                DTFinish: localFormData.dtStop ? new Date(localFormData.dtStop).getTime() : null,
                 IsPrivate: localFormData.isPrivate.toString(),
                 IsAnonymity: localFormData.isAnonymity.toString(),
                 IsEditingAfterSaving: localFormData.isEditingAfterSaving.toString(),

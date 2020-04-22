@@ -52,14 +52,6 @@ const defaultQuestionTemplate = {
     userAnswer: null
 }
 
-window.onload = () => {
-    document.body.style.backgroundColor = "lightblue"
-}
-
-const changeColor = (color) => {
-    document.body.style.backgroundColor = color
-}
-
 Vue.component('question', {
     template: `
     <div class="question">

@@ -34,7 +34,7 @@
                     <input class="form-control" type="datetime-local" v-model="formData.dtStop" id="date-end">
                 </div>
             </div>
-            <h5 style="color: darkred; text-align: center;" v-if="formData && formData.dtStart && formData.dtStop && new Date(formData.dtStart).getTime() >= new Date(formData.dtStop).getTime()">Date end MUST BE GREATER then date end!!!</h5>
+            <p style="color: darkred; text-align: center;" v-if="formData && formData.dtStart && formData.dtStop && new Date(formData.dtStart).getTime() >= new Date(formData.dtStop).getTime()">Date end must be greater then date start</p>
             <div style="display: flex;    align-items: center;    justify-content: space-around;">
                 <div style="display: flex; align-items: center;">
                     <input type="checkbox" value="" v-model="formData.isPrivate">
