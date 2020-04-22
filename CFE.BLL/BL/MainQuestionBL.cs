@@ -35,11 +35,10 @@ namespace CFE.BLL.BL
             attributeBL = new AttributeBL(mapper, unitOfWork);
             attributeResultBL = new AttributeResultBL(mapper, unitOfWork);
         }
-
-        public void Create(FormViewModel _formViewModel, List<QuestionCreateViewModel> _listQuestionCreateViewModel)
+        public void CreateQuestionGeneric(FormViewModel _formViewModel, List<QuestionCreateViewModel> _listQuestionCreateViewModel)
         {
-            formViewModel = _formViewModel;
-            listQuestionCreateViewModel = _listQuestionCreateViewModel;
+            FormViewModel formViewModel = _formViewModel;
+            List<QuestionCreateViewModel>  listQuestionCreateViewModel = _listQuestionCreateViewModel;
             foreach (var questionCreateViewModel in listQuestionCreateViewModel)
             {
                 ElementViewModel elementViewModel = new ElementViewModel
@@ -90,10 +89,9 @@ namespace CFE.BLL.BL
                 }
             }
         }
-
-        public List<QuestionCreateViewModel> GetQuestionCreateViewModel(int formId)
+        public List<QuestionCreateViewModel> GetQuestionGeneric(int formId)
         {
-            listQuestionCreateViewModel = new List<QuestionCreateViewModel>();
+            List<QuestionCreateViewModel> listQuestionCreateViewModel = new List<QuestionCreateViewModel>();
             var questionViewModels = questionBL.ReadAll().Where(i => i.FormId == formId).ToList();
             foreach (var questionViewModel in questionViewModels)
             {
@@ -110,6 +108,60 @@ namespace CFE.BLL.BL
                 }
             }
             return listQuestionCreateViewModel;
+        }
+        public void UpdateQuestionGeneric(FormViewModel _formViewModel, List<QuestionCreateViewModel> _listQuestionCreateViewModel)
+        {
+            FormViewModel formViewModel = _formViewModel;
+            List<QuestionCreateViewModel> listQuestionCreateViewModel = _listQuestionCreateViewModel;
+            foreach (var questionCreateViewModel in listQuestionCreateViewModel)
+            {
+                ElementViewModel elementViewModel = new ElementViewModel
+                {
+                    Name = questionCreateViewModel.ElementViewModel.Name,
+                    Description = questionCreateViewModel.ElementViewModel.Description
+                };
+                // elementBL.Create(elementViewModel); // ??? 
+
+                QuestionViewModel questionViewModel = new QuestionViewModel
+                {
+                    Name = questionCreateViewModel.QuestionViewModel.Name,
+                    FormId = formBL.GetId(formViewModel),
+                    ElementId = elementBL.GetId(elementViewModel)
+                };
+                questionBL.Update(questionViewModel);
+                int questionId = questionBL.GetId(questionViewModel);
+
+                foreach (var answerViewModel in questionCreateViewModel.AnswerViewModel)
+                {
+                    AnswerViewModel answerVM = new AnswerViewModel
+                    {
+                        Name = answerViewModel.Name,
+                        QuestionId = questionId
+                    };
+                    answerBL.Update(answerVM);
+                }
+
+                foreach (var attributeViewModel in questionCreateViewModel.AttributeViewModel)
+                {
+                    attributeVM = new AttributeViewModel
+                    {
+                        Name = attributeViewModel.Name,
+                        DisplayName = attributeViewModel.DisplayName,
+                        QuestionId = questionId
+                    };
+                    attributeBL.Update(attributeVM);
+                }
+
+                foreach (var attributeResultViewModel in questionCreateViewModel.AttributeResultViewModel)
+                {
+                    AttributeResultViewModel attributeResult = new AttributeResultViewModel
+                    {
+                        Value = attributeResultViewModel.Value,
+                        AttributeId = attributeBL.GetId(attributeVM)
+                    };
+                    attributeResultBL.Update(attributeResult);
+                }
+            }
         }
     }
 }
