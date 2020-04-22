@@ -13,6 +13,6 @@ namespace CFE.ViewModels.VM
         public bool IsPrivate { get; set; }
         public bool IsAnonymity { get; set; }
         public bool IsEditingAfterSaving { get; set; }
-        public string UserId { get; set; }
+        public string UserId { get; set; } = "1";
     }
 }
