@@ -107,8 +107,8 @@ Vue.component('question', {
                         <div class="form-group" v-if="que.answerType =='Textarea'">
                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="que.userAnswer"></textarea>
                         </div>
-                        <div class="form-group" v-if="que.answerType =='Number'">
-                            <input type="text" id="form1" class="form-control" pattern="\d*" v-model="que.userAnswer">
+                        <div  v-if="que.answerType =='Number'">
+                            <input type="number" id="form1" class="form-control" v-model="que.userAnswer">
                         </div>
                         <div class="form-group row" v-if="que.answerType =='Date'">
                             <div class="col-10">
