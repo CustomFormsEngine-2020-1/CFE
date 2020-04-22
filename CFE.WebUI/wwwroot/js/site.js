@@ -277,11 +277,9 @@ var app = new Vue({
                 DTCreate: localFormData.dtCreate,
                 DTStart: localFormData.dtStart,
                 DTFinish: localFormData.dtStop,
-                DTResult: localFormData.dtResult,
                 IsPrivate: localFormData.isPrivate,
                 IsAnonymity: localFormData.isAnonymity,
                 IsEditingAfterSaving: localFormData.isEditingAfterSaving,
-                QuestionCreateViewModel: transformQuestionsToSendingDataFormat(this.questions)
             }
             const jsonData = JSON.stringify(dataToSend);
 

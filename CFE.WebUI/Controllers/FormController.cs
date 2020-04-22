@@ -41,16 +41,14 @@ namespace CFE.WebUI.Controllers
         public ActionResult Details() => View();
 
         // GET: Form/Details/5
-        public ActionResult Details(int id) => View(mainFormBL.ResponseForm(id));
-
+        //public ActionResult Details(int id) => View(mainFormBL.ResponseForm(id));
 
         // GET: Form/Create
         public ActionResult Create() => View();
 
         // POST: Form/Create
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public ActionResult Create(JsonElement jsonElement)
+        public ActionResult Create([FromBody] JsonElement jsonElement)
         {
             try
             {
