@@ -54,6 +54,7 @@ namespace CFE.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(JsonElement jsonElement)
         {
+            var test = jsonElement;
             try
             {
                 // TODO: Add insert logic here
