@@ -45,8 +45,16 @@ namespace CFE.BLL.BL
         }
         public void JsonDeserialize(JsonElement jsonElement)
         {
-            var json = jsonElement.GetRawText();
-            formCreateViewModel = JsonSerializer.Deserialize<FormCreateViewModel>(json);
+            try
+            {
+                var json = jsonElement.GetRawText();
+                formCreateViewModel = JsonSerializer.Deserialize<FormCreateViewModel>(json);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
         public void CreateFormGeneric()
         {

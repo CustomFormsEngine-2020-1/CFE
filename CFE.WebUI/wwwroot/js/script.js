@@ -226,7 +226,8 @@ function transformQuestionsToSendingDataFormat(questions) {
                 Name: que.name
             },
             ElementViewModel: {
-                Name: que.answerType
+                Name: que.answerType,
+                Description: "ElementDescription"
             },
             AttributeViewModel: [{
                 Name: "isRequired",
