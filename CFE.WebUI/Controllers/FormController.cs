@@ -38,18 +38,15 @@ namespace CFE.WebUI.Controllers
             return View("Forms");
         }
         // GET: Form/Details/
-        // public ActionResult Details() => View(mapper.Map<List<FormViewModel>>(formBL.ReadAll()));
+        public ActionResult Details() => View();
 
         // GET: Form/Details/5
         public ActionResult Details(int id) => View(mainFormBL.ResponseForm(id));
 
 
         // GET: Form/Create
+        public ActionResult Create() => View();
 
-        public ActionResult Create()
-        {
-            return View();
-        }
         // POST: Form/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -58,30 +55,27 @@ namespace CFE.WebUI.Controllers
             try
             {
                 // TODO: Add insert logic here
-                mainFormBL.SaveForm(jsonElement);
+                mainFormBL.CreateForm(jsonElement);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch 
             {
                 return View();
             }
         }
 
         // GET: Form/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View("FormView");
-        }
+        public ActionResult Edit(int id) => View(mainFormBL.ResponseForm(id));
 
         // POST: Form/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, JsonElement jsonElement)
         {
             try
             {
                 // TODO: Add update logic here
-
+                mainFormBL.UpdateForm(jsonElement);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -105,7 +99,7 @@ namespace CFE.WebUI.Controllers
             try
             {
                 // TODO: Add delete logic here
-
+                mainFormBL.DeleteForm(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
