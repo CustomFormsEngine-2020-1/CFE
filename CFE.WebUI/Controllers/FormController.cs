@@ -32,6 +32,10 @@ namespace CFE.WebUI.Controllers
             return View();
         }
 
+        public ActionResult GetAll()
+        {
+            return View("Forms");
+        }
         // GET: Form/Details/
         // public ActionResult Details() => View(mapper.Map<List<FormViewModel>>(formBL.ReadAll()));
 
