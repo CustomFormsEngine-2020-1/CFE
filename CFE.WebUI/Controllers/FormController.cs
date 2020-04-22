@@ -98,7 +98,7 @@ namespace CFE.WebUI.Controllers
             {
                 // TODO: Add delete logic here
                 mainFormBL.DeleteForm(id);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index","Account");
             }
             catch
             {
