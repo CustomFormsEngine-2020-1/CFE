@@ -34,6 +34,7 @@ namespace CFE.WebUI.Controllers
 
         public ActionResult GetAll()
         {
+            ViewBag.Forms = mainFormBL.ReadAll();
             return View("Forms");
         }
         // GET: Form/Details/
@@ -54,7 +55,6 @@ namespace CFE.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(JsonElement jsonElement)
         {
-            var test = jsonElement;
             try
             {
                 // TODO: Add insert logic here

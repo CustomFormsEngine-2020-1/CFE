@@ -66,7 +66,8 @@ namespace CFE.BLL.BL
                 IsPrivate = ConvertingStringBoolToBool(formCreateViewModel.IsPrivate),
                 IsAnonymity = ConvertingStringBoolToBool(formCreateViewModel.IsAnonymity),
                 IsEditingAfterSaving = ConvertingStringBoolToBool(formCreateViewModel.IsEditingAfterSaving),
-                UserId = ConvertingStringIntToInt(formCreateViewModel.UserId)
+                UserId = formCreateViewModel.UserId
+               //  UserId = ConvertingStringIntToInt(formCreateViewModel.UserId)
             };
             formBL.Create(formViewModel);
         }
@@ -191,5 +192,7 @@ namespace CFE.BLL.BL
                 unitOfWork.Save();
             }
         }
+
+        public IEnumerable<FormViewModel> ReadAll() => mapper.Map<IEnumerable<Form>, List<FormViewModel>>(unitOfWork.Forms.ReadAll());
     }
 }

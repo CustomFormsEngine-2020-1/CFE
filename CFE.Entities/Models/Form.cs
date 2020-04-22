@@ -13,7 +13,7 @@ namespace CFE.Entities.Models
         public bool IsPrivate { get; set; }
         public bool IsAnonymity { get; set; }
         public bool IsEditingAfterSaving { get; set; }
-        public int UserId { get; set; } = 1;
+        public string UserId { get; set; } 
         // public User User { get; set; }
         // public List<FormResult> FormResults { get; set; }
         // public List<Question> Questions { get; set; }
