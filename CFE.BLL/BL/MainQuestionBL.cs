@@ -39,6 +39,12 @@ namespace CFE.BLL.BL
         {
             FormViewModel formViewModel = _formViewModel;
             List<QuestionCreateViewModel>  listQuestionCreateViewModel = _listQuestionCreateViewModel;
+            
+            if(listQuestionCreateViewModel == null)
+            {
+                return;
+            }
+
             foreach (var questionCreateViewModel in listQuestionCreateViewModel)
             {
                 ElementViewModel elementViewModel = new ElementViewModel
