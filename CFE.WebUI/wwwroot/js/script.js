@@ -233,7 +233,7 @@ function transformQuestionsToSendingDataFormat(questions) {
                 Name: "isRequired",
                 DisplayName: "Required",
             }],
-            AttributeResultViewModel: que.answers.map(ans =>{ Value: (que.isRequired || que.isRequired === false) && que.isRequired.toString() }),
+            AttributeResultViewModel: que.answers.map(ans =>({ Value: (que.isRequired || que.isRequired === false) && que.isRequired.toString() })),
             AnswerViewModel: que.answers.map(ans => ({ Name: ans.value }))
         })
     })
