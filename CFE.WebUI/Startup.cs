@@ -41,6 +41,11 @@ namespace CFE.WebUI
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSession();
+            services.AddAuthentication().AddGoogle(options =>
+            {
+                options.ClientId = "913907109338-2olhvuqsbvlqf2hnr245r2rrt67t2s4v.apps.googleusercontent.com";
+                options.ClientSecret = "jpxEf-JnR2JJFOIA27DxmqjS";
+            });
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddDIServices();
         }

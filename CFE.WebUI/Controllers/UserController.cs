@@ -12,32 +12,33 @@ namespace CFE.WebUI.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public UserController(UserManager<User> userManager, SignInManager<User> signInManager, IHttpContextAccessor httpContextAccessor)
+        
+        public UserController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _httpContextAccessor = httpContextAccessor;
+           
         }
         public IActionResult Index()
         {
             return View();
         }
 
-        //public async Task<IActionResult> ChangePassword()
-        //{
-        //    string id = "c6dcad79-196a-4cc8-b017-5738bdc43e5b";
-        //    var us = this.User.Identity.Name;
-        //    var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        //    User user2 = await _userManager.FindByIdAsync(userId);
-        //    User user = await _userManager.FindByIdAsync(id);
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ChangePasswordViewModel model = new ChangePasswordViewModel { Id = user.Id, Email = user.Email };
-        //    return View(model);
-        //}
+        public async Task<IActionResult> ChangePassword()
+        {
+            var currentUserName = this.User.Identity.Name;
+            if (currentUserName == null)
+            {
+                return NotFound();
+            }
+            User user = await _userManager.FindByNameAsync(currentUserName);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            ChangePasswordViewModel model = new ChangePasswordViewModel { Id = user.Id, Email = user.Email };
+            return View(model);
+        }
 
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
@@ -47,18 +48,17 @@ namespace CFE.WebUI.Controllers
                 User user = await _userManager.FindByIdAsync(model.Id);
                 if (user != null)
                 {
-                    var _passwordValidator =
-                        HttpContext.RequestServices.GetService(typeof(IPasswordValidator<User>)) as IPasswordValidator<User>;
-                    var _passwordHasher =
-                        HttpContext.RequestServices.GetService(typeof(IPasswordHasher<User>)) as IPasswordHasher<User>;
+                    var _passwordValidator = HttpContext.RequestServices.GetService(typeof(IPasswordValidator<User>)) as IPasswordValidator<User>;
+                    var _passwordHasher = HttpContext.RequestServices.GetService(typeof(IPasswordHasher<User>)) as IPasswordHasher<User>;
 
-                    IdentityResult result =
-                        await _passwordValidator.ValidateAsync(_userManager, user, model.NewPassword);
+                    IdentityResult result =  await _passwordValidator.ValidateAsync(_userManager, user, model.NewPassword);
                     if (result.Succeeded)
                     {
                         user.PasswordHash = _passwordHasher.HashPassword(user, model.NewPassword);
                         await _userManager.UpdateAsync(user);
-                        return RedirectToAction("Index");
+                        
+                        await _signInManager.SignOutAsync();
+                        return RedirectToAction("Index", "Home");
                     }
                     else
                     {
