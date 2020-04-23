@@ -44,16 +44,6 @@ const defaultQuestionTemplate = {
     answers: []
 }
 
-
-
-window.onload = () => {
-    document.body.style.backgroundColor = "lightblue"
-}
-
-const changeColor = (color) => {
-    document.body.style.backgroundColor = color
-}
-
 Vue.component('question', {
     template: `
     <div class="question">
@@ -77,12 +67,12 @@ Vue.component('question', {
                         <button v-for="type in answerTypeChoices" class="dropdown-item" v-on:click="updateAnswerType(type)"
                             type="button">{{type}}</button>
                     </div>
-                    <div >
-                    <input type="checkbox" value="" v-model="que.isRequired">
-                    <label>
-                      Required
-                    </label>
-                  </div>
+                    <div>
+                        <input type="checkbox" value="" v-model="que.isRequired">
+                        <label>
+                        Required
+                        </label>
+                    </div>
                 </li>
 
                 <! –– ANSWERS ––>
@@ -226,13 +216,14 @@ function transformQuestionsToSendingDataFormat(questions) {
                 Name: que.name
             },
             ElementViewModel: {
-                Name: que.answerType
+                Name: que.answerType,
+                Description: que.answerType,
             },
             AttributeViewModel: [{
                 Name: "isRequired",
                 DisplayName: "Required",
             }],
-            AttributeResultViewModel: { Value: que.isRequired },
+            AttributeResultViewModel: que.answers.map(ans =>({ Value: (que.isRequired || que.isRequired === false) && que.isRequired.toString() })),
             AnswerViewModel: que.answers.map(ans => ({ Name: ans.value }))
         })
     })
@@ -244,13 +235,12 @@ var app = new Vue({
         formData: {
             name: 'Form name',
             description: 'Description',
-            dtCreate: new Date,
-            dtStart: new Date,
-            dtStop: new Date,
+            dtStart: '2020-04-23T12:00',
+            dtStop: null,
             dtResult: new Date,
-            isPrivate: "false",
-            isAnonymity: "false",
-            isEditingAfterSaving: "false"
+            isPrivate: true,
+            isAnonymity: true,
+            isEditingAfterSaving: false
         },
         questions: [createNewQuestion()],
         numberOfQuestions: 1,
@@ -280,16 +270,18 @@ var app = new Vue({
         },
         sendData() {
             const localFormData = { ...this.formData };
+
             const dataToSend = {
                 Name: localFormData.name,
                 Description: localFormData.description,
-                DTCreate: localFormData.dtCreate,
-                DTStart: localFormData.dtStart,
-                DTFinish: localFormData.dtStop,
-                IsPrivate: localFormData.isPrivate,
-                IsAnonymity: localFormData.isAnonymity,
-                IsEditingAfterSaving: localFormData.isEditingAfterSaving,
-                UserId: "test user",
+                DTCreate: Date.now(),
+                DTStart: localFormData.dtStart ? new Date(localFormData.dtStart).getTime() : null,
+                DTFinish: localFormData.dtStop ? new Date(localFormData.dtStop).getTime() : null,
+                IsPrivate: localFormData.isPrivate.toString(),
+                IsAnonymity: localFormData.isAnonymity.toString(),
+                IsEditingAfterSaving: localFormData.isEditingAfterSaving.toString(),
+                UserId: "test",
+                QuestionCreateViewModel: transformQuestionsToSendingDataFormat(this.questions)
             }
             const jsonData = JSON.stringify(dataToSend);
 
@@ -315,6 +307,9 @@ var app = new Vue({
         redirectToView() {
             const encodedUrl = btoa(JSON.stringify({ ...this.formData, questions: this.questions }));
             window.location.assign(`Details?data=${encodedUrl}`)
+        },
+        handleDate(event) {
+            console.log(event.target.valueAsNumber);
         }
     }
 })

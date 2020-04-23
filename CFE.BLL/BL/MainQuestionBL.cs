@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using CFE.Entities.Models;
 using CFE.Infrastructure.Interfaces;
 using CFE.ViewModels.VM;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace CFE.BLL.BL
 {
@@ -38,9 +36,9 @@ namespace CFE.BLL.BL
         public void CreateQuestionGeneric(FormViewModel _formViewModel, List<QuestionCreateViewModel> _listQuestionCreateViewModel)
         {
             FormViewModel formViewModel = _formViewModel;
-            List<QuestionCreateViewModel>  listQuestionCreateViewModel = _listQuestionCreateViewModel;
-            
-            if(listQuestionCreateViewModel == null)
+            List<QuestionCreateViewModel> listQuestionCreateViewModel = _listQuestionCreateViewModel;
+
+            if (listQuestionCreateViewModel == null)
             {
                 return;
             }

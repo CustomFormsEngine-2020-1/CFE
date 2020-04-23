@@ -2,7 +2,6 @@
 using CFE.BLL.BL;
 using CFE.Entities.Models;
 using CFE.Infrastructure.Interfaces;
-using CFE.ViewModels.VM;
 using CFE.ViewModels.VM.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -115,7 +114,7 @@ namespace CFE.WebUI.Controllers
         {
             // удаляем аутентификационные куки
             await _signInManager.SignOutAsync();
-            
+
             return RedirectToAction("Index", "Home");
         }
 
