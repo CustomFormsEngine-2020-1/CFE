@@ -8,7 +8,7 @@ namespace CFE.Entities.Models
         public DateTime DTResult { get; set; }
         public int FormId { get; set; }
         // public Form Form { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         // public User User { get; set; }
         // public List<QuestionResult> QuestionResults { get; set; }
         // public FormResult()

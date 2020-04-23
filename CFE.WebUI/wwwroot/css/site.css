@@ -104,3 +104,11 @@ body {
     background-color: #42AEEC;
     color: #fff;
 }
+
+.change-pass {
+    background-color:azure;
+}
+
+.padding-b-15{
+    padding-bottom:15px;
+}
