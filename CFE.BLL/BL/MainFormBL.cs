@@ -45,8 +45,15 @@ namespace CFE.BLL.BL
         }
         public void JsonDeserialize(JsonElement jsonElement)
         {
-            var json = jsonElement.GetRawText();
-            formCreateViewModel = JsonSerializer.Deserialize<FormCreateViewModel>(json);
+            try
+            {
+                var json = jsonElement.GetRawText();
+                formCreateViewModel = JsonSerializer.Deserialize<FormCreateViewModel>(json);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
         public void CreateFormGeneric()
         {
@@ -135,19 +142,19 @@ namespace CFE.BLL.BL
             mainQuestionBL.UpdateQuestionGeneric(formViewModel, listQuestionCreateViewModel);
         }
 
-        private DateTime? ConvertingStringDateTimeToSqlDateTime(string stringDateTime, string sqlFormatDateTime = "yyyy-MM-dd HH:mm:ss")
+        private DateTime? ConvertingStringDateTimeToSqlDateTime(string stringDateTime, string sqlFormatDateTime = "yyyy-mm-dd hh:mm:ss")
         {
             DateTime sqlDateTime = new DateTime();                                                       // Resulting output variable in case of success
             DateTime? negativeResult = null;                                                             // Resulting output variable in case of fail / error or exception
 
             try
             {
-                if (string.IsNullOrEmpty(stringDateTime))                                                // Сhecking the input variable <stringDateTime> to <null> and <empty>
+                if (!string.IsNullOrEmpty(stringDateTime))                                                // Сhecking the input variable <stringDateTime> to <null> and <empty>
                 {
                     return DateTime.TryParseExact(stringDateTime,                                        // TryParseExact function converts the specified string -
                                                   sqlFormatDateTime,                                     // - representation <stringDateTime> of a datetime -
                                                   System.Globalization.CultureInfo.InvariantCulture,     // - to its DateTime equivalent.
-                                                  System.Globalization.DateTimeStyles.None,
+                                                  System.Globalization.DateTimeStyles.RoundtripKind,
                                                   out sqlDateTime) ? sqlDateTime : negativeResult;
                 }
                 return negativeResult;
@@ -161,7 +168,7 @@ namespace CFE.BLL.BL
         {
             bool result = false;                                                                        // Resulting output variable in case of success
 
-            if (string.IsNullOrEmpty(stringBool))                                                       // Сhecking the input variable <stringDateTime> to <null> and <empty>
+            if (!string.IsNullOrEmpty(stringBool))                                                       // Сhecking the input variable <stringDateTime> to <null> and <empty>
             {
                 if (Boolean.TryParse(stringBool, out result))
                     return result;
